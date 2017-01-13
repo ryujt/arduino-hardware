@@ -1,0 +1,994 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>i2c.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="iwdg.h" href="iwdg.html" />
+    <link rel="prev" title="gpio.h" href="gpio.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iwdg.html" title="iwdg.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="gpio.html" title="gpio.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="i2c-h">
+<span id="libmaple-i2c"></span><h1><tt class="docutils literal"><span class="pre">i2c.h</span></tt><a class="headerlink" href="#i2c-h" title="Permalink to this headline">¶</a></h1>
+<p>Inter-Integrated Circuit (I<sup>2</sup>C) peripheral support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#important-note" id="id1">Important Note</a></li>
+<li><a class="reference internal" href="#types" id="id2">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id3">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id4">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id5">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id6">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#control-register-1" id="id7">Control register 1</a></li>
+<li><a class="reference internal" href="#control-register-2" id="id8">Control register 2</a></li>
+<li><a class="reference internal" href="#clock-control-register" id="id9">Clock control register</a></li>
+<li><a class="reference internal" href="#status-register-1" id="id10">Status register 1</a></li>
+<li><a class="reference internal" href="#status-register-2" id="id11">Status register 2</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="important-note">
+<h2><a class="toc-backref" href="#id1">Important Note</a><a class="headerlink" href="#important-note" title="Permalink to this headline">¶</a></h2>
+<p>There are some important known problems with the built-in I2C
+peripherals.  For more information, see STM32F10xx8 and STM32F10xxB
+Errata sheet (ST Doc ID 14574 Rev 8), Section 2.11.1, 2.11.2.  An
+important consequence of these problems is that the I<sup>2</sup>C interrupt
+must not be preempted.  Consequently, (by default) Wirish uses an
+I<sup>2</sup>C interrupt priority which is the highest in the system (priority
+level 0).  Other interrupt priorities are set lower.</p>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id2">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>i2c_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>I2C register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structi2c__reg__map_1abb271ffe6065de30f01e4580ea559ef5"></span>__io uint32 <strong>CR1</strong></dt>
+<dd><p class="first">Control register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__reg__map_1a267a517c33011aecfe0964c16b0b9f62"></span>__io uint32 <strong>CR2</strong></dt>
+<dd><p class="first">Control register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__reg__map_1ad9bd09e23c553b7aeebf1f33ca985084"></span>__io uint32 <strong>OAR1</strong></dt>
+<dd><p class="first">Own address register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__reg__map_1a299b9230d69071f73a0573075ca3a2fa"></span>__io uint32 <strong>OAR2</strong></dt>
+<dd><p class="first">Own address register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__reg__map_1a7028d38567026e86589a537dec78c63d"></span>__io uint32 <strong>DR</strong></dt>
+<dd><p class="first">Data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__reg__map_1af8809b67c1551e09349054e46bc4c237"></span>__io uint32 <strong>SR1</strong></dt>
+<dd><p class="first">Status register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__reg__map_1a0dfc48d5ca6ec155b50d1c7018df4036"></span>__io uint32 <strong>SR2</strong></dt>
+<dd><p class="first">Status register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__reg__map_1a466eb465967831291b3ebeaaf9292f50"></span>__io uint32 <strong>CCR</strong></dt>
+<dd><p class="first">Clock control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__reg__map_1a3ce5bafeb625e62ca40221ec5a6d7426"></span>__io uint32 <strong>TRISE</strong></dt>
+<dd><p class="first">TRISE (rise time) register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a3acd3f8324118cb8c44f79b0fa24190a"></span><strong>i2c_state enum</strong></dt>
+<dd><p class="first">I2C device states. </p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">I2C_STATE_DISABLED</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0</span></tt> - <p>Disabled. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">I2C_STATE_IDLE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span></tt> - <p>Idle. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">I2C_STATE_XFER_DONE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">2</span></tt> - <p>Done with transfer. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">I2C_STATE_BUSY</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">3</span></tt> - <p>Busy. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">I2C_STATE_ERROR</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">-1</span></tt> - <p>Error occurred. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>i2c_msg</strong></div>
+</div>
+<blockquote>
+<div><p>I2C message type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structi2c__msg_1a66b30535a9a11588b2eb88475940c40c"></span>uint16 <strong>addr</strong></dt>
+<dd><p class="first">Address. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__msg_1ae69339535712eeb396cc1e3d71340c23"></span>uint16 <strong>flags</strong></dt>
+<dd><p class="first">Bitwise OR of I2C_MSG_READ and I2C_MSG_10BIT_ADDR. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__msg_1a5f0907550fa4e8455e8ab9faeaebf340"></span>uint16 <strong>length</strong></dt>
+<dd><p class="first">Message length. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__msg_1adba24d9b7f6f5873472bfc5d70b8a207"></span>uint16 <strong>xferred</strong></dt>
+<dd><p class="first">Messages transferred. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__msg_1a33aa3bea77e6db64bfee3ee49e6213f9"></span>uint8 * <strong>data</strong></dt>
+<dd><p class="first">Data. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>i2c_dev</strong></div>
+</div>
+<blockquote>
+<div><p>I2C device type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structi2c__dev_1a770bf7447fdee9e9a919393cedf327c5"></span><a class="reference internal" href="#project0structi2c__reg__map"><em>i2c_reg_map</em></a>  * <strong>regs</strong></dt>
+<dd><p class="first">Register map. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__dev_1afe11205c9bf23c8aa90a9a05921b66fb"></span><a class="reference internal" href="gpio.html#project0structgpio__dev"><em>gpio_dev</em></a>  * <strong>gpio_port</strong></dt>
+<dd><p class="first">SDA, SCL pins&#8217; GPIO port. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__dev_1a1a8578058d9bcbf287484ec425bb9f5f"></span>uint8 <strong>sda_pin</strong></dt>
+<dd><p class="first">SDA bit on gpio_port. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__dev_1a08028527337ea71f5c53497076703fa0"></span>uint8 <strong>scl_pin</strong></dt>
+<dd><p class="first">SCL bit on gpio_port. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__dev_1a1d65d86bc935e410dedb99513f8067b9"></span><a class="reference internal" href="rcc.html#project0rcc_8h_1ae3722d2d8eff5283fb0388429953640f"><em>rcc_clk_id</em></a> <strong>clk_id</strong></dt>
+<dd><p class="first">RCC clock information. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__dev_1a1eab3b8e31794d3a88844704bc80f5a1"></span><a class="reference internal" href="nvic.html#project0nvic_8h_1a89e3d57340a69fbdef83f12661543d83"><em>nvic_irq_num</em></a> <strong>ev_nvic_line</strong></dt>
+<dd><p class="first">Event IRQ number. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__dev_1aecdb8c9b799063905520bb7f87503ee9"></span><a class="reference internal" href="nvic.html#project0nvic_8h_1a89e3d57340a69fbdef83f12661543d83"><em>nvic_irq_num</em></a> <strong>er_nvic_line</strong></dt>
+<dd><p class="first">Error IRQ number. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__dev_1ad1c99c4368625947a2e98284df705d91"></span><a class="reference internal" href="#project0i2c_8h_1a3acd3f8324118cb8c44f79b0fa24190a"><em>i2c_state</em></a> <strong>state</strong></dt>
+<dd><p class="first">Device state. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__dev_1ae752e1f62474bced6b88cdce32be2cc9"></span>uint16 <strong>msgs_left</strong></dt>
+<dd><p class="first">Messages left. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__dev_1ad7c032f3abb09d59b6c3191c0249bfbf"></span><a class="reference internal" href="#project0structi2c__msg"><em>i2c_msg</em></a>  * <strong>msg</strong></dt>
+<dd><p class="first">Messages. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__dev_1a548eb25d2d6906db7b49976c85a7979d"></span>uint32 <strong>timestamp</strong></dt>
+<dd><p class="first">For internal use. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structi2c__dev_1a9efc3cbcbd6d297b213a998781eb5a39"></span>uint32 <strong>error_flags</strong></dt>
+<dd><p class="first">Error flags, set on I2C error condition. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id3">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8c_1aec89802fb408c222366cbe7dab906b09"></span><a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  *const <strong>I2C1</strong></dt>
+<dd><p class="first">I2C1 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8c_1a6d5a7765624c32671f73c79a73e778cc"></span><a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  *const <strong>I2C2</strong></dt>
+<dd><p class="first">I2C2 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id4">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8c_1af8cfdd992921cde40e1602a9b34e25ae"></span><div class="line-block">
+<div class="line">void <strong>i2c_init</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize an I2C device and reset its registers to their default values. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device to initialize. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8c_1a452bf35cbe145bbdf2def959891952f1"></span><div class="line-block">
+<div class="line">void <strong>i2c_master_enable</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev, uint32 flags)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize an I2C device as bus master. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device to enable </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">flags</span></tt> - <p>Bitwise or of the following I2C options: I2C_FAST_MODE: 400 khz operation, I2C_DUTY_16_9: 16/9 Tlow/Thigh duty cycle (only applicable for fast mode), I2C_BUS_RESET: Reset the bus and clock out any hung slaves on initialization, I2C_10BIT_ADDRESSING: Enable 10-bit addressing, I2C_REMAP: Remap I2C1 to SCL/PB8 SDA/PB9. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8c_1aafcba989e09effa08b3b8414326b52ef"></span><div class="line-block">
+<div class="line">int32 <strong>i2c_master_xfer</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev, <a class="reference internal" href="#project0structi2c__msg"><em>i2c_msg</em></a>  * msgs, uint16 num, uint32 timeout)</div>
+</div>
+</dt>
+<dd><p class="first">Process an i2c transaction. </p>
+<p class="last"><p>Transactions are composed of one or more i2c_msg&#8217;s, and may be read or write tranfers. Multiple i2c_msg&#8217;s will generate a repeated start in between messages.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>I2C device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">msgs</span></tt> - <p>Messages to send/receive </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">num</span></tt> - <p>Number of messages to send/receive </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">timeout</span></tt> - <p>Bus idle timeout in milliseconds before aborting the transfer. 0 denotes no timeout. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>0 on success, I2C_ERROR_PROTOCOL if there was a protocol error, I2C_ERROR_TIMEOUT if the transfer timed out. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8c_1aab3886f4f42b3c5aa303311db6cba2ce"></span><div class="line-block">
+<div class="line">void <strong>i2c_bus_reset</strong>(const  <a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Reset an I2C bus. </p>
+<p class="last"><p>Reset is accomplished by clocking out pulses until any hung slaves release SDA and SCL, then generating a START condition, then a STOP condition.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>I2C device </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a1cd1a1f7c1a2bb5a313b976dbee81233"></span><div class="line-block">
+<div class="line">void <strong>i2c_disable</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Disable an I2C device. </p>
+<p class="last"><p>This function disables the corresponding peripheral and marks dev&#8217;s state as I2C_STATE_DISABLED.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device to disable. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a8d68fb99a8a2536a75fd9008fac9d2d3"></span><div class="line-block">
+<div class="line">void <strong>i2c_peripheral_enable</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Turn on an I2C peripheral. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device to enable </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1abcbe61c229078b24811bb119c716163b"></span><div class="line-block">
+<div class="line">void <strong>i2c_peripheral_disable</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Turn off an I2C peripheral. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device to turn off </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1aaf1d8b3f161b5bffccf335e45560bc95"></span><div class="line-block">
+<div class="line">void <strong>i2c_write</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev, uint8 byte)</div>
+</div>
+</dt>
+<dd><p class="first">Fill transmit register. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>I2C device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">byte</span></tt> - <p>Byte to write </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1ac689edbe53b35ee1aa991a3c0377b403"></span><div class="line-block">
+<div class="line">void <strong>i2c_set_input_clk</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev, uint32 freq)</div>
+</div>
+</dt>
+<dd><p class="first">Set input clock frequency, in MHz. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>I2C device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">freq</span></tt> - <p>Frequency in megahertz (2-36) </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1ac6814d6ac4068949197003b43f3a213f"></span><div class="line-block">
+<div class="line">void <strong>i2c_set_clk_control</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev, uint32 val)</div>
+</div>
+</dt>
+<dd><p class="first">Set I2C clock control register. </p>
+<p class="last">See RM008 <table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>I2C device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">val</span></tt> - <p>Value to use for clock control register (in Fast/Standard mode) </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1ab449d7e74e40ebeb3f015575d92734f8"></span><div class="line-block">
+<div class="line">void <strong>i2c_set_trise</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev, uint32 trise)</div>
+</div>
+</dt>
+<dd><p class="first">Set SCL rise time. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>I2C device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">trise</span></tt> - <p>Maximum rise time in fast/standard mode (see RM0008 for relevant formula). </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a001c83b552f3002bc6ff294e0a3a03e0"></span><div class="line-block">
+<div class="line">void <strong>i2c_start_condition</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Generate a start condition on the bus. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>I2C device </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a71fa06b838b8c067401ad767da3bedc2"></span><div class="line-block">
+<div class="line">void <strong>i2c_stop_condition</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Generate a stop condition on the bus. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>I2C device </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a8e88e175e27566db33201a8d16384899"></span><div class="line-block">
+<div class="line">void <strong>i2c_enable_irq</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev, uint32 irqs)</div>
+</div>
+</dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a2902b00e058e95b0ef5523f6bcfe6198"></span><div class="line-block">
+<div class="line">void <strong>i2c_disable_irq</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev, uint32 irqs)</div>
+</div>
+</dt>
+<dd><p class="first">Disable one or more I2C interrupts. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>I2C device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">irqs</span></tt> - <p>Bitwise or of: I2C_IRQ_ERROR (error interrupt), I2C_IRQ_EVENT (event interrupt), and I2C_IRQ_BUFFER (buffer interrupt). </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a6b816d62c3416d559973f4f2ea0820b9"></span><div class="line-block">
+<div class="line">void <strong>i2c_enable_ack</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Enable I2C acknowledgment. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>I2C device </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a1ae827cb26f735cee3efba1897496540"></span><div class="line-block">
+<div class="line">void <strong>i2c_disable_ack</strong>(<a class="reference internal" href="#project0structi2c__dev"><em>i2c_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Disable I2C acknowledgment. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>I2C device </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id5">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1acd72dbffb1738ca87c838545c4eb85a3"></span><strong>I2C1_BASE</strong></dt>
+<dd><p class="first">I2C1 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a04bda70f25c795fb79f163b633ad4a5d"></span><strong>I2C2_BASE</strong></dt>
+<dd><p class="first">I2C2 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id6">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="control-register-1">
+<h3><a class="toc-backref" href="#id7">Control register 1</a><a class="headerlink" href="#control-register-1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a8dc661ef13da02e5bcb943f2003d576d"></span><strong>I2C_CR1_SWRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a56729ccf93c5d9f5b5b05002e3a2323c"></span><strong>I2C_CR1_ALERT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1ab4d0119253d93a106b5ca704e5020c12"></span><strong>I2C_CR1_PEC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a34721958229a5983f2e95dfeaa8e55c3"></span><strong>I2C_CR1_POS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1af933b105259a4bc46a957576adb8d96d"></span><strong>I2C_CR1_ACK</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a2ca7f18dd5bc1130dbefae4ff8736143"></span><strong>I2C_CR1_START</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1ace70293f3dfa24d448b600fc58e45223"></span><strong>I2C_CR1_STOP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a953b0d38414808db79da116842ed3262"></span><strong>I2C_CR1_PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="control-register-2">
+<h3><a class="toc-backref" href="#id8">Control register 2</a><a class="headerlink" href="#control-register-2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a6a0955008cbabbb6b726ba0b4f8da609"></span><strong>I2C_CR2_LAST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1adb81d5c91486b873bd0bf279a4ffcf69"></span><strong>I2C_CR2_DMAEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a2efbe5d96ed0ce447a45a62e8317a68a"></span><strong>I2C_CR2_ITBUFEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a3b1ebaf8173090ec469b055b98e585d2"></span><strong>I2C_CR2_ITEVTEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a6f14ae48e4609c2b3645211234cba974"></span><strong>I2C_CR2_ITERREN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a293fbe15ed5fd1fc95915bd6437859e7"></span><strong>I2C_CR2_FREQ</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="clock-control-register">
+<h3><a class="toc-backref" href="#id9">Clock control register</a><a class="headerlink" href="#clock-control-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1aea64e5d7eba609ac9a84964bc0bc2def"></span><strong>I2C_CCR_FS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a851c8a6b598d54c1a805b1632a4078e5"></span><strong>I2C_CCR_DUTY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a5c8cb2bd83dd7dbdcf6ca4bbf4a841de"></span><strong>I2C_CCR_CCR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="status-register-1">
+<h3><a class="toc-backref" href="#id10">Status register 1</a><a class="headerlink" href="#status-register-1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a6935c920da59d755d0cf834548a70ec4"></span><strong>I2C_SR1_SB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a3db361a4d9dd84b187085a11d933b45d"></span><strong>I2C_SR1_ADDR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1afb279f85d78cfe5abd3eeb0b40a65ab1"></span><strong>I2C_SR1_BTF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a6faaa55a1e48aa7c1f2b69669901445d"></span><strong>I2C_SR1_ADD10</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1aafcea4cdbe2f6da31566c897fa893a7c"></span><strong>I2C_SR1_STOPF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1af6ebe33c992611bc2e25bbb01c1441a5"></span><strong>I2C_SR1_RXNE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1afdc4da49c163910203255e384591b6f7"></span><strong>I2C_SR1_TXE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a1d12990c90ab0757dcfea150ea50b227"></span><strong>I2C_SR1_BERR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1acbc52f6ec6172c71d8b026a22c2f69d2"></span><strong>I2C_SR1_ARLO</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a62aa2496d4b3955214a16a7bd998fd88"></span><strong>I2C_SR1_AF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1ad42d2435d2e64bf710c701c9b17adfb4"></span><strong>I2C_SR1_OVR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a4b2976279024e832e53ad12796a7bb71"></span><strong>I2C_SR1_PECERR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1aef3a1e4921d7c509d1b639c67882c4c9"></span><strong>I2C_SR1_TIMEOUT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a8df36c38deb8791d0ac3cb5881298c1c"></span><strong>I2C_SR1_SMBALERT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="status-register-2">
+<h3><a class="toc-backref" href="#id11">Status register 2</a><a class="headerlink" href="#status-register-2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a75cc361adf0e72e33d6771ebfa17b52d"></span><strong>I2C_SR2_MSL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a3b1e75a82da73ae2873cff1cd27c3179"></span><strong>I2C_SR2_BUSY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a288b20416b42a79e591aa80d9a690fca"></span><strong>I2C_SR2_TRA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1af3aeb79cbe04f7ec1e3c2615921c4fab"></span><strong>I2C_SR2_GENCALL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1afcf50334903013177a8c6f4e36b8d6fe"></span><strong>I2C_SR2_SMBDEFAULT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1aa07cf3e404f9f57e98d1ba3793079c80"></span><strong>I2C_SR2_SMBHOST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a79a6a21835e06d9bc48009f4269b7798"></span><strong>I2C_SR2_DUALF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0i2c_8h_1a4a4fd5d9c9e2593be920d19a5f6ae732"></span><strong>I2C_SR2_PEC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="iwdg.html" title="iwdg.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="gpio.html" title="gpio.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

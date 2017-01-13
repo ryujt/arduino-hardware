@@ -1,0 +1,1564 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>spi.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="stm32.h" href="stm32.html" />
+    <link rel="prev" title="scb.h" href="scb.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="stm32.html" title="stm32.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="scb.html" title="scb.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="spi-h">
+<span id="libmaple-spi"></span><h1><tt class="docutils literal"><span class="pre">spi.h</span></tt><a class="headerlink" href="#spi-h" title="Permalink to this headline">¶</a></h1>
+<p>Serial Peripheral Interface (SPI) support.  Currently, there is no I2S
+support beyond register bit definitions.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id3">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id4">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id5">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#control-register-1" id="id6">Control register 1</a></li>
+<li><a class="reference internal" href="#control-register-2" id="id7">Control register 2</a></li>
+<li><a class="reference internal" href="#status-register" id="id8">Status register</a></li>
+<li><a class="reference internal" href="#i2s-configuration-register" id="id9">I2S configuration register</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>spi_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>SPI register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structspi__reg__map_1a8672e7959cbb3fcc688ba28354743b95"></span>__io uint32 <strong>CR1</strong></dt>
+<dd><p class="first">Control register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structspi__reg__map_1aff8bd8690325acc4188951a29dda3544"></span>__io uint32 <strong>CR2</strong></dt>
+<dd><p class="first">Control register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structspi__reg__map_1ae891b3ea0fc2b0a80f5a045923e3fae2"></span>__io uint32 <strong>SR</strong></dt>
+<dd><p class="first">Status register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structspi__reg__map_1a1c43896ca4ad11a166ede0e3fef16f27"></span>__io uint32 <strong>DR</strong></dt>
+<dd><p class="first">Data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structspi__reg__map_1ade78813ac8cede0e0a417ebfb9e39280"></span>__io uint32 <strong>CRCPR</strong></dt>
+<dd><p class="first">CRC polynomial register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structspi__reg__map_1a6ec9cd31afd4367311c0d3f127971567"></span>__io uint32 <strong>RXCRCR</strong></dt>
+<dd><p class="first">RX CRC register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structspi__reg__map_1aa699f6861aedb98047c4c7a7233af7c5"></span>__io uint32 <strong>TXCRCR</strong></dt>
+<dd><p class="first">TX CRC register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structspi__reg__map_1af72217348e947e8fbe812ae526193054"></span>__io uint32 <strong>I2SCFGR</strong></dt>
+<dd><p class="first">I2S configuration register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structspi__reg__map_1aaf110261ae70e735e5c0e40f8c4e7477"></span>__io uint32 <strong>I2SPR</strong></dt>
+<dd><p class="first">I2S prescaler register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>spi_dev</strong></div>
+</div>
+<blockquote>
+<div><p>SPI device type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structspi__dev_1ab52cd44b07b6a45710fcd3e901685dee"></span><a class="reference internal" href="#project0structspi__reg__map"><em>spi_reg_map</em></a>  * <strong>regs</strong></dt>
+<dd><p class="first">Register map. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structspi__dev_1adf902385fe904b97e960670613ee9372"></span><a class="reference internal" href="rcc.html#project0rcc_8h_1ae3722d2d8eff5283fb0388429953640f"><em>rcc_clk_id</em></a> <strong>clk_id</strong></dt>
+<dd><p class="first">RCC clock information. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structspi__dev_1aec20ba8d07504dfbf5ea9fae3bc185ff"></span><a class="reference internal" href="nvic.html#project0nvic_8h_1a89e3d57340a69fbdef83f12661543d83"><em>nvic_irq_num</em></a> <strong>irq_num</strong></dt>
+<dd><p class="first">NVIC interrupt number. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a78c1313670220bedfecdb138d4c27903"></span><strong>spi_mode enum</strong></dt>
+<dd><p class="first">SPI mode configuration. </p>
+<p>Determines a combination of clock polarity (CPOL), which determines idle state of the clock line, and clock phase (CPHA), which determines which clock edge triggers data capture. </p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">SPI_MODE_0</span></tt> - <p>Clock line idles low (0), data capture on first clock transition. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_MODE_1</span></tt> - <p>Clock line idles low (0), data capture on second clock transition. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_MODE_2</span></tt> - <p>Clock line idles high (1), data capture on first clock transition. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_MODE_3</span></tt> - <p>Clock line idles high (1), data capture on second clock transition. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a380406d624f554828cc7ade376c59a4a"></span><strong>spi_baud_rate enum</strong></dt>
+<dd><p class="first">SPI baud rate configuration, as a divisor of f_PCLK, the PCLK clock frequency. </p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">SPI_BAUD_PCLK_DIV_2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_BR_PCLK_DIV_2</span></tt> - <p>f_PCLK/2 </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_BAUD_PCLK_DIV_4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_BR_PCLK_DIV_4</span></tt> - <p>f_PCLK/4 </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_BAUD_PCLK_DIV_8</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_BR_PCLK_DIV_8</span></tt> - <p>f_PCLK/8 </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_BAUD_PCLK_DIV_16</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_BR_PCLK_DIV_16</span></tt> - <p>f_PCLK/16 </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_BAUD_PCLK_DIV_32</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_BR_PCLK_DIV_32</span></tt> - <p>f_PCLK/32 </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_BAUD_PCLK_DIV_64</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_BR_PCLK_DIV_64</span></tt> - <p>f_PCLK/64 </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_BAUD_PCLK_DIV_128</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_BR_PCLK_DIV_128</span></tt> - <p>f_PCLK/128 </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_BAUD_PCLK_DIV_256</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_BR_PCLK_DIV_256</span></tt> - <p>f_PCLK/256 </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a188902efbdb620e36c15eb8445251a96"></span><strong>spi_cfg_flag enum</strong></dt>
+<dd><p class="first">SPI initialization flags. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p><a class="reference internal" href="#project0spi_8c_1a273d338b593ef0ae00d10609927157f8"><em>spi_master_enable()</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0spi_8c_1ac16ce5aacd3b362a039175dfc6e6a03c"><em>spi_slave_enable()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">SPI_BIDIMODE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_BIDIMODE</span></tt> - <p>Bidirectional mode enable. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_BIDIOE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_BIDIOE</span></tt> - <p>Output enable in bidirectional mode. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_CRCEN</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_CRCEN</span></tt> - <p>Cyclic redundancy check (CRC) enable. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_DFF_8_BIT</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_DFF_8_BIT</span></tt> - <p>8-bit data frame format (this is the default) </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_DFF_16_BIT</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_DFF_16_BIT</span></tt> - <p>16-bit data frame format </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_RX_ONLY</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_RXONLY</span></tt> - <p>Receive only. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_SW_SLAVE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_SSM</span></tt> - <p>Software slave management. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_SOFT_SS</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_SSI</span></tt> - <p>Software (internal) slave select. </p>
+<p>This flag only has an effect when used in combination with SPI_SW_SLAVE. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_FRAME_LSB</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR1_LSBFIRST</span></tt> - <p>LSB-first (little-endian) frame format. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_FRAME_MSB</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0</span></tt> - <p>MSB-first (big-endian) frame format (this is the default). </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1af5d258af92add831d40771fecc8b97aa"></span><strong>spi_interrupt enum</strong></dt>
+<dd><p class="first">Available SPI interrupts. </p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">SPI_TXE_INTERRUPT</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR2_TXEIE</span></tt> - <p>TX buffer empty interrupt. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_RXNE_INTERRUPT</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR2_RXNEIE</span></tt> - <p>RX buffer not empty interrupt. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_ERR_INTERRUPT</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">SPI_CR2_ERRIE</span></tt> - <p>Error interrupt (CRC, overrun, and mode fault errors for SPI; underrun, overrun errors for I2S). </p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1a30825cf5cbd0052ab93b651884c4150e"></span><a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * <strong>SPI1</strong></dt>
+<dd><p class="first">SPI device 1. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1a098ad092bc00d7c97f5d5f72cfa4855b"></span><a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * <strong>SPI2</strong></dt>
+<dd><p class="first">SPI device 2. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1a892565b67a63d875709ee7b9a248a29d"></span><a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * <strong>SPI3</strong></dt>
+<dd><p class="first">SPI device 3. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id3">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1a3bbf7b455ae30832564df02708ce4c25"></span><div class="line-block">
+<div class="line">void <strong>spi_init</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize and reset a SPI device. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device to initialize and reset. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1ae8080004c0b14d1f38608deb5868257c"></span><div class="line-block">
+<div class="line">void <strong>spi_gpio_cfg</strong>(uint8 as_master, <a class="reference internal" href="gpio.html#project0structgpio__dev"><em>gpio_dev</em></a>  * nss_dev, uint8 nss_bit, <a class="reference internal" href="gpio.html#project0structgpio__dev"><em>gpio_dev</em></a>  * comm_dev, uint8 sck_bit, uint8 miso_bit, uint8 mosi_bit)</div>
+</div>
+</dt>
+<dd><p class="first">Configure GPIO bit modes for use as a SPI port&#8217;s pins. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">as_master</span></tt> - <p>If true, configure bits for use as a bus master. Otherwise, configure bits for use as slave. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">nss_dev</span></tt> - <p>NSS pin&#8217;s GPIO device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">comm_dev</span></tt> - <p>SCK, MISO, MOSI pins&#8217; GPIO device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">nss_bit</span></tt> - <p>NSS pin&#8217;s GPIO bit on nss_dev </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">sck_bit</span></tt> - <p>SCK pin&#8217;s GPIO bit on comm_dev </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">miso_bit</span></tt> - <p>MISO pin&#8217;s GPIO bit on comm_dev </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mosi_bit</span></tt> - <p>MOSI pin&#8217;s GPIO bit on comm_dev </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1a273d338b593ef0ae00d10609927157f8"></span><div class="line-block">
+<div class="line">void <strong>spi_master_enable</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev, <a class="reference internal" href="#project0spi_8h_1a380406d624f554828cc7ade376c59a4a"><em>spi_baud_rate</em></a> baud, <a class="reference internal" href="#project0spi_8h_1a78c1313670220bedfecdb138d4c27903"><em>spi_mode</em></a> mode, uint32 flags)</div>
+</div>
+</dt>
+<dd><p class="first">Configure and enable a SPI device as bus master. </p>
+<p class="last"><p>The device&#8217;s peripheral will be disabled before being reconfigured.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device to configure as bus master </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">baud</span></tt> - <p>Bus baud rate </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mode</span></tt> - <p>SPI mode </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">flags</span></tt> - <p>Logical OR of spi_cfg_flag values. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0spi_8h_1a188902efbdb620e36c15eb8445251a96"><em>spi_cfg_flag</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1ac16ce5aacd3b362a039175dfc6e6a03c"></span><div class="line-block">
+<div class="line">void <strong>spi_slave_enable</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev, <a class="reference internal" href="#project0spi_8h_1a78c1313670220bedfecdb138d4c27903"><em>spi_mode</em></a> mode, uint32 flags)</div>
+</div>
+</dt>
+<dd><p class="first">Configure and enable a SPI device as a bus slave. </p>
+<p class="last"><p>The device&#8217;s peripheral will be disabled before being reconfigured.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device to configure as a bus slave </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mode</span></tt> - <p>SPI mode </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">flags</span></tt> - <p>Logical OR of spi_cfg_flag values. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0spi_8h_1a188902efbdb620e36c15eb8445251a96"><em>spi_cfg_flag</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1a8d4b6fdbc7dbb801f20c24bda34be5c4"></span><div class="line-block">
+<div class="line">uint32 <strong>spi_tx</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev, const void * buf, uint32 len)</div>
+</div>
+</dt>
+<dd><p class="first">Nonblocking SPI transmit. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI port to use for transmission </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">buf</span></tt> - <p>Buffer to transmit. The sizeof buf&#8217;s elements are inferred from dev&#8217;s data frame format (i.e., are correctly treated as 8-bit or 16-bit quantities). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">len</span></tt> - <p>Maximum number of elements to transmit. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>Number of elements transmitted. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1afbd5cfb4d50b3d03c6e4a2ea3b05fa14"></span><div class="line-block">
+<div class="line">void <strong>spi_foreach</strong>(void(*)( <a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  *) fn)</div>
+</div>
+</dt>
+<dd><p class="first">Call a function on each SPI port. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">fn</span></tt> - <p>Function to call. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1af56d6ff262ed53c9cdf7e6d4bb3fbc67"></span><div class="line-block">
+<div class="line">void <strong>spi_peripheral_enable</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Enable a SPI peripheral. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device to enable </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1acbd6bbe297ef76e84cf828767f602162"></span><div class="line-block">
+<div class="line">void <strong>spi_peripheral_disable</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Disable a SPI peripheral. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device to disable </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a3543c0451b7b138d4daf695f6d75948c"></span><div class="line-block">
+<div class="line">void <strong>spi_peripheral_disable_all</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Disable all SPI peripherals. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1a5d0adb2c972c873c7f3d7020440623d3"></span><div class="line-block">
+<div class="line">void <strong>spi_tx_dma_enable</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Enable DMA requests whenever the transmit buffer is empty. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device on which to enable TX DMA requests </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1aaf93bcf114fa8dc79767d9ac05646586"></span><div class="line-block">
+<div class="line">void <strong>spi_tx_dma_disable</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Disable DMA requests whenever the transmit buffer is empty. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device on which to disable TX DMA requests </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1a71bb96c3cb33bd0faf09c66b000b0621"></span><div class="line-block">
+<div class="line">void <strong>spi_rx_dma_enable</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Enable DMA requests whenever the receive buffer is empty. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device on which to enable RX DMA requests </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8c_1a2bf798112d57fd60a9a410c595323078"></span><div class="line-block">
+<div class="line">void <strong>spi_rx_dma_disable</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Disable DMA requests whenever the receive buffer is empty. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device on which to disable RX DMA requests </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a261135b1047d61aadc39742d798709cf"></span><div class="line-block">
+<div class="line">uint8 <strong>spi_is_enabled</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Determine if a SPI peripheral is enabled. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>True, if and only if dev&#8217;s peripheral is enabled. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a3ce28751fc12c0f4f712807cff7453f6"></span><div class="line-block">
+<div class="line">void <strong>spi_irq_enable</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev, uint32 interrupt_flags)</div>
+</div>
+</dt>
+<dd><p class="first">Enable SPI interrupt requests. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">interrupt_flags</span></tt> - <p>Bitwise OR of spi_interrupt values to enable </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0spi_8h_1af5d258af92add831d40771fecc8b97aa"><em>spi_interrupt</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a0e59d8ab3ad1b557aa162e992c7dd4e4"></span><div class="line-block">
+<div class="line">void <strong>spi_irq_disable</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev, uint32 interrupt_flags)</div>
+</div>
+</dt>
+<dd><p class="first">Disable SPI interrupt requests. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">interrupt_flags</span></tt> - <p>Bitwise OR of spi_interrupt values to disable </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0spi_8h_1af5d258af92add831d40771fecc8b97aa"><em>spi_interrupt</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1aeac6137cde29e25db1532eb69b2f389c"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#project0spi_8h_1a188902efbdb620e36c15eb8445251a96"><em>spi_cfg_flag</em></a> <strong>spi_dff</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Get the data frame format flags with which a SPI port is configured. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device whose data frame format to get. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>SPI_DFF_8_BIT, if dev has an 8-bit data frame format. Otherwise, SPI_DFF_16_BIT. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a558bf4d6dab23b830ea3f89cfc61d5c3"></span><div class="line-block">
+<div class="line">uint8 <strong>spi_is_rx_nonempty</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Determine whether the device&#8217;s peripheral receive (RX) register is empty. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>true, iff dev&#8217;s RX register is empty. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a99dabf24fbfdd6c71340dd31874ed282"></span><div class="line-block">
+<div class="line">uint16 <strong>spi_rx_reg</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Retrieve the contents of the device&#8217;s peripheral receive (RX) register. </p>
+<p class="last"><p>You may only call this function when the RX register is nonempty. Calling this function clears the contents of the RX register.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first"><p>Contents of dev&#8217;s peripheral RX register </p>
+</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p>spi_is_rx_reg_nonempty() </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a084370ed4f18563ec42a0b378eb9009c"></span><div class="line-block">
+<div class="line">uint8 <strong>spi_is_tx_empty</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Determine whether the device&#8217;s peripheral transmit (TX) register is empty. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>true, iff dev&#8217;s TX register is empty. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a4e206855b0261abca30b536b98568159"></span><div class="line-block">
+<div class="line">void <strong>spi_tx_reg</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev, uint16 val)</div>
+</div>
+</dt>
+<dd><p class="first">Load a value into the device&#8217;s peripheral transmit (TX) register. </p>
+<p class="last"><p>You may only call this function when the TX register is empty. Calling this function loads val into the peripheral&#8217;s TX register. If the device is properly configured, this will initiate a transmission, the completion of which will cause the TX register to be empty again.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">val</span></tt> - <p>Value to load into the TX register. If the SPI data frame format is 8 bit, the value must be right-aligned. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p>spi_is_tx_reg_empty() </p>
+</p>
+<p><p><a class="reference internal" href="#project0spi_8c_1a3bbf7b455ae30832564df02708ce4c25"><em>spi_init()</em></a></p>
+</p>
+<p><p><a class="reference internal" href="#project0spi_8c_1a273d338b593ef0ae00d10609927157f8"><em>spi_master_enable()</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0spi_8c_1ac16ce5aacd3b362a039175dfc6e6a03c"><em>spi_slave_enable()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a4f9683195cc15008235b989b31e19147"></span><div class="line-block">
+<div class="line">uint8 <strong>spi_is_busy</strong>(<a class="reference internal" href="#project0structspi__dev"><em>spi_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Determine whether the device&#8217;s peripheral busy (SPI_SR_BSY) flag is set. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>SPI device </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>true, iff dev&#8217;s BSY flag is set. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id4">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a50cd8b47929f18b05efbd0f41253bf8d"></span><strong>SPI1_BASE</strong></dt>
+<dd><p class="first">SPI1 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ac3e357b4c25106ed375fb1affab6bb86"></span><strong>SPI2_BASE</strong></dt>
+<dd><p class="first">SPI2 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ae634fe8faa6922690e90fbec2fc86162"></span><strong>SPI3_BASE</strong></dt>
+<dd><p class="first">SPI3 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id5">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="control-register-1">
+<h3><a class="toc-backref" href="#id6">Control register 1</a><a class="headerlink" href="#control-register-1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a95c4c62b442259937d0b36f6927be0f4"></span><strong>SPI_CR1_BIDIMODE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ab6c7d974ba506fec26563935d8cb4ddd"></span><strong>SPI_CR1_BIDIOE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a5dbc8ac560e613c7f95a7d18562cd032"></span><strong>SPI_CR1_CRCEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a42fc5fce1071ff38cdb1134a7ea62593"></span><strong>SPI_CR1_CRCNEXT_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ac8c269965b5601cda6cd7b16eb9d5f97"></span><strong>SPI_CR1_DFF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1af8abd5aab302f03219f70a7aef134d55"></span><strong>SPI_CR1_RXONLY_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1af3a818261cf3cd8a21a52bc64e9c174e"></span><strong>SPI_CR1_SSM_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a1e8009b7fa634dc765596508e53adfae"></span><strong>SPI_CR1_SSI_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a6aaf1fb0c47c8bd42afe3704da9d6c1a"></span><strong>SPI_CR1_LSBFIRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a01315509fa0e38aa1cb793b86040aa9c"></span><strong>SPI_CR1_SPE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a85d47cfac77d8fd99db6367820d8d240"></span><strong>SPI_CR1_MSTR_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a371b2da657d4f9d3a964b15f4e855f89"></span><strong>SPI_CR1_CPOL_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a0a20786195f9492597caa9566ed275a6"></span><strong>SPI_CR1_CPHA_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a43608d3c2959fc9ca64398d61cbf484e"></span><strong>SPI_CR1_BIDIMODE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a7492b275b287dfe9511d698c1e6c2cd1"></span><strong>SPI_CR1_BIDIMODE_2_LINE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a67caa06a3f7793ea9ee3640a8b6665f7"></span><strong>SPI_CR1_BIDIMODE_1_LINE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a378953916b7701bd49f063c0366b703f"></span><strong>SPI_CR1_BIDIOE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ac9339b7c6466f09ad26c26b3bb81c51b"></span><strong>SPI_CR1_CRCEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a57072f13c2e54c12186ae8c5fdecb250"></span><strong>SPI_CR1_CRCNEXT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a3ffabea0de695a19198d906bf6a1d9fd"></span><strong>SPI_CR1_DFF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a8fd62b117f10025668f4dc501da5f32c"></span><strong>SPI_CR1_DFF_8_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1aa73c7b58a2583618c642aa6e4be68184"></span><strong>SPI_CR1_DFF_16_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a9ffecf774b84a8cdc11ab1f931791883"></span><strong>SPI_CR1_RXONLY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a0e236047e05106cf1ba7929766311382"></span><strong>SPI_CR1_SSM</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a5f154374b58c0234f82ea326cb303a1e"></span><strong>SPI_CR1_SSI</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ab929e9d5ddbb66f229c501ab18d0e6e8"></span><strong>SPI_CR1_LSBFIRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ac5a646d978d3b98eb7c6a5d95d75c3f9"></span><strong>SPI_CR1_SPE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a261af22667719a32b3ce566c1e261936"></span><strong>SPI_CR1_BR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a3d98e6b0c4ba2c6eb7e8a2e479bb9b89"></span><strong>SPI_CR1_BR_PCLK_DIV_2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ae13c147a3ab6d4d202383766ddc08e0b"></span><strong>SPI_CR1_BR_PCLK_DIV_4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a6fe97d1cf735dedc872a51dfa89b8412"></span><strong>SPI_CR1_BR_PCLK_DIV_8</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ac354415f7f807b3fa1fd35c172a93a2a"></span><strong>SPI_CR1_BR_PCLK_DIV_16</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a428db7d998251c290d56dc0fdad6d2e1"></span><strong>SPI_CR1_BR_PCLK_DIV_32</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ae7b43295e522b66bd087a5a19249807a"></span><strong>SPI_CR1_BR_PCLK_DIV_64</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a811fb9c94d245396b194c484d1b82d30"></span><strong>SPI_CR1_BR_PCLK_DIV_128</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1abb6a8ff23cece5a074b891a6caf94532"></span><strong>SPI_CR1_BR_PCLK_DIV_256</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a5b3b6ae107fc37bf18e14506298d7a55"></span><strong>SPI_CR1_MSTR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a2616a10f5118cdc68fbdf0582481e124"></span><strong>SPI_CR1_CPOL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a8da31312d61305a8e4ff2c7e6b1a2828"></span><strong>SPI_CR1_CPOL_LOW</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1abb82dedf74b026635a5bdced4798bb3a"></span><strong>SPI_CR1_CPOL_HIGH</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a97602d8ded14bbd2c1deadaf308755a3"></span><strong>SPI_CR1_CPHA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="control-register-2">
+<h3><a class="toc-backref" href="#id7">Control register 2</a><a class="headerlink" href="#control-register-2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1aaa389b1898fd7941b617df83c1f91f3b"></span><strong>SPI_CR2_TXEIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a71a36429df3c95d5f8aefdc04310ff4f"></span><strong>SPI_CR2_RXNEIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a8b633311f6bf18db7d0cb1b84935a3b4"></span><strong>SPI_CR2_ERRIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a2b8686ce9cc53735f4365e1986db8c24"></span><strong>SPI_CR2_SSOE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a6e4bbe6b513758920f5f92ab55871672"></span><strong>SPI_CR2_TXDMAEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a18291635fcd066490fe222c63a516258"></span><strong>SPI_CR2_RXDMAEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a23f683a1252ccaf625cae1a978989b2c"></span><strong>SPI_CR2_TXEIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1aa7d4c37fbbcced7f2a0421e6ffd103ea"></span><strong>SPI_CR2_RXNEIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1af18705567de7ab52a62e5ef3ba27418b"></span><strong>SPI_CR2_ERRIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ae94612b95395eff626f5f3d7d28352dd"></span><strong>SPI_CR2_SSOE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a3eee671793983a3bd669c9173b2ce210"></span><strong>SPI_CR2_TXDMAEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1af23c590d98279634af05550702a806da"></span><strong>SPI_CR2_RXDMAEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="status-register">
+<h3><a class="toc-backref" href="#id8">Status register</a><a class="headerlink" href="#status-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a872f8abfb7a432bcaa04b7266985b4c2"></span><strong>SPI_SR_BSY_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a8ab9e66e5db8fa49fc457337ed285219"></span><strong>SPI_SR_OVR_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a358e1481ac5c5000352c71a36f94d3f3"></span><strong>SPI_SR_MODF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a77894a248a09988de40bd531d23f692a"></span><strong>SPI_SR_CRCERR_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a79a0e34ca3680a09a146ba427d9cf98b"></span><strong>SPI_SR_UDR_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1afbcb8d08a5c64d0bba406c8f350dcf14"></span><strong>SPI_SR_CHSIDE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a743e791137df30c880d08f9da2da9826"></span><strong>SPI_SR_TXE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1abfd95bf6805648077d56be36bf137515"></span><strong>SPI_SR_RXNE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1aa3498df67729ae048dc5f315ef7c16bf"></span><strong>SPI_SR_BSY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1aa8d902302c5eb81ce4a57029de281232"></span><strong>SPI_SR_OVR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1abaa043349833dc7b8138969c64f63adf"></span><strong>SPI_SR_MODF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a69e543fa9584fd636032a3ee735f750b"></span><strong>SPI_SR_CRCERR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a13d3292e963499c0e9a36869909229e6"></span><strong>SPI_SR_UDR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a81bd052f0b2e819ddd6bb16c2292a2de"></span><strong>SPI_SR_CHSIDE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a11a7789acb46eb0d6fed183ccbfc8abd"></span><strong>SPI_SR_CHSIDE_LEFT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a57a88c54bcc8a0468fca7a7b5be64906"></span><strong>SPI_SR_CHSIDE_RIGHT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a5bd5d21816947fcb25ccae7d3bf8eb2c"></span><strong>SPI_SR_TXE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a40e14de547aa06864abcd4b0422d8b48"></span><strong>SPI_SR_RXNE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="i2s-configuration-register">
+<h3><a class="toc-backref" href="#id9">I2S configuration register</a><a class="headerlink" href="#i2s-configuration-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a72ca2132e794ba0586d15dbdd1c7235c"></span><strong>SPI_I2SCFGR_I2SMOD_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a4c3616e42a612d013c9e2784f3787283"></span><strong>SPI_I2SCFGR_I2SE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a15b6aac1c060efde445c676942b985d6"></span><strong>SPI_I2SCFGR_PCMSYNC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ae7a54676ad0d12ee700cac5ef2a877d3"></span><strong>SPI_I2SCFGR_CKPOL_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1adeabf2e9e9ec8c61fe32fa1717881226"></span><strong>SPI_I2SCFGR_CHLEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ae99763414b3c2f11fcfecb1f93eb6701"></span><strong>SPI_I2SCFGR_I2SMOD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a5cb1b49f70924003fb347c299994c774"></span><strong>SPI_I2SCFGR_I2SMOD_SPI</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ab458ca2d4d8cf20e8ed27a846bc66b19"></span><strong>SPI_I2SCFGR_I2SMOD_I2S</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a30d76c7552c91bbd5cbac70d9c56ebb3"></span><strong>SPI_I2SCFGR_I2SE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1af09fd11f6f97000266b30b015bf2cb68"></span><strong>SPI_I2SCFGR_I2SCFG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ad7188aab7cf3e8aff314906f71076897"></span><strong>SPI_I2SCFGR_I2SCFG_SLAVE_TX</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a0deef75a4c3b4a7dcba86132a0712be1"></span><strong>SPI_I2SCFGR_I2SCFG_SLAVE_RX</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ab2e49cbf31bff4fdaef7d6ba7e283f6f"></span><strong>SPI_I2SCFGR_I2SCFG_MASTER_TX</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1abaa08634539751fb5678a5e4a669da23"></span><strong>SPI_I2SCFGR_I2SCFG_MASTER_RX</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a66a29efc32a31f903e89b7ddcd20857b"></span><strong>SPI_I2SCFGR_PCMSYNC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a2e3a5d39bc3d491b9c24a9276662ed25"></span><strong>SPI_I2SCFGR_PCMSYNC_SHORT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a65de38ab856eaf2c412882b83bad0897"></span><strong>SPI_I2SCFGR_PCMSYNC_LONG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a7a822a80be3a51524b42491248f8031f"></span><strong>SPI_I2SCFGR_I2SSTD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a0616ceb0243ec5762a72a7587e253d74"></span><strong>SPI_I2SCFGR_I2SSTD_PHILLIPS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ac4d8aa9efb5b5a61b1fb03477bb02676"></span><strong>SPI_I2SCFGR_I2SSTD_MSB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a58730be1308b40c92e959bbcc54f3af9"></span><strong>SPI_I2SCFGR_I2SSTD_LSB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1afae9d7b185114019488a2dc7973d7b98"></span><strong>SPI_I2SCFGR_I2SSTD_PCM</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a5c5be1f1c8b4689643e04cd5034e7f5f"></span><strong>SPI_I2SCFGR_CKPOL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a106a2e4f8e86c0e80303fe5d4feaed0f"></span><strong>SPI_I2SCFGR_CKPOL_LOW</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a9d7d46022780849bc8eddead6f2c50fd"></span><strong>SPI_I2SCFGR_CKPOL_HIGH</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1acc12f9d2003ab169a3f68e9d809f84ae"></span><strong>SPI_I2SCFGR_DATLEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a38464aa2091c14e9b474078a058c049c"></span><strong>SPI_I2SCFGR_DATLEN_16_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1af865ce500e1c915b1720019314baa883"></span><strong>SPI_I2SCFGR_DATLEN_24_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ad1ddb585549071fb079a27eeee7ddfd3"></span><strong>SPI_I2SCFGR_DATLEN_32_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a9c362b3d703698a7891f032f6b29056f"></span><strong>SPI_I2SCFGR_CHLEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a08df73b2cc362dc599f8752f999fe91e"></span><strong>SPI_I2SCFGR_CHLEN_16_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1ac3973a7a7875478ea4e227cef2f045af"></span><strong>SPI_I2SCFGR_CHLEN_32_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="stm32.html" title="stm32.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="scb.html" title="scb.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

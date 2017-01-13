@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>iwdg.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="libmaple.h" href="libmaple.html" />
+    <link rel="prev" title="i2c.h" href="i2c.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="libmaple.html" title="libmaple.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="i2c.html" title="i2c.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="iwdg-h">
+<span id="libmaple-iwdg"></span><h1><tt class="docutils literal"><span class="pre">iwdg.h</span></tt><a class="headerlink" href="#iwdg-h" title="Permalink to this headline">¶</a></h1>
+<p>Independent Watchdog (IWDG) support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#usage-note" id="id1">Usage Note</a></li>
+<li><a class="reference internal" href="#types" id="id2">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id3">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id4">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id5">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id6">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#key-register" id="id7">Key register</a></li>
+<li><a class="reference internal" href="#prescaler-register" id="id8">Prescaler register</a></li>
+<li><a class="reference internal" href="#status-register" id="id9">Status register</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="usage-note">
+<h2><a class="toc-backref" href="#id1">Usage Note</a><a class="headerlink" href="#usage-note" title="Permalink to this headline">¶</a></h2>
+<p>To use the independent watchdog, first call <tt class="xref c c-func docutils literal"><span class="pre">iwdg_init()</span></tt> with
+the appropriate prescaler and IWDG counter reload values for your
+application.  Afterwards, you must periodically call
+<tt class="xref c c-func docutils literal"><span class="pre">iwdg_feed()</span></tt> before the IWDG counter reaches 0 to reset the
+counter to its reload value.  If you do not, the chip will reset.</p>
+<p>Once started, the independent watchdog cannot be turned off.</p>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id2">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>iwdg_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>Independent watchdog register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structiwdg__reg__map_1a0aa03a15accfc721f146f314e7704bf7"></span>__io uint32 <strong>KR</strong></dt>
+<dd><p class="first">Key register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structiwdg__reg__map_1a72556aa9a0791338e485f9e026b43f09"></span>__io uint32 <strong>PR</strong></dt>
+<dd><p class="first">Prescaler register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structiwdg__reg__map_1a06b676fc1b5103ea12027eb18a2e6aed"></span>__io uint32 <strong>RLR</strong></dt>
+<dd><p class="first">Reload register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structiwdg__reg__map_1a5a3f5cafed6cce724f6634dea3378842"></span>__io uint32 <strong>SR</strong></dt>
+<dd><p class="first">Status register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a84e249a1ddf068387f47dd55ef0cd2a5"></span><strong>iwdg_prescaler enum</strong></dt>
+<dd><p class="first">Independent watchdog prescalers. </p>
+<p>These divide the 40 kHz IWDG clock. </p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">IWDG_PRE_4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">IWDG_PR_DIV_4</span></tt> - <p>Divide by 4. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">IWDG_PRE_8</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">IWDG_PR_DIV_8</span></tt> - <p>Divide by 8. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">IWDG_PRE_16</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">IWDG_PR_DIV_16</span></tt> - <p>Divide by 16. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">IWDG_PRE_32</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">IWDG_PR_DIV_32</span></tt> - <p>Divide by 32. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">IWDG_PRE_64</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">IWDG_PR_DIV_64</span></tt> - <p>Divide by 64. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">IWDG_PRE_128</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">IWDG_PR_DIV_128</span></tt> - <p>Divide by 128. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">IWDG_PRE_256</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">IWDG_PR_DIV_256</span></tt> - <p>Divide by 256. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id3">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<p>None at this time.</p>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id4">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8c_1acc17f5f8847727c5933d2a89bf44211e"></span><div class="line-block">
+<div class="line">void <strong>iwdg_init</strong>(<a class="reference internal" href="#project0iwdg_8h_1a84e249a1ddf068387f47dd55ef0cd2a5"><em>iwdg_prescaler</em></a> prescaler, uint16 reload)</div>
+</div>
+</dt>
+<dd><p class="first">Initialise and start the watchdog. </p>
+<p class="last"><p>The prescaler and reload set the timeout. For example, a prescaler of IWDG_PRE_32 divides the 40 kHz clock by 32 and gives roughly 1 ms per reload.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">prescaler</span></tt> - <p>Prescaler for the 40 kHz IWDG clock. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">reload</span></tt> - <p>Independent watchdog counter reload value. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8c_1ac2029cb0a470321a0fc31790d5e6aa5e"></span><div class="line-block">
+<div class="line">void <strong>iwdg_feed</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Reset the IWDG counter. </p>
+<p class="last">Calling this function will cause the IWDG counter to be reset to its reload value. </p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id5">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a8543ee4997296af5536b007cd4748f55"></span><strong>IWDG_BASE</strong></dt>
+<dd><p class="first">Independent watchdog base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id6">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="key-register">
+<h3><a class="toc-backref" href="#id7">Key register</a><a class="headerlink" href="#key-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a36106c52155beb4bcc1ea1a4bc9d6fb2"></span><strong>IWDG_KR_UNLOCK</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a26752d36adc2e4bfc93ea9dd7b611243"></span><strong>IWDG_KR_FEED</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1af1d6ba934a3b5824b71ad3fff7c25aef"></span><strong>IWDG_KR_START</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="prescaler-register">
+<h3><a class="toc-backref" href="#id8">Prescaler register</a><a class="headerlink" href="#prescaler-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a9802f914e3cb3cfcf937578421f9ad3f"></span><strong>IWDG_PR_DIV_4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a639ddec62fc33eef6e36a89766c7fd2b"></span><strong>IWDG_PR_DIV_8</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a63e73f5d21806ffeed78df7b19c5b5f5"></span><strong>IWDG_PR_DIV_16</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a3813709827bb4299064c48ebc0024b01"></span><strong>IWDG_PR_DIV_32</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1af260259808205e7d412fa9b6d051e17a"></span><strong>IWDG_PR_DIV_64</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a1fabca30fd91078542ed4b155ff9f74f"></span><strong>IWDG_PR_DIV_128</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a4eb8ba59f5df475411b9f4042dd3acbb"></span><strong>IWDG_PR_DIV_256</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="status-register">
+<h3><a class="toc-backref" href="#id9">Status register</a><a class="headerlink" href="#status-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1af087200371328ce0c38f4b1d0e9b37f2"></span><strong>IWDG_SR_RVU_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a84b3c01165403bf92d57a13398c7b9e1"></span><strong>IWDG_SR_PVU_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1adffb8339e556a3b10120b15f0dacc232"></span><strong>IWDG_SR_RVU</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0iwdg_8h_1a269bd5618ba773d32275b93be004c554"></span><strong>IWDG_SR_PVU</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="libmaple.html" title="libmaple.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="i2c.html" title="i2c.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

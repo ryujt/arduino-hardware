@@ -1,0 +1,256 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bitband.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="bkp.h" href="bkp.html" />
+    <link rel="prev" title="adc.h" href="adc.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="bkp.html" title="bkp.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="adc.html" title="adc.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bitband-h">
+<span id="libmaple-bitband"></span><h1><tt class="docutils literal"><span class="pre">bitband.h</span></tt><a class="headerlink" href="#bitband-h" title="Permalink to this headline">¶</a></h1>
+<p>Bit-banding support.</p>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0bitband_8h_1aceb4320effc7c8ce207b134ed953a59f"></span><div class="line-block">
+<div class="line">uint8 <strong>bb_sram_get_bit</strong>(volatile void * address, uint32 bit)</div>
+</div>
+</dt>
+<dd><p class="first">Get a bit from an address in the SRAM bit-band region. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">address</span></tt> - <p>Address in the SRAM bit-band region to read from </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">bit</span></tt> - <p>Bit in address to read </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>bit&#8217;s value in address. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bitband_8h_1a8463ee646ad90c67daeb23372d7117e3"></span><div class="line-block">
+<div class="line">void <strong>bb_sram_set_bit</strong>(volatile void * address, uint32 bit, uint8 val)</div>
+</div>
+</dt>
+<dd><p class="first">Set a bit in an address in the SRAM bit-band region. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">address</span></tt> - <p>Address in the SRAM bit-band region to write to </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">bit</span></tt> - <p>Bit in address to write to </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">val</span></tt> - <p>Value to write for bit, either 0 or 1. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bitband_8h_1a522d6e28813b2ead2d8763630ce81508"></span><div class="line-block">
+<div class="line">uint8 <strong>bb_peri_get_bit</strong>(volatile void * address, uint32 bit)</div>
+</div>
+</dt>
+<dd><p class="first">Get a bit from an address in the peripheral bit-band region. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">address</span></tt> - <p>Address in the peripheral bit-band region to read from </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">bit</span></tt> - <p>Bit in address to read </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>bit&#8217;s value in address. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bitband_8h_1a20fc9d0655ba9ecfd07045b759729942"></span><div class="line-block">
+<div class="line">void <strong>bb_peri_set_bit</strong>(volatile void * address, uint32 bit, uint8 val)</div>
+</div>
+</dt>
+<dd><p class="first">Set a bit in an address in the peripheral bit-band region. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">address</span></tt> - <p>Address in the peripheral bit-band region to write to </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">bit</span></tt> - <p>Bit in address to write to </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">val</span></tt> - <p>Value to write for bit, either 0 or 1. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="bkp.html" title="bkp.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="adc.html" title="adc.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

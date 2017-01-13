@@ -1,0 +1,639 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>bkp.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="dac.h" href="dac.html" />
+    <link rel="prev" title="bitband.h" href="bitband.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="dac.html" title="dac.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="bitband.html" title="bitband.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bkp-h">
+<span id="libmaple-bkp"></span><h1><tt class="docutils literal"><span class="pre">bkp.h</span></tt><a class="headerlink" href="#bkp-h" title="Permalink to this headline">¶</a></h1>
+<p>Backup register (BKP) suport.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#convenience-functions" id="id3">Convenience Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id4">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id5">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#data-registers" id="id6">Data Registers</a></li>
+<li><a class="reference internal" href="#rtc-clock-calibration-register" id="id7">RTC Clock Calibration Register</a></li>
+<li><a class="reference internal" href="#backup-control-register" id="id8">Backup control register</a></li>
+<li><a class="reference internal" href="#backup-control-status-register" id="id9">Backup control/status register</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>bkp_dev</strong></div>
+</div>
+<blockquote>
+<div><p>Backup peripheral device type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structbkp__dev_1a65e546d5661280ad7d27c9ae0840e178"></span><a class="reference internal" href="#project0structbkp__reg__map"><em>bkp_reg_map</em></a>  * <strong>regs</strong></dt>
+<dd><p class="first">Register map. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>bkp_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>Backup peripheral register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structbkp__reg__map_1aae6698070fb0d736ec3eded8b43dd285"></span>const uint32 <strong>RESERVED1</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a2f8e8745336966783b49eac48903def1"></span>__io uint32 <strong>DR1</strong></dt>
+<dd><p class="first">Data register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a8994588780a2f17de60fb6bcb8aa8966"></span>__io uint32 <strong>DR2</strong></dt>
+<dd><p class="first">Data register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a0000816c07a9ebc4c53cb98c337451a9"></span>__io uint32 <strong>DR3</strong></dt>
+<dd><p class="first">Data register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a5288ddc87dc05c6228e23f0edf667360"></span>__io uint32 <strong>DR4</strong></dt>
+<dd><p class="first">Data register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a7c9a8216b376ff5602348dff5cc2644b"></span>__io uint32 <strong>DR5</strong></dt>
+<dd><p class="first">Data register 5. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a8eea661cb923ea47405bf7e00d312c9e"></span>__io uint32 <strong>DR6</strong></dt>
+<dd><p class="first">Data register 6. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1ae2e535d2a7539326175b0c014d5ae61d"></span>__io uint32 <strong>DR7</strong></dt>
+<dd><p class="first">Data register 7. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1adc1cb2bd8c56a12b3f0feb98026fad87"></span>__io uint32 <strong>DR8</strong></dt>
+<dd><p class="first">Data register 8. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a4e68c93187aaa384cb4139930c43e831"></span>__io uint32 <strong>DR9</strong></dt>
+<dd><p class="first">Data register 9. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a696aad3eea6687f5956677789aa1b90a"></span>__io uint32 <strong>DR10</strong></dt>
+<dd><p class="first">Data register 10. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1ae45de833c3653aefae7b3456095c7680"></span>__io uint32 <strong>RTCCR</strong></dt>
+<dd><p class="first">RTC control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a3b4487c28b3fe5fab200e1d36654b228"></span>__io uint32 <strong>CR</strong></dt>
+<dd><p class="first">Control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a4ed71d83e8fa003e4a9f1b5d969a470b"></span>__io uint32 <strong>CSR</strong></dt>
+<dd><p class="first">Control and status register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1aea2102a45f3b98897deea2599be23cfa"></span>const uint32 <strong>RESERVED2</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a8d1ba55596a7b51342d9d439b111e855"></span>const uint32 <strong>RESERVED3</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a0e222d09201e8f0aa135ec86f070ca55"></span>__io uint32 <strong>DR11</strong></dt>
+<dd><p class="first">Data register 11. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1aa057817f8b068907001f739779aea88c"></span>__io uint32 <strong>DR12</strong></dt>
+<dd><p class="first">Data register 12. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1abf8a0eaa4cf049c319ca7908d9015db7"></span>__io uint32 <strong>DR13</strong></dt>
+<dd><p class="first">Data register 13. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a9ec9a546c5ba84f7602849291c728cdb"></span>__io uint32 <strong>DR14</strong></dt>
+<dd><p class="first">Data register 14. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a6e41e05f393a413fed7e4fab13f14cdc"></span>__io uint32 <strong>DR15</strong></dt>
+<dd><p class="first">Data register 15. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a138c55b3c770ba46b780a7fc074173f0"></span>__io uint32 <strong>DR16</strong></dt>
+<dd><p class="first">Data register 16. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a203b890a372754cf16cc7cba2ccaf497"></span>__io uint32 <strong>DR17</strong></dt>
+<dd><p class="first">Data register 17. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a90864b4d0f704b1476c8c4c4dd7c7e16"></span>__io uint32 <strong>DR18</strong></dt>
+<dd><p class="first">Data register 18. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1aa56bfd366ea70306b795e41dc59043f1"></span>__io uint32 <strong>DR19</strong></dt>
+<dd><p class="first">Data register 19. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a197367e4b6d16ae55973744114c09b40"></span>__io uint32 <strong>DR20</strong></dt>
+<dd><p class="first">Data register 20. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a49f4935365b46c629672dc0f5ee71e8d"></span>__io uint32 <strong>DR21</strong></dt>
+<dd><p class="first">Data register 21. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a33168ec6aa62a1e566dcb8703c9962f9"></span>__io uint32 <strong>DR22</strong></dt>
+<dd><p class="first">Data register 22. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a7a1a5974e605aaa96db66186b10d9a75"></span>__io uint32 <strong>DR23</strong></dt>
+<dd><p class="first">Data register 23. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a6b57aecec03395ff8a1423c40752b05e"></span>__io uint32 <strong>DR24</strong></dt>
+<dd><p class="first">Data register 24. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a8fe44b2ead03fcbfae1156bbd510d089"></span>__io uint32 <strong>DR25</strong></dt>
+<dd><p class="first">Data register 25. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a2f16d7c499dec82c71babae32f7e18f6"></span>__io uint32 <strong>DR26</strong></dt>
+<dd><p class="first">Data register 26. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a139ef97b08f7c7638e73407a67e3cae4"></span>__io uint32 <strong>DR27</strong></dt>
+<dd><p class="first">Data register 27. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a5d74fb39d758986f8eb78fc7a6727bd9"></span>__io uint32 <strong>DR28</strong></dt>
+<dd><p class="first">Data register 28. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a1fbe51a60a7cf3d6c2bddd4b971aec2b"></span>__io uint32 <strong>DR29</strong></dt>
+<dd><p class="first">Data register 29. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a4e840605948626a2ca8bc7acd3bbc873"></span>__io uint32 <strong>DR30</strong></dt>
+<dd><p class="first">Data register 30. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1aee8fe1adc1bc6d20baff8ac7a7ea3dac"></span>__io uint32 <strong>DR31</strong></dt>
+<dd><p class="first">Data register 31. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a15cfbbff1c7f66ce20f81fe7f03ba70b"></span>__io uint32 <strong>DR32</strong></dt>
+<dd><p class="first">Data register 32. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a38bbaaa1411b250420cd1a0cadf97986"></span>__io uint32 <strong>DR33</strong></dt>
+<dd><p class="first">Data register 33. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a9d1441789ccd41b90279e7d7c9e1cf25"></span>__io uint32 <strong>DR34</strong></dt>
+<dd><p class="first">Data register 34. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1aa08ef4661acd9ec332b2b97b5546f189"></span>__io uint32 <strong>DR35</strong></dt>
+<dd><p class="first">Data register 35. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a7919f82e05c1ab6522c244753b6777a3"></span>__io uint32 <strong>DR36</strong></dt>
+<dd><p class="first">Data register 36. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a60e9e9612ef4a50831c8279d9d3a233f"></span>__io uint32 <strong>DR37</strong></dt>
+<dd><p class="first">Data register 37. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1abf216ec7039c893d09a86845e2be162a"></span>__io uint32 <strong>DR38</strong></dt>
+<dd><p class="first">Data register 38. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a4004c3d251320a9b5e5b71a55daf68a6"></span>__io uint32 <strong>DR39</strong></dt>
+<dd><p class="first">Data register 39. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a7647f1ab5490aaec22eb36abc2e42771"></span>__io uint32 <strong>DR40</strong></dt>
+<dd><p class="first">Data register 40. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1afa17864d32455a4c39e9343529135520"></span>__io uint32 <strong>DR41</strong></dt>
+<dd><p class="first">Data register 41. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structbkp__reg__map_1a1ed45e9d017fc77cd6885e373d3b855f"></span>__io uint32 <strong>DR42</strong></dt>
+<dd><p class="first">Data register 42. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8c_1a86a6728fdbe1740312f56bf3a5615d1d"></span>const  <a class="reference internal" href="#project0structbkp__dev"><em>bkp_dev</em></a>  * <strong>BKP</strong></dt>
+<dd><p class="first">Backup device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="convenience-functions">
+<h2><a class="toc-backref" href="#id3">Convenience Functions</a><a class="headerlink" href="#convenience-functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8c_1aee5911833015d982af28f82f3af160d3"></span><div class="line-block">
+<div class="line">void <strong>bkp_init</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize backup interface. </p>
+<p class="last">Enables the power and backup interface clocks, and resets the backup device. </p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8c_1acc8b1f5ab8a0f1eeb8ecf401471565ea"></span><div class="line-block">
+<div class="line">void <strong>bkp_enable_writes</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Enable write access to the backup registers. </p>
+<p class="last">Backup interface must be initialized for subsequent register writes to work. <table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">bkp_init()</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8c_1ae9bc65b6a640ee0fa49214e566c4884c"></span><div class="line-block">
+<div class="line">void <strong>bkp_disable_writes</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Disable write access to the backup registers. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8c_1a94e8b1a11d37c178192eccd420d02b9a"></span><div class="line-block">
+<div class="line">uint16 <strong>bkp_read</strong>(uint8 reg)</div>
+</div>
+</dt>
+<dd><p class="first">Read a value from given backup data register. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">reg</span></tt> - <p>Data register to read, from 1 to BKP_NR_DATA_REGS (10 on medium-density devices, 42 on high-density devices). </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8c_1aef5fc05af5c4cadc08dd79d028c8c434"></span><div class="line-block">
+<div class="line">void <strong>bkp_write</strong>(uint8 reg, uint16 val)</div>
+</div>
+</dt>
+<dd><p class="first">Write a value to given data register. </p>
+<p class="last"><p>Write access to backup registers must be enabled.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">reg</span></tt> - <p>Data register to write, from 1 to BKP_NR_DATA_REGS (10 on medium-density devices, 42 on high-density devices). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">val</span></tt> - <p>Value to write into the register. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p>bkp_enable_writes()</p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id4">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1aa15d5a9f40794105397ba5ea567c4ae1"></span><strong>BKP_BASE</strong></dt>
+<dd><p class="first">Backup peripheral register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id5">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-registers">
+<h3><a class="toc-backref" href="#id6">Data Registers</a><a class="headerlink" href="#data-registers" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a5cb5348a3afb52c57a4c2189908afd47"></span><strong>BKP_DR_D</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="rtc-clock-calibration-register">
+<h3><a class="toc-backref" href="#id7">RTC Clock Calibration Register</a><a class="headerlink" href="#rtc-clock-calibration-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a27594fdd29cd6cc9d5eb426ffdee8024"></span><strong>BKP_RTCCR_ASOS_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a2acecc3a9e0b9b70959e2bd7c3d36bf5"></span><strong>BKP_RTCCR_ASOE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1ac0a16acf33ea46b6e639cee3ad4bcb8c"></span><strong>BKP_RTCCR_CCO_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a8d017e8f3c09696cd74e170a95966be4"></span><strong>BKP_RTCCR_ASOS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a924692225ba4db945660687fe47f50b4"></span><strong>BKP_RTCCR_ASOE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a639d569ffd9211519b910c1e6304f7b3"></span><strong>BKP_RTCCR_CCO</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a4f2eeeef42c2f7a59d28a9d5eb4c6857"></span><strong>BKP_RTCCR_CAL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="backup-control-register">
+<h3><a class="toc-backref" href="#id8">Backup control register</a><a class="headerlink" href="#backup-control-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a59bff4eead6aea40ba7dbfaaa45d965f"></span><strong>BKP_CR_TPAL_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1ace7d18a9180ae7dbf6cdd70421f63b27"></span><strong>BKP_CR_TPE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a28cd1469212463d8a772b0b67543d320"></span><strong>BKP_CR_TPAL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1adbb835fd9fbe4d74e598d15de3c12e63"></span><strong>BKP_CR_TPE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="backup-control-status-register">
+<h3><a class="toc-backref" href="#id9">Backup control/status register</a><a class="headerlink" href="#backup-control-status-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1ac61d62b704123e20ce7af29bc67b5816"></span><strong>BKP_CSR_TIF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a52b1d818e9610e6259639632af5a06aa"></span><strong>BKP_CSR_TEF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1ad23253b8379208418c2914e6415eb367"></span><strong>BKP_CSR_TPIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1ae65f3d9539341801a3e87008ad94fa02"></span><strong>BKP_CSR_CTI_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a053ed000cc07c0cce80c1330fd9bf61d"></span><strong>BKP_CSR_CTE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a3a8317e460ec3e18c78869beacd0bac8"></span><strong>BKP_CSR_TIF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a71a05fe4e45b0dc0b1f970e51085678d"></span><strong>BKP_CSR_TEF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1a38baaf48576f4b3ab209369e04d468ad"></span><strong>BKP_CSR_TPIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1ad7dc97ae504ef58fb2137c1fdd02fc4e"></span><strong>BKP_CSR_CTI</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0bkp_8h_1ad8cec91d3c30db07961227bcea5c5452"></span><strong>BKP_CSR_CTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="dac.html" title="dac.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="bitband.html" title="bitband.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

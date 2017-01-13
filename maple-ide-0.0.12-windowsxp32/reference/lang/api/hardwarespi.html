@@ -1,0 +1,571 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>HardwareSPI &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="Complete Language Index" href="../../language-index.html" />
+    <link rel="next" title="HardwareTimer" href="hardwaretimer.html" />
+    <link rel="prev" title="enableDebugPorts()" href="enabledebugports.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="hardwaretimer.html" title="HardwareTimer"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="enabledebugports.html" title="enableDebugPorts()"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../language-index.html" accesskey="U">Complete Language Index</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="hardwarespi">
+<span id="lang-hardwarespi"></span><h1>HardwareSPI<a class="headerlink" href="#hardwarespi" title="Permalink to this headline">¶</a></h1>
+<p>This page describes how to use the built-in SPI ports.  It does not
+describe the SPI protocol itself.  For more information about SPI, see
+the <a class="reference internal" href="../../spi.html#spi"><em>SPI reference</em></a>.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#getting-started" id="id1">Getting Started</a></li>
+<li><a class="reference internal" href="#turning-the-spi-port-on" id="id2">Turning the SPI Port On</a></li>
+<li><a class="reference internal" href="#communicating-over-spi" id="id3">Communicating Over SPI</a></li>
+<li><a class="reference internal" href="#hardwarespi-class-reference" id="id4">HardwareSPI Class Reference</a></li>
+<li><a class="reference internal" href="#deprecated-functions" id="id5">Deprecated Functions</a></li>
+</ul>
+</div>
+<div class="section" id="getting-started">
+<h2><a class="toc-backref" href="#id1">Getting Started</a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>In order to get started, you&#8217;ll first need to define a <tt class="docutils literal"><span class="pre">HardwareSPI</span></tt>
+variable, which you&#8217;ll use to control the SPI port.  Do this by
+putting the line &#8220;<tt class="docutils literal"><span class="pre">HardwareSPI</span> <span class="pre">spi(number);</span></tt>&#8221; with your variables,
+where <tt class="docutils literal"><span class="pre">number</span></tt> is the SPI port&#8217;s number.</p>
+<p>Here&#8217;s an example (we&#8217;ll fill in <a class="reference internal" href="setup.html#lang-setup"><em>setup()</em></a> and
+<a class="reference internal" href="loop.html#lang-loop"><em>loop()</em></a> later):</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="c1">// Use SPI port number 1</span>
+<span class="n">HardwareSPI</span> <span class="n">spi</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// Your setup code</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">loop</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// Do stuff with SPI</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="turning-the-spi-port-on">
+<h2><a class="toc-backref" href="#id2">Turning the SPI Port On</a><a class="headerlink" href="#turning-the-spi-port-on" title="Permalink to this headline">¶</a></h2>
+<p>Now it&#8217;s time to turn your SPI port on.  Do this with the <tt class="docutils literal"><span class="pre">begin()</span></tt>
+function (an example is given below).</p>
+<dl class="docutils">
+<dt id=""><span id="project0class_hardware_s_p_i_1afdf3c596f768796406a3191e7b9ac966"></span><div class="line-block">
+<div class="line">void <strong>begin</strong>(<a class="reference internal" href="#project0_hardware_s_p_i_8h_1aa778307b2af3fee751838e73f501012e"><em>SPIFrequency</em></a> frequency, uint32 bitOrder, uint32 mode)</div>
+</div>
+</dt>
+<dd><p class="first">Turn on a SPI port and set its GPIO pin modes for use as master. </p>
+<p class="last"><p>SPI port is enabled in full duplex mode, with software slave management.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">frequency</span></tt> - <p>Communication frequency </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">bitOrder</span></tt> - <p>Either LSBFIRST (little-endian) or MSBFIRST (big-endian) </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mode</span></tt> - <p>SPI mode to use, one of SPI_MODE_0, SPI_MODE_1, SPI_MODE_2, and SPI_MODE_3. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you are using SPI port 3 (on a board that supports it;
+not all do); you&#8217;ll need to call <a class="reference internal" href="disabledebugports.html#lang-disabledebugports"><em>disableDebugPorts()</em></a>
+before calling <tt class="docutils literal"><span class="pre">begin()</span></tt>.</p>
+</div>
+<p>The speed at which the SPI port communicates is configured using a
+<tt class="docutils literal"><span class="pre">SPIFrequency</span></tt> value:</p>
+<dl class="docutils">
+<dt id=""><span id="project0_hardware_s_p_i_8h_1aa778307b2af3fee751838e73f501012e"></span><strong>SPIFrequency enum</strong></dt>
+<dd><p class="first">Defines the possible SPI communication speeds. </p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">SPI_18MHZ</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0</span></tt> - <p>18 MHz </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_9MHZ</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span></tt> - <p>9 MHz </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_4_5MHZ</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">2</span></tt> - <p>4.5 MHz </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_2_25MHZ</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">3</span></tt> - <p>2.25 MHz </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_1_125MHZ</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">4</span></tt> - <p>1.125 MHz </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_562_500KHZ</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">5</span></tt> - <p>562.500 KHz </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_281_250KHZ</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">6</span></tt> - <p>281.250 KHz </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_140_625KHZ</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">7</span></tt> - <p>140.625 KHz </p>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Due to hardware issues, you can&#8217;t use the frequency
+<tt class="docutils literal"><span class="pre">SPI_140_625KHz</span></tt> with SPI port 1.</p>
+</div>
+<p>The &#8220;mode&#8221; value determines the clock phase and polarity, like so:</p>
+<dl class="docutils">
+<dt id=""><span id="project0spi_8h_1a78c1313670220bedfecdb138d4c27903"></span><strong>spi_mode enum</strong></dt>
+<dd><p class="first">SPI mode configuration. </p>
+<p>Determines a combination of clock polarity (CPOL), which determines idle state of the clock line, and clock phase (CPHA), which determines which clock edge triggers data capture. </p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">SPI_MODE_0</span></tt> - <p>Clock line idles low (0), data capture on first clock transition. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_MODE_1</span></tt> - <p>Clock line idles low (0), data capture on second clock transition. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_MODE_2</span></tt> - <p>Clock line idles high (1), data capture on first clock transition. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">SPI_MODE_3</span></tt> - <p>Clock line idles high (1), data capture on second clock transition. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<p>You&#8217;ll need to determine the correct values for <tt class="docutils literal"><span class="pre">frequency</span></tt>,
+<tt class="docutils literal"><span class="pre">bitOrder</span></tt>, and <tt class="docutils literal"><span class="pre">mode</span></tt> yourself, by consulting the datasheet for
+the device you&#8217;re communicating with.  Continuing our example from
+before, we&#8217;ll add a call to <tt class="docutils literal"><span class="pre">begin()</span></tt> to our <tt class="docutils literal"><span class="pre">setup()</span></tt>:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="c1">// Use SPI port number 1</span>
+<span class="n">HardwareSPI</span> <span class="n">spi</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Turn on the SPI port</span>
+    <span class="n">spi</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">SPI_18MHZ</span><span class="p">,</span> <span class="n">MSBFIRST</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">loop</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// Do stuff with SPI</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you call <tt class="docutils literal"><span class="pre">begin()</span></tt> with no arguments (as in &#8220;<tt class="docutils literal"><span class="pre">spi.begin();</span></tt>&#8221;),
+it&#8217;s the same as if you wrote &#8220;<tt class="docutils literal"><span class="pre">spi.begin(SPI_1_125MHZ,</span> <span class="pre">MSBFIRST,</span>
+<span class="pre">0);</span></tt>&#8221;.</p>
+</div>
+<div class="section" id="communicating-over-spi">
+<h2><a class="toc-backref" href="#id3">Communicating Over SPI</a><a class="headerlink" href="#communicating-over-spi" title="Permalink to this headline">¶</a></h2>
+<p>Now that you&#8217;ve got your SPI port set up, it&#8217;s time to start
+communicating.  You can send data using <tt class="docutils literal"><span class="pre">HardwareSPI::write()</span></tt>,
+receive data using <tt class="docutils literal"><span class="pre">HardwareSPI::read()</span></tt>, and do both using
+<tt class="docutils literal"><span class="pre">HardwareSPI::transfer()</span></tt>.</p>
+<dl class="function">
+<dt id="HardwareSPI::write__byte">
+void <tt class="descclassname">HardwareSPI::</tt><tt class="descname">write</tt><big>(</big><a class="reference internal" href="../cpp/built-in-types.html#byte" title="byte">byte</a> <em>data</em><big>)</big><a class="headerlink" href="#HardwareSPI::write__byte" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a single byte of data.</p>
+<p><strong>Parameters</strong>:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">data</span></tt>: Byte to send</li>
+</ul>
+</dd></dl>
+
+<dl class="function">
+<dt id="HardwareSPI::read">
+<a class="reference internal" href="../cpp/built-in-types.html#byte" title="byte">byte</a> <tt class="descclassname">HardwareSPI::</tt><tt class="descname">read</tt><big>(</big><big>)</big><a class="headerlink" href="#HardwareSPI::read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the next available, unread byte.  If there aren&#8217;t any unread
+bytes, this function will wait until one is received.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="HardwareSPI::transfer__byte">
+<a class="reference internal" href="../cpp/built-in-types.html#byte" title="byte">byte</a> <tt class="descclassname">HardwareSPI::</tt><tt class="descname">transfer</tt><big>(</big><a class="reference internal" href="../cpp/built-in-types.html#byte" title="byte">byte</a> <em>data</em><big>)</big><a class="headerlink" href="#HardwareSPI::transfer__byte" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a byte, then return the next byte received.</p>
+<p><strong>Parameters:</strong></p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">data</span></tt>: Byte to send</li>
+</ul>
+<p><strong>Returns:</strong> Next unread byte</p>
+</dd></dl>
+
+<p>Continuing our example from before, let&#8217;s send a number over SPI and
+print out whatever we get back over <a class="reference internal" href="serialusb.html#lang-serialusb"><em>SerialUSB</em></a>:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="c1">// Use SPI port number 1</span>
+<span class="n">HardwareSPI</span> <span class="n">spi</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// Turn on the SPI port</span>
+    <span class="n">spi</span><span class="p">.</span><span class="n">begin</span><span class="p">(</span><span class="n">SPI_18MHZ</span><span class="p">,</span> <span class="n">MSBFIRST</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">loop</span><span class="p">()</span> <span class="p">{</span>
+   <span class="c1">// Send 245 over SPI, and wait for a response.</span>
+   <span class="n">spi</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="mi">245</span><span class="p">);</span>
+   <span class="n">byte</span> <span class="n">response</span> <span class="o">=</span> <span class="n">spi</span><span class="p">.</span><span class="n">read</span><span class="p">();</span>
+   <span class="c1">// Print out the response received.</span>
+   <span class="n">SerialUSB</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="s">&quot;response: &quot;</span><span class="p">);</span>
+   <span class="n">SerialUSB</span><span class="p">.</span><span class="n">println</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="n">DEC</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="hardwarespi-class-reference">
+<h2><a class="toc-backref" href="#id4">HardwareSPI Class Reference</a><a class="headerlink" href="#hardwarespi-class-reference" title="Permalink to this headline">¶</a></h2>
+<p>There are a number of other things you can accomplish with your
+<tt class="docutils literal"><span class="pre">spi</span></tt> object.  A full function listing follows.</p>
+<div class="line-block">
+<div class="line"><em>class</em> <strong>HardwareSPI</strong></div>
+</div>
+<blockquote>
+<div><p>Wirish SPI interface. </p>
+<p>This implementation uses software slave management, so the caller is responsible for controlling the slave select line. </p>
+<em>Public Functions</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0class_hardware_s_p_i_1ab2f7d1d773cb1fd5c1fb7f6d23693137"></span><div class="line-block">
+<div class="line"> <strong>HardwareSPI</strong>(uint32 spiPortNumber)</div>
+</div>
+</dt>
+<dd><p class="first"></p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">spiPortNumber</span></tt> - <p>Number of the SPI port to manage. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+<dt id=""><span id="project0class_hardware_s_p_i_1afdf3c596f768796406a3191e7b9ac966"></span><div class="line-block">
+<div class="line">void <strong>begin</strong>(<a class="reference internal" href="#project0_hardware_s_p_i_8h_1aa778307b2af3fee751838e73f501012e"><em>SPIFrequency</em></a> frequency, uint32 bitOrder, uint32 mode)</div>
+</div>
+</dt>
+<dd><p class="first">Turn on a SPI port and set its GPIO pin modes for use as master. </p>
+<p class="last"><p>SPI port is enabled in full duplex mode, with software slave management.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">frequency</span></tt> - <p>Communication frequency </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">bitOrder</span></tt> - <p>Either LSBFIRST (little-endian) or MSBFIRST (big-endian) </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mode</span></tt> - <p>SPI mode to use, one of SPI_MODE_0, SPI_MODE_1, SPI_MODE_2, and SPI_MODE_3. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+<dt id=""><span id="project0class_hardware_s_p_i_1a4035e41124ca71fb5e2c8837b7f3c19a"></span><div class="line-block">
+<div class="line">void <strong>begin</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Equivalent to begin(SPI_1_125MHZ, MSBFIRST, 0). </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0class_hardware_s_p_i_1ab0130510853f5edcda6a308dd4998f9f"></span><div class="line-block">
+<div class="line">void <strong>beginSlave</strong>(uint32 bitOrder, uint32 mode)</div>
+</div>
+</dt>
+<dd><p class="first">Turn on a SPI port and set its GPIO pin modes for use as a slave. </p>
+<p class="last"><p>SPI port is enabled in full duplex mode, with software slave management.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">bitOrder</span></tt> - <p>Either LSBFIRST (little-endian) or MSBFIRST(big-endian) </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mode</span></tt> - <p>SPI mode to use </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+<dt id=""><span id="project0class_hardware_s_p_i_1a5f4ea1ee7e51e4a52a9c3dfb18a4c21c"></span><div class="line-block">
+<div class="line">void <strong>beginSlave</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Equivalent to beginSlave(MSBFIRST, 0). </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0class_hardware_s_p_i_1a1924db0236ed90724dbe9982d7844cca"></span><div class="line-block">
+<div class="line">void <strong>end</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Disables the SPI port, but leaves its GPIO pin modes unchanged. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0class_hardware_s_p_i_1a4ad896161ab5ddf39a716f75c6013f2d"></span><div class="line-block">
+<div class="line">uint8 <strong>read</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Return the next unread byte. </p>
+<p class="last">If there is no unread byte waiting, this function will block until one is received. </p>
+</dd>
+<dt id=""><span id="project0class_hardware_s_p_i_1a9b9c8e9a5dfc683ce61701fd163ea90a"></span><div class="line-block">
+<div class="line">void <strong>read</strong>(uint8 * buffer, uint32 length)</div>
+</div>
+</dt>
+<dd><p class="first">Read length bytes, storing them into buffer. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">buffer</span></tt> - <p>Buffer to store received bytes into. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">length</span></tt> - <p>Number of bytes to store in buffer. This function will block until the desired number of bytes have been read. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+<dt id=""><span id="project0class_hardware_s_p_i_1ac81da22ee223d0994887aa9020855923"></span><div class="line-block">
+<div class="line">void <strong>write</strong>(uint8 data)</div>
+</div>
+</dt>
+<dd><p class="first">Transmit a byte. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">data</span></tt> - <p>Byte to transmit. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+<dt id=""><span id="project0class_hardware_s_p_i_1a3bce839a87af765e05fb0ea07ce06ad9"></span><div class="line-block">
+<div class="line">void <strong>write</strong>(const uint8 * buffer, uint32 length)</div>
+</div>
+</dt>
+<dd><p class="first">Transmit multiple bytes. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">buffer</span></tt> - <p>Bytes to transmit. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">length</span></tt> - <p>Number of bytes in buffer to transmit. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+<dt id=""><span id="project0class_hardware_s_p_i_1aa317111bd382e7b201d13f369d2fd85a"></span><div class="line-block">
+<div class="line">uint8 <strong>transfer</strong>(uint8 data)</div>
+</div>
+</dt>
+<dd><p class="first">Transmit a byte, then return the next unread byte. </p>
+<p class="last"><p>This function transmits before receiving.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">data</span></tt> - <p>Byte to transmit. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>Next unread byte. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="deprecated-functions">
+<h2><a class="toc-backref" href="#id5">Deprecated Functions</a><a class="headerlink" href="#deprecated-functions" title="Permalink to this headline">¶</a></h2>
+<p>The following functions are defined for now, but they have been
+deprecated, and will be removed in a future Maple IDE release.  You
+shouldn&#8217;t use them in new programs, and you should change any of your
+programs which do use them to the up-to-date functions discussed
+above.</p>
+<dl class="function">
+<dt id="HardwareSPI::send__uint8P.uint32">
+<a class="reference internal" href="../cpp/built-in-types.html#uint8" title="uint8">uint8</a> <tt class="descclassname">HardwareSPI::</tt><tt class="descname">send</tt><big>(</big><a class="reference internal" href="../cpp/built-in-types.html#uint8" title="uint8">uint8*</a> <em>data</em>, <a class="reference internal" href="../cpp/built-in-types.html#uint32" title="uint32">uint32</a> <em>length</em><big>)</big><a class="headerlink" href="#HardwareSPI::send__uint8P.uint32" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes <tt class="docutils literal"><span class="pre">data</span></tt> into the port buffer to be transmitted as soon as
+possible, where <tt class="docutils literal"><span class="pre">length</span></tt> is the number of bytes to send from
+<tt class="docutils literal"><span class="pre">data</span></tt>.  Returns the last byte shifted back from slave.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="HardwareSPI::send__uint8">
+<a class="reference internal" href="../cpp/built-in-types.html#uint8" title="uint8">uint8</a> <tt class="descclassname">HardwareSPI::</tt><tt class="descname">send</tt><big>(</big><a class="reference internal" href="../cpp/built-in-types.html#uint8" title="uint8">uint8</a> <em>data</em><big>)</big><a class="headerlink" href="#HardwareSPI::send__uint8" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the single byte <tt class="docutils literal"><span class="pre">data</span></tt> into the port buffer to be
+transmitted as soon as possible.  Returns the data byte shifted
+back from the slave.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="HardwareSPI::recv">
+<a class="reference internal" href="../cpp/built-in-types.html#uint8" title="uint8">uint8</a> <tt class="descclassname">HardwareSPI::</tt><tt class="descname">recv</tt><big>(</big><big>)</big><a class="headerlink" href="#HardwareSPI::recv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads a byte from the peripheral.  Returns the next byte in the
+buffer.</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="hardwaretimer.html" title="HardwareTimer"
+             >next</a></li>
+        <li class="right" >
+          <a href="enabledebugports.html" title="enableDebugPorts()"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../language-index.html" >Complete Language Index</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

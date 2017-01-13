@@ -1,0 +1,227 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pwmWrite() &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="Complete Language Index" href="../../language-index.html" />
+    <link rel="next" title="random()" href="random.html" />
+    <link rel="prev" title="pow()" href="pow.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="random.html" title="random()"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="pow.html" title="pow()"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../language-index.html" accesskey="U">Complete Language Index</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pwmwrite">
+<span id="lang-pwmwrite"></span><h1>pwmWrite()<a class="headerlink" href="#pwmwrite" title="Permalink to this headline">¶</a></h1>
+<p>Writes a <a class="reference internal" href="../../pwm.html#pwm"><em>PWM wave</em></a> to a pin.  You can use this to make an
+LED get brighter or dimmer, control a servomotor, etc. After a call to
+pwmWrite(), the pin will output a steady square wave with the given
+duty cycle.  You can change the duty cycle later by calling pwmWrite()
+again with the same pin and a different duty.</p>
+<p>The pins which support PWM have <tt class="docutils literal"><span class="pre">PWM</span></tt> listed underneath their number
+on your board&#8217;s silkscreen.  These pin numbers are available to your
+program in the <a class="reference internal" href="board-values.html#lang-board-values-pwm-pins"><em>boardPWMPins</em></a>
+board-specific array.  The number of pins which are capable of PWM on
+your board is given by the <tt class="docutils literal"><span class="pre">BOARD_NR_PWM_PINS</span></tt> constant.  These
+values are documented for each board in the <a class="reference internal" href="../../index.html#index-boards"><em>Board Hardware
+Documentation</em></a> pages.</p>
+<p>The Arduino function <a class="reference internal" href="analogwrite.html#lang-analogwrite"><em>analogWrite()</em></a> is an
+alias for <tt class="docutils literal"><span class="pre">pwmWrite()</span></tt>, but it is badly named, and its use is
+discouraged.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#library-documentation" id="id1">Library Documentation</a></li>
+<li><a class="reference internal" href="#example" id="id2">Example</a></li>
+<li><a class="reference internal" href="#see-also" id="id3">See Also</a></li>
+</ul>
+</div>
+<div class="section" id="library-documentation">
+<h2><a class="toc-backref" href="#id1">Library Documentation</a><a class="headerlink" href="#library-documentation" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0pwm_8h_1a8043089bdb21f49ec3637615eb518ed1"></span><div class="line-block">
+<div class="line">void <strong>pwmWrite</strong>(uint8 pin, uint16 duty_cycle)</div>
+</div>
+</dt>
+<dd><p class="first">Set the PWM duty on the given pin. </p>
+<p class="last"><p>User code is expected to determine and honor the maximum value (based on the configured period).</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">pin</span></tt> - <p>PWM output pin </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">duty_cycle</span></tt> - <p>Duty cycle to set. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="example">
+<h2><a class="toc-backref" href="#id2">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Sets the output to the LED proportional to the value read from the
+potentiometer:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span class="kt">int</span> <span class="n">analogPin</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>    <span class="c1">// potentiometer connected to analog pin 3</span>
+
+<span class="kt">void</span> <span class="n">setup</span><span class="p">()</span> <span class="p">{</span>
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">BOARD_LED_PIN</span><span class="p">,</span> <span class="n">OUTPUT</span><span class="p">);</span>   <span class="c1">// sets the LED pin as output</span>
+
+  <span class="n">pinMode</span><span class="p">(</span><span class="n">analogPin</span><span class="p">,</span> <span class="n">INPUT_ANALOG</span><span class="p">);</span> <span class="c1">// sets the potentiometer pin as</span>
+                                    <span class="c1">// analog input</span>
+<span class="p">}</span>
+
+<span class="kt">void</span> <span class="n">loop</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">analogRead</span><span class="p">(</span><span class="n">analogPin</span><span class="p">);</span>        <span class="c1">// read the input pin</span>
+
+  <span class="n">pwmWrite</span><span class="p">(</span><span class="n">BOARD_LED_PIN</span><span class="p">,</span> <span class="n">val</span> <span class="o">*</span> <span class="mi">16</span><span class="p">);</span>  <span class="c1">// analogRead values go from 0</span>
+                                      <span class="c1">// to 4095, pwmWrite values</span>
+                                      <span class="c1">// from 0 to 65535, so scale roughly</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id3">See Also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../../pwm.html#pwm"><em>Maple PWM tutorial</em></a></li>
+<li><a class="reference internal" href="board-values.html#lang-board-values-pwm-pins"><em>boardPWMPins</em></a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="random.html" title="random()"
+             >next</a></li>
+        <li class="right" >
+          <a href="pow.html" title="pow()"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../language-index.html" >Complete Language Index</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

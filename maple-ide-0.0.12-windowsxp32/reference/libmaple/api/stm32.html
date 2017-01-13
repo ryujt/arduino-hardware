@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>stm32.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="systick.h" href="systick.html" />
+    <link rel="prev" title="spi.h" href="spi.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="systick.html" title="systick.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="spi.html" title="spi.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="stm32-h">
+<span id="libmaple-stm32"></span><h1><tt class="docutils literal"><span class="pre">stm32.h</span></tt><a class="headerlink" href="#stm32-h" title="Permalink to this headline">¶</a></h1>
+<p>General STM32-specific definitions.  This file is currently somewhat
+incomplete, but it will form the future basis for MCU-specific (rather
+than board-specific, which belongs in <a class="reference internal" href="../../libmaple.html#libmaple-vs-wirish"><em>Wirish</em></a>) configuration.</p>
+<div class="section" id="defines">
+<h2>Defines<a class="headerlink" href="#defines" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0stm32_8h_1a79d8b0164de9c4437da78024b0ed94cb"></span><strong>STM32_PCLK1</strong></dt>
+<dd><p class="first">APB1 clock speed, in Hz. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0stm32_8h_1a2a19a811dd0dadfed94695a579997cec"></span><strong>STM32_PCLK2</strong></dt>
+<dd><p class="first">APB2 clock speed, in Hz. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0stm32_8h_1a5e7e389e40d430eacb6cca06e413a7a4"></span><strong>STM32_NR_INTERRUPTS</strong></dt>
+<dd><p class="first">Number of interrupts in the NVIC. </p>
+<p class="last">This define is automatically generated whenever the proper density is defined (currently, this is restricted to defining one of STM32_MEDIUM_DENSITY and STM32_HIGH_DENSITY). </p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0stm32_8h_1a7a470ed2ddf6f0cf83cd52c94f477dae"></span><strong>STM32_NR_GPIO_PORTS</strong></dt>
+<dd><p class="first">Number of GPIO ports. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0stm32_8h_1a34d4e23005992146c3539335887ba4f6"></span><strong>STM32_DELAY_US_MULT</strong></dt>
+<dd><p class="first">Multiplier to convert microseconds into loop iterations in <a class="reference internal" href="delay.html#project0delay_8h_1ab6a09ce7e805fd3c213ba6d2d5921a59"><em>delay_us()</em></a>. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><a class="reference internal" href="delay.html#project0delay_8h_1ab6a09ce7e805fd3c213ba6d2d5921a59"><em>delay_us()</em></a></td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0stm32_8h_1a1869e26cba287d5520e452f6275c1b3a"></span><strong>STM32_SRAM_END</strong></dt>
+<dd><p class="first">Pointer to end of built-in SRAM. </p>
+<p class="last">Points to the address which is 1 byte past the last valid SRAM address. </p>
+</dd>
+</dl>
+</div>
+<div class="section" id="deprecated-defines">
+<h2>Deprecated Defines<a class="headerlink" href="#deprecated-defines" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0stm32_8h_1a1437a76e34cca7e97da2f708e00b855f"></span><strong>PCLK1</strong></dt>
+<dd><p class="first">Deprecated. </p>
+<p class="last">Use STM32_PCLK1 instead. </p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0stm32_8h_1a33c7f5454a2dafd4be256a400852c333"></span><strong>PCLK2</strong></dt>
+<dd><p class="first">Deprecated. </p>
+<p class="last">Use STM32_PCLK2 instead. </p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0stm32_8h_1a9f4ff2adc5f5f51646678a47f0a9a4eb"></span><strong>NR_INTERRUPTS</strong></dt>
+<dd><p class="first">Deprecated. </p>
+<p class="last">Use STM32_NR_INTERRUPTS instead. </p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0stm32_8h_1a38001635914448a743e5c79c36fee72c"></span><strong>NR_GPIO_PORTS</strong></dt>
+<dd><p class="first">Deprecated. </p>
+<p class="last">Use STM32_NR_GPIO_PORTS instead. </p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0stm32_8h_1a7afa2411bd0843ac02ba274e55901ca3"></span><strong>DELAY_US_MULT</strong></dt>
+<dd><p class="first">Deprecated. </p>
+<p class="last">Use STM32_DELAY_US_MULT instead. </p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="systick.html" title="systick.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="spi.html" title="spi.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

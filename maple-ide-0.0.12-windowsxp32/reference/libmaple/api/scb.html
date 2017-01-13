@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>scb.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="spi.h" href="spi.html" />
+    <link rel="prev" title="ring_buffer.h" href="ring_buffer.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="spi.html" title="spi.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="ring_buffer.html" title="ring_buffer.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="scb-h">
+<span id="libmaple-scb"></span><h1><tt class="docutils literal"><span class="pre">scb.h</span></tt><a class="headerlink" href="#scb-h" title="Permalink to this headline">¶</a></h1>
+<p>System Control Block (SCB) support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id3">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id4">Register Bit Definitions</a></li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>scb_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>System control block register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structscb__reg__map_1a71ad92772031622576c39653617c59d0"></span>__io uint32 <strong>CPUID</strong></dt>
+<dd><p class="first">CPU ID Base Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1ab462f1803c7b14d96d56b19423013ad6"></span>__io uint32 <strong>ICSR</strong></dt>
+<dd><p class="first">Interrupt Control State Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1ac809ea58765b452d0c4e49e6a1a21042"></span>__io uint32 <strong>VTOR</strong></dt>
+<dd><p class="first">Vector Table Offset Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a0a4cb700dcd49e004027925ba6e34d90"></span>__io uint32 <strong>AIRCR</strong></dt>
+<dd><p class="first">Application Interrupt / Reset Control Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a9e2731e34ecd91164ef3f6dac80be0b9"></span>__io uint32 <strong>SCR</strong></dt>
+<dd><p class="first">System Control Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a1373c33e0b109ad9fb61adbee2a5527b"></span>__io uint32 <strong>CCR</strong></dt>
+<dd><p class="first">Configuration Control Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a747811293243545f7727aab4d958e8c8"></span>__io uint8 <strong>SHP</strong>[12]</dt>
+<dd><p class="first">System Handlers Priority Registers (4-7, 8-11, 12-15). </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1aac6eee2bea8da59ea013dfdb80d62feb"></span>__io uint32 <strong>SHCSR</strong></dt>
+<dd><p class="first">System Handler Control and State Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a993af30c0d5d343c0c39ce6acf0ac744"></span>__io uint32 <strong>CFSR</strong></dt>
+<dd><p class="first">Configurable Fault Status Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a411af4a029d8a7ab2f654faf2c235301"></span>__io uint32 <strong>HFSR</strong></dt>
+<dd><p class="first">Hard Fault Status Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a51acdbe8de9f34cdcb1ec7c3014059b3"></span>__io uint32 <strong>DFSR</strong></dt>
+<dd><p class="first">Debug Fault Status Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a51277a286c399df73409e3e2048864dd"></span>__io uint32 <strong>MMFAR</strong></dt>
+<dd><p class="first">Mem Manage Address Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1aa860341ac569efa6a406ea183602c570"></span>__io uint32 <strong>BFAR</strong></dt>
+<dd><p class="first">Bus Fault Address Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a5838df096f59c602ca37e61fdd4c67a6"></span>__io uint32 <strong>AFSR</strong></dt>
+<dd><p class="first">Auxiliary Fault Status Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1afdd06d0d5179da58576f49d09f9c810a"></span>__io uint32 <strong>PFR</strong>[2]</dt>
+<dd><p class="first">Processor Feature Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a3893c5ca13bb136a4f56c88c538823ad"></span>__io uint32 <strong>DFR</strong></dt>
+<dd><p class="first">Debug Feature Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a9bd8201822de91f9bc6c844edab1691c"></span>__io uint32 <strong>ADR</strong></dt>
+<dd><p class="first">Auxiliary Feature Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a8ce5a09eb8eb075af29155585d7b2300"></span>__io uint32 <strong>MMFR</strong>[4]</dt>
+<dd><p class="first">Memory Model Feature Register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structscb__reg__map_1a4888139d0f8fd57136ea9bc1b7d240a8"></span>__io uint32 <strong>ISAR</strong>[5]</dt>
+<dd><p class="first">ISA Feature Register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id3">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0scb_8h_1ad55a7ddb8d4b2398b0c1cfec76c0d9fd"></span><strong>SCB_BASE</strong></dt>
+<dd><p class="first">System control block register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id4">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<p>None at this time.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="spi.html" title="spi.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="ring_buffer.html" title="ring_buffer.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

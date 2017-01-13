@@ -1,0 +1,279 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>pwr.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="rcc.h" href="rcc.html" />
+    <link rel="prev" title="nvic.h" href="nvic.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rcc.html" title="rcc.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="nvic.html" title="nvic.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pwr-h">
+<span id="libmaple-pwr"></span><h1><tt class="docutils literal"><span class="pre">pwr.h</span></tt><a class="headerlink" href="#pwr-h" title="Permalink to this headline">¶</a></h1>
+<p>Power control (PWR) support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id3">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id4">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id5">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#control-register" id="id6">Control register</a></li>
+<li><a class="reference internal" href="#control-and-status-register" id="id7">Control and status register</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>pwr_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>Power interface register map. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structpwr__reg__map_1aefa40a41984b8765e14dcfda7bad6dba"></span>__io uint32 <strong>CR</strong></dt>
+<dd><p class="first">Control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structpwr__reg__map_1a49753d0516064cc005edebe6045b3741"></span>__io uint32 <strong>CSR</strong></dt>
+<dd><p class="first">Control and status register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id3">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8c_1a41b2b079f1cf1b04048337e1662e6281"></span><div class="line-block">
+<div class="line">void <strong>pwr_init</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Enables the power interface clock, and resets the power device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id4">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8h_1ac691ec23dace8b7a649a25acb110217a"></span><strong>PWR_BASE</strong></dt>
+<dd><p class="first">Power peripheral register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id5">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="control-register">
+<h3><a class="toc-backref" href="#id6">Control register</a><a class="headerlink" href="#control-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8h_1af5c65ab845794ef48f09faa2ee44f718"></span><strong>PWR_CR_DBP</strong></dt>
+<dd><p class="first">Disable backup domain write protection bit. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8h_1a05d5c39759e69a294c0ab9bea8f142e5"></span><strong>PWR_CR_PVDE</strong></dt>
+<dd><p class="first">Power voltage detector enable bit. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8h_1ab44484cacc35c80cf82eb011d6cbe13a"></span><strong>PWR_CR_CSBF</strong></dt>
+<dd><p class="first">Clear standby flag bit. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8h_1a3928de64f633b84770b1cfecea702fa7"></span><strong>PWR_CR_CWUF</strong></dt>
+<dd><p class="first">Clear wakeup flag bit. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8h_1a8c8075e98772470804c9e3fe74984115"></span><strong>PWR_CR_PDDS</strong></dt>
+<dd><p class="first">Power down deepsleep bit. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8h_1a3aeb8d6f2539b0a3a4b851aeba0eea66"></span><strong>PWR_CR_LPDS</strong></dt>
+<dd><p class="first">Low-power deepsleep bit. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="control-and-status-register">
+<h3><a class="toc-backref" href="#id7">Control and status register</a><a class="headerlink" href="#control-and-status-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8h_1a7ac8c15a08bbee754ea720b0d4a4f580"></span><strong>PWR_CSR_EWUP</strong></dt>
+<dd><p class="first">Enable wakeup pin bit. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8h_1a3535ce181895cc00afeb28dcac68d04c"></span><strong>PWR_CSR_PVDO</strong></dt>
+<dd><p class="first">PVD output bit. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8h_1ab4fd42f153660593cad6f4fe22ff76bb"></span><strong>PWR_CSR_SBF</strong></dt>
+<dd><p class="first">Standby flag bit. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0pwr_8h_1a9465bb7ad9ca936688344e2a077539e6"></span><strong>PWR_CSR_WUF</strong></dt>
+<dd><p class="first">Wakeup flag bit. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="rcc.html" title="rcc.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="nvic.html" title="nvic.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

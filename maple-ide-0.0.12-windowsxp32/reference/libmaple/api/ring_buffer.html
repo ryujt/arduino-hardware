@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ring_buffer.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="scb.h" href="scb.html" />
+    <link rel="prev" title="rcc.h" href="rcc.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="scb.html" title="scb.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="rcc.html" title="rcc.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ring-buffer-h">
+<span id="libmaple-ring-buffer"></span><h1><tt class="docutils literal"><span class="pre">ring_buffer.h</span></tt><a class="headerlink" href="#ring-buffer-h" title="Permalink to this headline">¶</a></h1>
+<p>Simple circular byte buffer.  This implementation is not thread-safe.
+In particular, none of these functions is guaranteed to be re-entrant.</p>
+<div class="section" id="ring-buffer-type">
+<h2>Ring Buffer Type<a class="headerlink" href="#ring-buffer-type" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>ring_buffer</strong></div>
+</div>
+<blockquote>
+<div><p>Ring buffer type. </p>
+<p><p>The buffer is empty when head == tail.</p>
+<p>The buffer is full when the head is one byte in front of the tail, modulo buffer length.</p>
+<p>One byte is left free to distinguish empty from full. </p>
+</p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structring__buffer_1a378c22393f22f35c9ffc578fbe24a053"></span>uint8 * <strong>buf</strong></dt>
+<dd><p class="first">Buffer items are stored into. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structring__buffer_1ab43738608cd5ef082f98c618ba65f6c1"></span>uint16 <strong>head</strong></dt>
+<dd><p class="first">Index of the next item to remove. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structring__buffer_1af6474eb288b75ca0b477a266f7d75ebc"></span>uint16 <strong>tail</strong></dt>
+<dd><p class="first">Index where the next item will get inserted. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structring__buffer_1a8460866e7996a33700c062824c8fefae"></span>uint16 <strong>size</strong></dt>
+<dd><p class="first">Buffer capacity minus one. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="ring-buffer-operations">
+<h2>Ring Buffer Operations<a class="headerlink" href="#ring-buffer-operations" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0ring__buffer_8h_1aa9af1a473f040889f02ab3a8fb9d01f2"></span><div class="line-block">
+<div class="line">void <strong>rb_init</strong>(<a class="reference internal" href="#project0structring__buffer"><em>ring_buffer</em></a>  * rb, uint16 size, uint8 * buf)</div>
+</div>
+</dt>
+<dd><p class="first">Initialise a ring buffer. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">rb</span></tt> - <p>Instance to initialise</p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">size</span></tt> - <p>Number of items in buf. The ring buffer will always leave one element unoccupied, so the maximum number of elements it can store will be size - 1. Thus, size must be at least 2.</p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">buf</span></tt> - <p>Buffer to store items into </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0ring__buffer_8h_1ad406625a0c387e7229a73e8b668e6ee3"></span><div class="line-block">
+<div class="line">uint16 <strong>rb_full_count</strong>(<a class="reference internal" href="#project0structring__buffer"><em>ring_buffer</em></a>  * rb)</div>
+</div>
+</dt>
+<dd><p class="first">Return the number of elements stored in the ring buffer. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">rb</span></tt> - <p>Buffer whose elements to count. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0ring__buffer_8h_1a9ec85332d3125990092d0322953ba108"></span><div class="line-block">
+<div class="line">int <strong>rb_is_full</strong>(<a class="reference internal" href="#project0structring__buffer"><em>ring_buffer</em></a>  * rb)</div>
+</div>
+</dt>
+<dd><p class="first">Returns true if and only if the ring buffer is full. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">rb</span></tt> - <p>Buffer to test. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0ring__buffer_8h_1a20f3557193d14184b9898796357d3ea0"></span><div class="line-block">
+<div class="line">int <strong>rb_is_empty</strong>(<a class="reference internal" href="#project0structring__buffer"><em>ring_buffer</em></a>  * rb)</div>
+</div>
+</dt>
+<dd><p class="first">Returns true if and only if the ring buffer is empty. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">rb</span></tt> - <p>Buffer to test. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0ring__buffer_8h_1a6bdb70bd47d17ecc1c2356b17ae45898"></span><div class="line-block">
+<div class="line">void <strong>rb_insert</strong>(<a class="reference internal" href="#project0structring__buffer"><em>ring_buffer</em></a>  * rb, uint8 element)</div>
+</div>
+</dt>
+<dd><p class="first">Append element onto the end of a ring buffer. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">rb</span></tt> - <p>Buffer to append onto. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">element</span></tt> - <p>Value to append. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0ring__buffer_8h_1ac8a79086d32e51e62186880119cf4641"></span><div class="line-block">
+<div class="line">uint8 <strong>rb_remove</strong>(<a class="reference internal" href="#project0structring__buffer"><em>ring_buffer</em></a>  * rb)</div>
+</div>
+</dt>
+<dd><p class="first">Remove and return the first item from a ring buffer. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">rb</span></tt> - <p>Buffer to remove from, must contain at least one element. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0ring__buffer_8h_1a639417574ca07e8a1cb62149f046c18d"></span><div class="line-block">
+<div class="line">int16 <strong>rb_safe_remove</strong>(<a class="reference internal" href="#project0structring__buffer"><em>ring_buffer</em></a>  * rb)</div>
+</div>
+</dt>
+<dd><p class="first">Attempt to remove the first item from a ring buffer. </p>
+<p class="last"><p>If the ring buffer is nonempty, removes and returns its first item. If it is empty, does nothing and returns a negative value.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">rb</span></tt> - <p>Buffer to attempt to remove from. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0ring__buffer_8h_1af47583ba110bbe64f1eb4b12271661d9"></span><div class="line-block">
+<div class="line">int <strong>rb_safe_insert</strong>(<a class="reference internal" href="#project0structring__buffer"><em>ring_buffer</em></a>  * rb, uint8 element)</div>
+</div>
+</dt>
+<dd><p class="first">Attempt to insert an element into a ring buffer. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">rb</span></tt> - <p>Buffer to insert into. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">element</span></tt> - <p>Value to insert into rb. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Side Effects::</th><td class="field-body"><p class="first"><p>If rb is not full, appends element onto buffer. </p>
+</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>If element was appended, then true; otherwise, false. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0ring__buffer_8h_1a98f1c6646a6128a881556190459a320a"></span><div class="line-block">
+<div class="line">int <strong>rb_push_insert</strong>(<a class="reference internal" href="#project0structring__buffer"><em>ring_buffer</em></a>  * rb, uint8 element)</div>
+</div>
+</dt>
+<dd><p class="first">Append an item onto the end of a non-full ring buffer. </p>
+<p class="last"><p>If the buffer is full, removes its first item, then inserts the new element at the end.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">rb</span></tt> - <p>Ring buffer to insert into. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">element</span></tt> - <p>Value to insert into ring buffer. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>On success, returns -1. If an element was popped, returns the popped value. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0ring__buffer_8h_1aa150c847dc8f29454f99c3ec143ef768"></span><div class="line-block">
+<div class="line">void <strong>rb_reset</strong>(<a class="reference internal" href="#project0structring__buffer"><em>ring_buffer</em></a>  * rb)</div>
+</div>
+</dt>
+<dd><p class="first">Discard all items from a ring buffer. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">rb</span></tt> - <p>Ring buffer to discard all items from. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="scb.html" title="scb.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="rcc.html" title="rcc.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,528 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>nvic.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="pwr.h" href="pwr.html" />
+    <link rel="prev" title="libmaple_types.h" href="libmaple_types.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="pwr.html" title="pwr.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="libmaple_types.html" title="libmaple_types.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="nvic-h">
+<span id="libmaple-nvic"></span><h1><tt class="docutils literal"><span class="pre">nvic.h</span></tt><a class="headerlink" href="#nvic-h" title="Permalink to this headline">¶</a></h1>
+<p>Nested Vector Interrupt Controller (NVIC) support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id3">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id4">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id5">Register Bit Definitions</a></li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>nvic_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>NVIC register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structnvic__reg__map_1aba770bac20c1762dd00b3dbb2d20b05f"></span>__io uint32 <strong>ISER</strong>[8]</dt>
+<dd><p class="first">Interrupt Set Enable Registers. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1acaf913667b365150d783d7592f1178b8"></span>uint32 <strong>RESERVED0</strong>[24]</dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1ad7e689aec80eceaf669b85d9122afeb1"></span>__io uint32 <strong>ICER</strong>[8]</dt>
+<dd><p class="first">Interrupt Clear Enable Registers. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1a1b38bd48c71a34321cab8cf32166b469"></span>uint32 <strong>RSERVED1</strong>[24]</dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1a35c3fcde139936b005f0715eac547109"></span>__io uint32 <strong>ISPR</strong>[8]</dt>
+<dd><p class="first">Interrupt Set Pending Registers. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1a2bb1671ff6b9ac9c193a9b1681bee200"></span>uint32 <strong>RESERVED2</strong>[24]</dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1adbd2912401e45b839d4c20e56220ae71"></span>__io uint32 <strong>ICPR</strong>[8]</dt>
+<dd><p class="first">Interrupt Clear Pending Registers. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1aeb89acbadf3494838b372dd1e0957778"></span>uint32 <strong>RESERVED3</strong>[24]</dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1acb2a8c2534f4d07492f53dd6684e6a5c"></span>__io uint32 <strong>IABR</strong>[8]</dt>
+<dd><p class="first">Interrupt Active bit Registers. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1ae9f3fb981c9fb69c5491c93734241b90"></span>uint32 <strong>RESERVED4</strong>[56]</dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1a8235db3d5e033cb4bb398ea4bf3819c5"></span>__io uint8 <strong>IP</strong>[240]</dt>
+<dd><p class="first">Interrupt Priority Registers. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1a7b733b2a2bec1433a185183ede94d04d"></span>uint32 <strong>RESERVED5</strong>[644]</dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structnvic__reg__map_1a5c6e47dcd72da8f2f589a7156d44e190"></span>__io uint32 <strong>STIR</strong></dt>
+<dd><p class="first">Software Trigger Interrupt Registers. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt id=""><span id="project0nvic_8h_1a89e3d57340a69fbdef83f12661543d83"></span><strong>nvic_irq_num enum</strong></dt>
+<dd><p class="first">Interrupt vector table interrupt numbers. </p>
+<p><p>Each positive-valued enumerator is the position of the corresponding interrupt in the vector table. Negative-valued enumerators correspond to interrupts controlled by the system handler block.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">scb.h</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">NVIC_NMI</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">-14</span></tt> - <p>Non-maskable interrupt. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_HARDFAULT</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">-13</span></tt> - <p>Hard fault (all class of fault). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_MEM_MANAGE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">-12</span></tt> - <p>Memory management. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_BUS_FAULT</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">-11</span></tt> - <p>Bus fault: prefetch fault, memory access fault. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_USAGE_FAULT</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">-10</span></tt> - <p>Usage fault: Undefined instruction or illegal state. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_SVC</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">-5</span></tt> - <p>System service call via SWI insruction. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DEBUG_MON</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">-4</span></tt> - <p>Debug monitor. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_PEND_SVC</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">-2</span></tt> - <p>Pendable request for system service. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_SYSTICK</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">-1</span></tt> - <p>System tick timer. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_WWDG</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0</span></tt> - <p>Window watchdog interrupt. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_PVD</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span></tt> - <p>PVD through EXTI line detection. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TAMPER</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">2</span></tt> - <p>Tamper. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_RTC</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">3</span></tt> - <p>Real-time clock. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_FLASH</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">4</span></tt> - <p>Flash. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_RCC</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">5</span></tt> - <p>Reset and clock control. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_EXTI0</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">6</span></tt> - <p>EXTI line 0. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_EXTI1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">7</span></tt> - <p>EXTI line 1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_EXTI2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">8</span></tt> - <p>EXTI line 2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_EXTI3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">9</span></tt> - <p>EXTI line 3. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_EXTI4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">10</span></tt> - <p>EXTI line 4. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DMA_CH1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">11</span></tt> - <p>DMA1 channel 1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DMA_CH2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">12</span></tt> - <p>DMA1 channel 2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DMA_CH3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">13</span></tt> - <p>DMA1 channel 3. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DMA_CH4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">14</span></tt> - <p>DMA1 channel 4. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DMA_CH5</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">15</span></tt> - <p>DMA1 channel 5. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DMA_CH6</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">16</span></tt> - <p>DMA1 channel 6. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DMA_CH7</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">17</span></tt> - <p>DMA1 channel 7. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_ADC_1_2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">18</span></tt> - <p>ADC1 and ADC2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_USB_HP_CAN_TX</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">19</span></tt> - <p>USB high priority or CAN TX. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_USB_LP_CAN_RX0</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">20</span></tt> - <p>USB low priority or CAN RX0. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_CAN_RX1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">21</span></tt> - <p>CAN RX1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_CAN_SCE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">22</span></tt> - <p>CAN SCE. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_EXTI_9_5</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">23</span></tt> - <p>EXTI line [9:5]. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER1_BRK</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">24</span></tt> - <p>Timer 1 break. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER1_UP</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">25</span></tt> - <p>Timer 1 update. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER1_TRG_COM</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">26</span></tt> - <p>Timer 1 trigger and commutation. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER1_CC</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">27</span></tt> - <p>Timer 1 capture/compare. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">28</span></tt> - <p>Timer 2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">29</span></tt> - <p>Timer 3. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">30</span></tt> - <p>Timer 4. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_I2C1_EV</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">31</span></tt> - <p>I2C1 event. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_I2C1_ER</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">32</span></tt> - <p>I2C1 error. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_I2C2_EV</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">33</span></tt> - <p>I2C2 event. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_I2C2_ER</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">34</span></tt> - <p>I2C2 error. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_SPI1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">35</span></tt> - <p>SPI1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_SPI2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">36</span></tt> - <p>SPI2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_USART1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">37</span></tt> - <p>USART1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_USART2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">38</span></tt> - <p>USART2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_USART3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">39</span></tt> - <p>USART3. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_EXTI_15_10</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">40</span></tt> - <p>EXTI line [15:10]. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_RTCALARM</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">41</span></tt> - <p>RTC alarm through EXTI line. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_USBWAKEUP</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">42</span></tt> - <p>USB wakeup from suspend through EXTI line. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER8_BRK</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">43</span></tt> - <p>Timer 8 break. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER8_UP</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">44</span></tt> - <p>Timer 8 update. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER8_TRG_COM</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">45</span></tt> - <p>Timer 8 trigger and commutation. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER8_CC</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">46</span></tt> - <p>Timer 8 capture/compare. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_ADC3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">47</span></tt> - <p>ADC3. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_FSMC</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">48</span></tt> - <p>FSMC. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_SDIO</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">49</span></tt> - <p>SDIO. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER5</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">50</span></tt> - <p>Timer 5. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_SPI3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">51</span></tt> - <p>SPI3. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_UART4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">52</span></tt> - <p>UART4. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_UART5</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">53</span></tt> - <p>UART5. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER6</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">54</span></tt> - <p>Timer 6. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_TIMER7</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">55</span></tt> - <p>Timer 7. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DMA2_CH1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">56</span></tt> - <p>DMA2 channel 1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DMA2_CH2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">57</span></tt> - <p>DMA2 channel 2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DMA2_CH3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">58</span></tt> - <p>DMA2 channel 3. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">NVIC_DMA2_CH_4_5</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">59</span></tt> - <p>DMA2 channels 4 and 5. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<p>None at this time.</p>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id3">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0nvic_8c_1a96b7467a19b905a304c6bd498b8c4dc4"></span><div class="line-block">
+<div class="line">void <strong>nvic_init</strong>(uint32 vector_table_address, uint32 offset)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize the NVIC. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">vector_table_address</span></tt> - <p>Vector table base address. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">offset</span></tt> - <p>Offset from vector_table_address. Some restrictions apply to the use of nonzero offsets; see ST RM0008 and the ARM Cortex M3 Technical Reference Manual. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0nvic_8c_1ab78786ff3387dfaf3d9aeb017a111197"></span><div class="line-block">
+<div class="line">void <strong>nvic_set_vector_table</strong>(uint32 addr, uint32 offset)</div>
+</div>
+</dt>
+<dd><p class="first">Reset the vector table address. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0nvic_8c_1a784a3763b98c412b032754845848627b"></span><div class="line-block">
+<div class="line">void <strong>nvic_irq_set_priority</strong>(<a class="reference internal" href="#project0nvic_8h_1a89e3d57340a69fbdef83f12661543d83"><em>nvic_irq_num</em></a> irqn, uint8 priority)</div>
+</div>
+</dt>
+<dd><p class="first">Nested interrupt controller routines. </p>
+<p class="last"><p>Set interrupt priority for an interrupt line Note: The STM32 only implements 4 bits of priority, ignoring the lower 4 bits. This means there are only 16 levels of priority. Bits[3:0] read as zero and ignore writes.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">irqn</span></tt> - <p>device to set </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">priority</span></tt> - <p>Priority to set, 0 being highest priority and 15 being lowest. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0nvic_8h_1a78613b2a184eb439b183efb02cca9aeb"></span><div class="line-block">
+<div class="line">void <strong>nvic_globalirq_enable</strong>()</div>
+</div>
+</dt>
+<dd><p class="first">Enables interrupts and configurable fault handlers (clear PRIMASK). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0nvic_8h_1a762b781d44f6afc1c13dedf32ebd35df"></span><div class="line-block">
+<div class="line">void <strong>nvic_globalirq_disable</strong>()</div>
+</div>
+</dt>
+<dd><p class="first">Disable interrupts and configurable fault handlers (set PRIMASK). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0nvic_8h_1a51e6b1b0e83aac5cd8f1a50255db6b45"></span><div class="line-block">
+<div class="line">void <strong>nvic_irq_enable</strong>(<a class="reference internal" href="#project0nvic_8h_1a89e3d57340a69fbdef83f12661543d83"><em>nvic_irq_num</em></a> irq_num)</div>
+</div>
+</dt>
+<dd><p class="first">Enable interrupt irq_num. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">irq_num</span></tt> - <p>Interrupt to enable </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0nvic_8h_1a4802c52b347c70f7cf0da4e699591b04"></span><div class="line-block">
+<div class="line">void <strong>nvic_irq_disable</strong>(<a class="reference internal" href="#project0nvic_8h_1a89e3d57340a69fbdef83f12661543d83"><em>nvic_irq_num</em></a> irq_num)</div>
+</div>
+</dt>
+<dd><p class="first">Disable interrupt irq_num. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">irq_num</span></tt> - <p>Interrupt to disable </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0nvic_8h_1a50451c96b511f68fb670b90fe9beb699"></span><div class="line-block">
+<div class="line">void <strong>nvic_irq_disable_all</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Quickly disable all interrupts. </p>
+<p class="last">Calling this function is significantly faster than calling <a class="reference internal" href="#project0nvic_8h_1a4802c52b347c70f7cf0da4e699591b04"><em>nvic_irq_disable()</em></a> in a loop. </p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id4">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0nvic_8h_1aa0288691785a5f868238e0468b39523d"></span><strong>NVIC_BASE</strong></dt>
+<dd><p class="first">NVIC register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id5">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<p>None at this time.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="pwr.html" title="pwr.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="libmaple_types.html" title="libmaple_types.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

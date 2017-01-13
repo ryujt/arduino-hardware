@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>libmaple_types.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="nvic.h" href="nvic.html" />
+    <link rel="prev" title="libmaple.h" href="libmaple.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="nvic.html" title="nvic.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="libmaple.html" title="libmaple.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="libmaple-types-h">
+<span id="libmaple-libmaple-types"></span><h1><tt class="docutils literal"><span class="pre">libmaple_types.h</span></tt><a class="headerlink" href="#libmaple-types-h" title="Permalink to this headline">¶</a></h1>
+<p>Defines the base types and type-related macros used throughout the
+rest of libmaple.</p>
+<div class="section" id="integral-types">
+<h2>Integral Types<a class="headerlink" href="#integral-types" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0libmaple__types_8h_1adde6aaee8457bee49c2a92621fe22b79"></span>typedef unsigned char <strong>uint8</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0libmaple__types_8h_1a05f6b0ae8f6a6e135b0e290c25fe0e4e"></span>typedef unsigned short <strong>uint16</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0libmaple__types_8h_1a1134b580f8da4de94ca6b1de4d37975e"></span>typedef unsigned int <strong>uint32</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0libmaple__types_8h_1a29940ae63ec06c9998bba873e25407ad"></span>typedef unsigned long long <strong>uint64</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0libmaple__types_8h_1a1b956fe1df85f3c132b21edb4e116458"></span>typedef signed char <strong>int8</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0libmaple__types_8h_1a4355d16fcf9f644c9ac84293f0b1801f"></span>typedef short <strong>int16</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0libmaple__types_8h_1a56f1a81c92849566ae864511088eb7e8"></span>typedef int <strong>int32</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0libmaple__types_8h_1aecfc3c54bd29ad5964e1c1c3ccbf89df"></span>typedef long long <strong>int64</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="attributes-and-type-qualifiers">
+<h2>Attributes and Type Qualifiers<a class="headerlink" href="#attributes-and-type-qualifiers" title="Permalink to this headline">¶</a></h2>
+<dl class="macro">
+<dt id="__io">
+<tt class="descname">__io</tt><a class="headerlink" href="#__io" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a macro for <tt class="docutils literal"><span class="pre">volatile</span></tt> which is used to denote that the
+variable whose type is being qualified is IO-mapped.  Its most
+common use is in the individual members of each <a class="reference internal" href="../overview.html#libmaple-overview-regmaps"><em>register map</em></a> struct.</p>
+</dd></dl>
+
+<dl class="macro">
+<dt id="__attr_flash">
+<tt class="descname">__attr_flash</tt><a class="headerlink" href="#__attr_flash" title="Permalink to this definition">¶</a></dt>
+<dd><p>This is a macro for a GCC <tt class="docutils literal"><span class="pre">__attribute__</span></tt> which (when using the
+linker scripts provided with libmaple) will cause the variable
+being marked to be stored in Flash, rather than SRAM.  The
+variable&#8217;s value may be read like that of any other variable, but
+it may not be written.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="other-typedefs">
+<h2>Other typedefs<a class="headerlink" href="#other-typedefs" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0libmaple__types_8h_1a44181537ab6ea5631069dcd97b51bcff"></span>typedef void(* <strong>voidFuncPtr</strong>)(void)</dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="nvic.html" title="nvic.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="libmaple.html" title="libmaple.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

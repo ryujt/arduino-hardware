@@ -1,0 +1,212 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>util.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="Contributing to libmaple" href="../contributing.html" />
+    <link rel="prev" title="usart.h" href="usart.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../contributing.html" title="Contributing to libmaple"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="usart.html" title="usart.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="util-h">
+<span id="libmaple-util"></span><h1><tt class="docutils literal"><span class="pre">util.h</span></tt><a class="headerlink" href="#util-h" title="Permalink to this headline">¶</a></h1>
+<p>Miscellaneous utility macros and procedures.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#bit-manipulation" id="id1">Bit Manipulation</a></li>
+<li><a class="reference internal" href="#failure-routines" id="id2">Failure Routines</a></li>
+<li><a class="reference internal" href="#asserts-and-debug-levels" id="id3">Asserts and Debug Levels</a></li>
+</ul>
+</div>
+<div class="section" id="bit-manipulation">
+<h2><a class="toc-backref" href="#id1">Bit Manipulation</a><a class="headerlink" href="#bit-manipulation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-c"><div class="highlight"><pre><span class="cp">#define BIT(shift)                     (1UL &lt;&lt; (shift))</span>
+<span class="cp">#define BIT_MASK_SHIFT(mask, shift)    ((mask) &lt;&lt; (shift))</span>
+<span class="cp">/** Gets bits m to n of x */</span>
+<span class="cp">#define GET_BITS(x, m, n) ((((uint32)x) &lt;&lt; (31 - (n))) &gt;&gt; ((31 - (n)) + (m)))</span>
+<span class="cp">#define IS_POWER_OF_TWO(v)  (v &amp;&amp; !(v &amp; (v - 1)))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="failure-routines">
+<h2><a class="toc-backref" href="#id2">Failure Routines</a><a class="headerlink" href="#failure-routines" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0util_8c_1a371ced8f6d31157d3583311faa2a0d8f"></span><div class="line-block">
+<div class="line">void <strong>throb</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Fades the error LED on and off. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Side Effects::</th><td class="field-body">Sets output push-pull on ERROR_LED_PIN. </td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="asserts-and-debug-levels">
+<h2><a class="toc-backref" href="#id3">Asserts and Debug Levels</a><a class="headerlink" href="#asserts-and-debug-levels" title="Permalink to this headline">¶</a></h2>
+<p>The level of libmaple&#8217;s assertion support is determined by
+<tt class="docutils literal"><span class="pre">DEBUG_LEVEL</span></tt>, as follows:</p>
+<dl class="docutils">
+<dt id=""><span id="project0util_8h_1ac2d33ccaf63f5d5b66552b95426c0137"></span><strong>DEBUG_LEVEL</strong></dt>
+<dd><p class="first">Controls the level of assertion checking. </p>
+<p class="last"><p>The higher the debug level, the more assertions will be compiled in. This increases the amount of debugging information, but slows down (and increases the size of) the binary.</p>
+<p>The debug levels, from lowest to highest, are DEBUG_NONE, DEBUG_FAULT, and DEBUG_ALL. The default level is DEBUG_ALL. </p>
+</p>
+</dd>
+</dl>
+<p>The current assert macros are <tt class="docutils literal"><span class="pre">ASSERT()</span></tt> and <tt class="docutils literal"><span class="pre">ASSERT_FAULT()</span></tt>.
+<tt class="docutils literal"><span class="pre">ASSERT()</span></tt> is checked when <tt class="docutils literal"><span class="pre">DEBUG_LEVEL</span> <span class="pre">&gt;=</span> <span class="pre">DEBUG_ALL</span></tt>.
+<tt class="docutils literal"><span class="pre">ASSERT_FAULT()</span></tt> is checked whenever <tt class="docutils literal"><span class="pre">DEBUG_LEVEL</span> <span class="pre">&gt;=</span> <span class="pre">DEBUG_FAULT</span></tt>.</p>
+<p>As explained above, an assert macro is checked when the current
+<tt class="docutils literal"><span class="pre">DEBUG_LEVEL</span></tt> is high enough.  If the debug level is too low, the
+macro expands  into a no-op that gets compiled away.</p>
+<p>If an assertion fails, execution is halted at the point of the failed
+assertion.  When libmaple has been configured properly (Wirish
+performs this configuration by default), the built-in LED throbs in a
+smooth pattern to signal the failed assertion (using
+<tt class="xref c c-func docutils literal"><span class="pre">throb()</span></tt>), and the file and line where the assert failed are
+transmitted to the user as detailed in <a class="reference internal" href="../../lang/api/assert.html#lang-assert"><em>ASSERT(...)</em></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../contributing.html" title="Contributing to libmaple"
+             >next</a></li>
+        <li class="right" >
+          <a href="usart.html" title="usart.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

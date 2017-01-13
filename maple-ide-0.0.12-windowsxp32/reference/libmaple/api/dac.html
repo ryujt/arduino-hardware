@@ -1,0 +1,602 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dac.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="delay.h" href="delay.html" />
+    <link rel="prev" title="bkp.h" href="bkp.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="delay.html" title="delay.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="bkp.html" title="bkp.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dac-h">
+<span id="libmaple-dac"></span><h1><tt class="docutils literal"><span class="pre">dac.h</span></tt><a class="headerlink" href="#dac-h" title="Permalink to this headline">¶</a></h1>
+<p>Digital to Analog Conversion (DAC) support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id2">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id3">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id4">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id5">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id6">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#control-register" id="id7">Control register</a></li>
+<li><a class="reference internal" href="#software-trigger-register" id="id8">Software trigger register</a></li>
+<li><a class="reference internal" href="#channel-1-12-bit-right-aligned-data-holding-register" id="id9">Channel 1 12-bit right-aligned data holding register</a></li>
+<li><a class="reference internal" href="#channel-1-12-bit-left-aligned-data-holding-register" id="id10">Channel 1 12-bit left-aligned data holding register</a></li>
+<li><a class="reference internal" href="#channel-1-8-bit-left-aligned-data-holding-register" id="id11">Channel 1 8-bit left-aligned data holding register</a></li>
+<li><a class="reference internal" href="#channel-2-12-bit-right-aligned-data-holding-register" id="id12">Channel 2 12-bit right-aligned data holding register</a></li>
+<li><a class="reference internal" href="#channel-2-12-bit-left-aligned-data-holding-register" id="id13">Channel 2 12-bit left-aligned data holding register</a></li>
+<li><a class="reference internal" href="#channel-2-8-bit-left-aligned-data-holding-register" id="id14">Channel 2 8-bit left-aligned data holding register</a></li>
+<li><a class="reference internal" href="#dual-dac-12-bit-right-aligned-data-holding-register" id="id15">Dual DAC 12-bit right-aligned data holding register</a></li>
+<li><a class="reference internal" href="#dual-dac-12-bit-left-aligned-data-holding-register" id="id16">Dual DAC 12-bit left-aligned data holding register</a></li>
+<li><a class="reference internal" href="#dual-dac-8-bit-left-aligned-data-holding-register" id="id17">Dual DAC 8-bit left-aligned data holding register</a></li>
+<li><a class="reference internal" href="#channel-1-data-output-register" id="id18">Channel 1 data output register</a></li>
+<li><a class="reference internal" href="#id1" id="id19">Channel 1 data output register</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id2">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>dac_dev</strong></div>
+</div>
+<blockquote>
+<div><p>DAC device type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structdac__dev_1a8bf2291eb825bf089fdfe032c1551639"></span><a class="reference internal" href="#project0structdac__reg__map"><em>dac_reg_map</em></a>  * <strong>regs</strong></dt>
+<dd><p class="first">Register map. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>dac_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>DAC register map. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structdac__reg__map_1a95e25a46456804f6b9934aa8bb527d4b"></span>__io uint32 <strong>CR</strong></dt>
+<dd><p class="first">Control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1af3eb640a7127f3e4007c2f8206e36def"></span>__io uint32 <strong>SWTRIGR</strong></dt>
+<dd><p class="first">Software trigger register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1a9f480b2a138605706277fd8a81d6369a"></span>__io uint32 <strong>DHR12R1</strong></dt>
+<dd><p class="first">Channel 1 12-bit right-aligned data holding register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1a38a6e1cdabf29bd8eb42be73328e1a35"></span>__io uint32 <strong>DHR12L1</strong></dt>
+<dd><p class="first">Channel 1 12-bit left-aligned data holding register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1a7b3f8cc48a06223800853d433b36f9ac"></span>__io uint32 <strong>DHR8R1</strong></dt>
+<dd><p class="first">Channel 1 8-bit left-aligned data holding register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1a7e8213488db030bb17fca9360ad272bb"></span>__io uint32 <strong>DHR12R2</strong></dt>
+<dd><p class="first">Channel 2 12-bit right-aligned data holding register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1a5371486846c0bdd630c3ed2836220157"></span>__io uint32 <strong>DHR12L2</strong></dt>
+<dd><p class="first">Channel 2 12-bit left-aligned data holding register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1a7846c69ece36d2a5daf156015c165886"></span>__io uint32 <strong>DHR8R2</strong></dt>
+<dd><p class="first">Channel 2 8-bit left-aligned data holding register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1a8ea727fb9c69c6d64eebc30e1d3dbdd7"></span>__io uint32 <strong>DHR12RD</strong></dt>
+<dd><p class="first">Dual DAC 12-bit right-aligned data holding register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1a0c78e968c5fc4bcb63cb8c054721ad57"></span>__io uint32 <strong>DHR12LD</strong></dt>
+<dd><p class="first">Dual DAC 12-bit left-aligned data holding register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1ac45ed7eb5bca8581a5d64d2ace4972af"></span>__io uint32 <strong>DHR8RD</strong></dt>
+<dd><p class="first">Dual DAC 8-bit right-aligned data holding register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1a2f9c1a352445a3a0a1231f302ef8f52a"></span>__io uint32 <strong>DOR1</strong></dt>
+<dd><p class="first">Channel 1 data output register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdac__reg__map_1adbdfb335ebc32232fe1071a611443a29"></span>__io uint32 <strong>DOR2</strong></dt>
+<dd><p class="first">Channel 2 data output register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id3">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8c_1aa227422b75a45a15b44c9cbee79a0e6c"></span>const  <a class="reference internal" href="#project0structdac__dev"><em>dac_dev</em></a>  * <strong>DAC</strong></dt>
+<dd><p class="first">DAC device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id4">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8c_1af9d329fed42fffde322facaab977b09f"></span><div class="line-block">
+<div class="line">void <strong>dac_init</strong>(const  <a class="reference internal" href="#project0structdac__dev"><em>dac_dev</em></a>  * dev, uint32 flags)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize the digital to analog converter. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DAC device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">flags</span></tt> - <p>Flags: DAC_CH1: Enable channel 1 DAC_CH2: Enable channel 2 </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Side Effects::</th><td class="field-body"><p class="first last"><p>May set PA4 or PA5 to INPUT_ANALOG </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8c_1a1e03ac534db95f777ab100d2fb3303c4"></span><div class="line-block">
+<div class="line">void <strong>dac_write_channel</strong>(const  <a class="reference internal" href="#project0structdac__dev"><em>dac_dev</em></a>  * dev, uint8 channel, uint16 val)</div>
+</div>
+</dt>
+<dd><p class="first">Write a 12-bit value to the DAC to output. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DAC device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>channel to select (1 or 2) </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">val</span></tt> - <p>value to write </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8c_1a807ecc828b5121b59563e9adbfb4f442"></span><div class="line-block">
+<div class="line">void <strong>dac_enable_channel</strong>(const  <a class="reference internal" href="#project0structdac__dev"><em>dac_dev</em></a>  * dev, uint8 channel)</div>
+</div>
+</dt>
+<dd><p class="first">Enable a DAC channel. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DAC device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>channel to enable, either 1 or 2 </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Side Effects::</th><td class="field-body"><p class="first last"><p>May change pin mode of PA4 or PA5 </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8c_1a92e17c192a2302de1e832e0f3173bfc8"></span><div class="line-block">
+<div class="line">void <strong>dac_disable_channel</strong>(const  <a class="reference internal" href="#project0structdac__dev"><em>dac_dev</em></a>  * dev, uint8 channel)</div>
+</div>
+</dt>
+<dd><p class="first">Disable a DAC channel. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DAC device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>channel to disable, either 1 or 2 </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id5">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1ad18d0b914c7f68cecbee1a2d23a67d38"></span><strong>DAC_BASE</strong></dt>
+<dd><p class="first">DAC register map base address. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id6">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="control-register">
+<h3><a class="toc-backref" href="#id7">Control register</a><a class="headerlink" href="#control-register" title="Permalink to this headline">¶</a></h3>
+<p><strong>Channel 1</strong>:</p>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1abd8cedbb3dda03d56ac0ba92d2d9cefd"></span><strong>DAC_CR_EN1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a0b1e2b83ae1ab889cb1e34a99746c9d8"></span><strong>DAC_CR_BOFF1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a998aa4fd791ea2f4626df6ddc8fc7109"></span><strong>DAC_CR_TEN1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1af951c1a57a1a19e356df57d908f09c6c"></span><strong>DAC_CR_TSEL1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a90491f31219d07175629eecdcdc9271e"></span><strong>DAC_CR_WAVE1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a3bcf611b2f0b975513325895bf16e085"></span><strong>DAC_CR_MAMP1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a995c19d8c8de9ee09057ec6151154e17"></span><strong>DAC_CR_DMAEN1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<p><strong>Channel 2</strong>:</p>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1aa65db2420e02fc6813842f57134d898f"></span><strong>DAC_CR_EN2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1add6f660a5f15262beca06b9098a559e9"></span><strong>DAC_CR_BOFF2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1ab8fc527f6ddb787123da09d2085b772f"></span><strong>DAC_CR_TEN2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a73b4d0ccff78f7c3862903e7b0e66302"></span><strong>DAC_CR_TSEL2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1acf24e48cf288db4a4643057dd09e3a7b"></span><strong>DAC_CR_WAVE2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a7cf03fe2359cb0f11c33f793c2e92bdd"></span><strong>DAC_CR_MAMP2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a6f905c2ac89f976df6c4beffdde58b53"></span><strong>DAC_CR_DMAEN2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="software-trigger-register">
+<h3><a class="toc-backref" href="#id8">Software trigger register</a><a class="headerlink" href="#software-trigger-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a970ef02dffaceb35ff1dd7aceb67acdd"></span><strong>DAC_SWTRIGR_SWTRIG1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1af0e53585b505d21f5c457476bd5a18f8"></span><strong>DAC_SWTRIGR_SWTRIG2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="channel-1-12-bit-right-aligned-data-holding-register">
+<h3><a class="toc-backref" href="#id9">Channel 1 12-bit right-aligned data holding register</a><a class="headerlink" href="#channel-1-12-bit-right-aligned-data-holding-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a5295b5cb7f5d71ed2e8a310deb00013d"></span><strong>DAC_DHR12R1_DACC1DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="channel-1-12-bit-left-aligned-data-holding-register">
+<h3><a class="toc-backref" href="#id10">Channel 1 12-bit left-aligned data holding register</a><a class="headerlink" href="#channel-1-12-bit-left-aligned-data-holding-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a0d34667f8f4b753689c8c936c28471c5"></span><strong>DAC_DHR12L1_DACC1DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="channel-1-8-bit-left-aligned-data-holding-register">
+<h3><a class="toc-backref" href="#id11">Channel 1 8-bit left-aligned data holding register</a><a class="headerlink" href="#channel-1-8-bit-left-aligned-data-holding-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1ae1fc9f022fe4a08f67c51646177b26cb"></span><strong>DAC_DHR8R1_DACC1DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="channel-2-12-bit-right-aligned-data-holding-register">
+<h3><a class="toc-backref" href="#id12">Channel 2 12-bit right-aligned data holding register</a><a class="headerlink" href="#channel-2-12-bit-right-aligned-data-holding-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a7506e369b37d55826042b540b10e44c7"></span><strong>DAC_DHR12R2_DACC2DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="channel-2-12-bit-left-aligned-data-holding-register">
+<h3><a class="toc-backref" href="#id13">Channel 2 12-bit left-aligned data holding register</a><a class="headerlink" href="#channel-2-12-bit-left-aligned-data-holding-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a0f66bd794202221e1a55547673b7abab"></span><strong>DAC_DHR12L2_DACC2DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="channel-2-8-bit-left-aligned-data-holding-register">
+<h3><a class="toc-backref" href="#id14">Channel 2 8-bit left-aligned data holding register</a><a class="headerlink" href="#channel-2-8-bit-left-aligned-data-holding-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a7da94dc053e6637efb9ccb57b7ae481c"></span><strong>DAC_DHR8R2_DACC2DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="dual-dac-12-bit-right-aligned-data-holding-register">
+<h3><a class="toc-backref" href="#id15">Dual DAC 12-bit right-aligned data holding register</a><a class="headerlink" href="#dual-dac-12-bit-right-aligned-data-holding-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1aca45719f3d365c9495bdcf6364ae59f8"></span><strong>DAC_DHR12RD_DACC1DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a3edd68db1697af93027e05f6b764c540"></span><strong>DAC_DHR12RD_DACC2DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="dual-dac-12-bit-left-aligned-data-holding-register">
+<h3><a class="toc-backref" href="#id16">Dual DAC 12-bit left-aligned data holding register</a><a class="headerlink" href="#dual-dac-12-bit-left-aligned-data-holding-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a203db656bfef6fedee17b99fb77b1bdd"></span><strong>DAC_DHR12LD_DACC1DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a8421d613b182aab8d6c58592bcda6c17"></span><strong>DAC_DHR12LD_DACC2DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="dual-dac-8-bit-left-aligned-data-holding-register">
+<h3><a class="toc-backref" href="#id17">Dual DAC 8-bit left-aligned data holding register</a><a class="headerlink" href="#dual-dac-8-bit-left-aligned-data-holding-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a9aee01ad181fa5b541864ed62907d70d"></span><strong>DAC_DHR8RD_DACC1DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1ae31631eaac76ebecb059918c351ef3c9"></span><strong>DAC_DHR8RD_DACC2DHR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="channel-1-data-output-register">
+<h3><a class="toc-backref" href="#id18">Channel 1 data output register</a><a class="headerlink" href="#channel-1-data-output-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1a5b4192938e039dc25a7df8fcc5f3932a"></span><strong>DAC_DOR1_DACC1DOR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id19">Channel 1 data output register</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dac_8h_1acaaa39c1e82279918918b072fd56db04"></span><strong>DAC_DOR2_DACC2DOR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="delay.html" title="delay.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="bkp.html" title="bkp.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

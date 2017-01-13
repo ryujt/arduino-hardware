@@ -1,0 +1,1679 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>gpio.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="i2c.h" href="i2c.html" />
+    <link rel="prev" title="fsmc.h" href="fsmc.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="i2c.html" title="i2c.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="fsmc.html" title="fsmc.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gpio-h">
+<span id="libmaple-gpio"></span><h1><tt class="docutils literal"><span class="pre">gpio.h</span></tt><a class="headerlink" href="#gpio-h" title="Permalink to this headline">¶</a></h1>
+<p>General Purpose Input/Output (GPIO) port and Alternate Function
+Input/Output (AFIO) support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id3">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id4">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id5">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#gpio-control-registers" id="id6">GPIO Control Registers</a></li>
+<li><a class="reference internal" href="#event-control-register" id="id7">Event Control Register</a></li>
+<li><a class="reference internal" href="#af-remap-and-debug-i-o-configuration-register" id="id8">AF Remap and Debug I/O Configuration Register</a></li>
+<li><a class="reference internal" href="#external-interrupt-configuration-register-1" id="id9">External Interrupt Configuration Register 1</a></li>
+<li><a class="reference internal" href="#external-interrupt-configuration-register-2" id="id10">External Interrupt Configuration Register 2</a></li>
+<li><a class="reference internal" href="#af-remap-and-debug-i-o-configuration-register-2" id="id11">AF Remap and Debug I/O Configuration Register 2</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>gpio_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>GPIO register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structgpio__reg__map_1aa2b0a9f3d244a108ec63785831a96743"></span>__io uint32 <strong>CRL</strong></dt>
+<dd><p class="first">Port configuration register low. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structgpio__reg__map_1af9a345014d9778f023c197b29344acb5"></span>__io uint32 <strong>CRH</strong></dt>
+<dd><p class="first">Port configuration register high. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structgpio__reg__map_1a26ad04efab8adc4a5d8627fbd4dfd3d7"></span>__io uint32 <strong>IDR</strong></dt>
+<dd><p class="first">Port input data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structgpio__reg__map_1a48f3413c08dc99d3a68ea7079641549e"></span>__io uint32 <strong>ODR</strong></dt>
+<dd><p class="first">Port output data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structgpio__reg__map_1a57431c719e4b0f5cc8c65c4a32e5ef30"></span>__io uint32 <strong>BSRR</strong></dt>
+<dd><p class="first">Port bit set/reset register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structgpio__reg__map_1a37c463362d804ac4f6c37e8c6b930b0a"></span>__io uint32 <strong>BRR</strong></dt>
+<dd><p class="first">Port bit reset register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structgpio__reg__map_1ad4004a106af28e97121b01a78e06f98f"></span>__io uint32 <strong>LCKR</strong></dt>
+<dd><p class="first">Port configuration lock register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>gpio_dev</strong></div>
+</div>
+<blockquote>
+<div><p>GPIO device type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structgpio__dev_1abcdcc853748a17207e6008cd019d33cc"></span><a class="reference internal" href="#project0structgpio__reg__map"><em>gpio_reg_map</em></a>  * <strong>regs</strong></dt>
+<dd><p class="first">Register map. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structgpio__dev_1ad85f2e5040b063de36ac41d8c6ebce4e"></span><a class="reference internal" href="rcc.html#project0rcc_8h_1ae3722d2d8eff5283fb0388429953640f"><em>rcc_clk_id</em></a> <strong>clk_id</strong></dt>
+<dd><p class="first">RCC clock information. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structgpio__dev_1a523935e9844550f2412d7c63afd5277e"></span><a class="reference internal" href="#project0gpio_8h_1a2575e4635087025b9c3077176aeb5e61"><em>afio_exti_port</em></a> <strong>exti_port</strong></dt>
+<dd><p class="first">AFIO external interrupt port value. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a3bb60796972f15de31c709442d82c7ea"></span><strong>gpio_pin_mode enum</strong></dt>
+<dd><p class="first">GPIO Pin modes. </p>
+<p>These only allow for 50MHZ max output speeds; if you want slower, use direct register access. </p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">GPIO_OUTPUT_PP</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(GPIO_CR_CNF_OUTPUT_PP</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">GPIO_CR_MODE_OUTPUT_50MHZ)</span></tt> - <p>Output push-pull. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">GPIO_OUTPUT_OD</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(GPIO_CR_CNF_OUTPUT_OD</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">GPIO_CR_MODE_OUTPUT_50MHZ)</span></tt> - <p>Output open-drain. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">GPIO_AF_OUTPUT_PP</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(GPIO_CR_CNF_AF_OUTPUT_PP</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">GPIO_CR_MODE_OUTPUT_50MHZ)</span></tt> - <p>Alternate function output push-pull. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">GPIO_AF_OUTPUT_OD</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(GPIO_CR_CNF_AF_OUTPUT_OD</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">GPIO_CR_MODE_OUTPUT_50MHZ)</span></tt> - <p>Alternate function output open drain. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">GPIO_INPUT_ANALOG</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(GPIO_CR_CNF_INPUT_ANALOG</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">GPIO_CR_MODE_INPUT)</span></tt> - <p>Analog input. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">GPIO_INPUT_FLOATING</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(GPIO_CR_CNF_INPUT_FLOATING</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">GPIO_CR_MODE_INPUT)</span></tt> - <p>Input floating. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">GPIO_INPUT_PD</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(GPIO_CR_CNF_INPUT_PU_PD</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">GPIO_CR_MODE_INPUT)</span></tt> - <p>Input pull-down. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">GPIO_INPUT_PU</span></tt> - <p>Input pull-up. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>afio_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>AFIO register map. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structafio__reg__map_1aa3796784bcab38cbb07ee4adb816e13d"></span>__io uint32 <strong>EVCR</strong></dt>
+<dd><p class="first">Event control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structafio__reg__map_1a4c6f947ded8fe0e289a5e2d719ce6b03"></span>__io uint32 <strong>MAPR</strong></dt>
+<dd><p class="first">AF remap and debug I/O configuration register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structafio__reg__map_1a373d9c690bdb82b3961013fc19ea0a86"></span>__io uint32 <strong>EXTICR1</strong></dt>
+<dd><p class="first">External interrupt configuration register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structafio__reg__map_1ad241830866602b291f4000900243d852"></span>__io uint32 <strong>EXTICR2</strong></dt>
+<dd><p class="first">External interrupt configuration register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structafio__reg__map_1a4cae3be143602e95f0cb59b918dcca8d"></span>__io uint32 <strong>EXTICR3</strong></dt>
+<dd><p class="first">External interrupt configuration register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structafio__reg__map_1a3cb3ad309a526697c0afa333eb5a4bf2"></span>__io uint32 <strong>EXTICR4</strong></dt>
+<dd><p class="first">External interrupt configuration register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structafio__reg__map_1a47545981d25301bd276244274aaec56c"></span>__io uint32 <strong>MAPR2</strong></dt>
+<dd><p class="first">AF remap and debug I/O configuration register 2. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a2575e4635087025b9c3077176aeb5e61"></span><strong>afio_exti_port enum</strong></dt>
+<dd><p class="first">External interrupt line port selector. </p>
+<p>Used to determine which GPIO port to map an external interrupt line onto. </p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_PA</span></tt> - <p>Use port A (PAx) pin. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_PB</span></tt> - <p>Use port B (PBx) pin. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_PC</span></tt> - <p>Use port C (PCx) pin. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_PD</span></tt> - <p>Use port D (PDx) pin. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_PE</span></tt> - <p>Use port E (PEx) pin. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_PF</span></tt> - <p>Use port F (PFx) pin. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_PG</span></tt> - <p>Use port G (PGx) pin. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a155a78e19d9a90cf0cc63b1e1ce4d04c"></span><strong>afio_exti_num enum</strong></dt>
+<dd><p class="first">External interrupt line numbers. </p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_0</span></tt> - <p>External interrupt line 0. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_1</span></tt> - <p>External interrupt line 1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_2</span></tt> - <p>External interrupt line 2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_3</span></tt> - <p>External interrupt line 3. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_4</span></tt> - <p>External interrupt line 4. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_5</span></tt> - <p>External interrupt line 5. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_6</span></tt> - <p>External interrupt line 6. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_7</span></tt> - <p>External interrupt line 7. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_8</span></tt> - <p>External interrupt line 8. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_9</span></tt> - <p>External interrupt line 9. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_10</span></tt> - <p>External interrupt line 10. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_11</span></tt> - <p>External interrupt line 11. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_12</span></tt> - <p>External interrupt line 12. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_13</span></tt> - <p>External interrupt line 13. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_14</span></tt> - <p>External interrupt line 14. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_EXTI_15</span></tt> - <p>External interrupt line 15. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1acd23b228f428f4f44bd28287d6f04c29"></span><strong>afio_remap_peripheral enum</strong></dt>
+<dd><p class="first">Available peripheral remaps. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">afio_remap()</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_ADC2_ETRGREG</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_ADC2_ETRGREG_REMAP</span></tt> - <p>ADC 2 external trigger regular conversion remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_ADC2_ETRGINJ</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_ADC2_ETRGINJ_REMAP</span></tt> - <p>ADC 2 external trigger injected conversion remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_ADC1_ETRGREG</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_ADC1_ETRGREG_REMAP</span></tt> - <p>ADC 1 external trigger regular conversion remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_ADC1_ETRGINJ</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_ADC1_ETRGINJ_REMAP</span></tt> - <p>ADC 1 external trigger injected conversion remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM5CH4_I</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_TIM5CH4_IREMAP</span></tt> - <p>Timer 5 channel 4 internal remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_PD01</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_PD01_REMAP</span></tt> - <p>Port D0/Port D1 mapping on OSC_IN/OSC_OUT. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_CAN_1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_CAN_REMAP_PB8_PB9</span></tt> - <p>CAN alternate function remapping 1 (RX on PB8, TX on PB9). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_CAN_2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_CAN_REMAP_PD0_PD1</span></tt> - <p>CAN alternate function remapping 2 (RX on PD0, TX on PD1). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_TIM4_REMAP</span></tt> - <p>Timer 4 remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM3_PARTIAL</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_TIM3_REMAP_PARTIAL</span></tt> - <p>Timer 3 partial remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM3_FULL</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_TIM3_REMAP_FULL</span></tt> - <p>Timer 3 full remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM2_PARTIAL_1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_TIM2_REMAP_PA15_PB3_PA2_PA3</span></tt> - <p>Timer 2 partial remapping 1 (CH1 and ETR on PA15, CH2 on PB3, CH3 on PA2, CH4 on PA3). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM2_PARTIAL_2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_TIM2_REMAP_PA0_PA1_PB10_PB11</span></tt> - <p>Timer 2 partial remapping 2 (CH1 and ETR on PA0, CH2 on PA1, CH3 on PB10, CH4 on PB11). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM2_FULL</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_TIM2_REMAP_FULL</span></tt> - <p>Timer 2 full remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_USART2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_USART2_REMAP</span></tt> - <p>USART 2 remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_USART1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_USART1_REMAP</span></tt> - <p>USART 1 remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_I2C1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_I2C1_REMAP</span></tt> - <p>I2C 1 remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_SPI1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_SPI1_REMAP</span></tt> - <p>SPI 1 remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_FSMC_NADV</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(AFIO_MAPR2_FSMC_NADV</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">AFIO_REMAP_USE_MAPR2)</span></tt> - <p>NADV signal not connected. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM14</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(AFIO_MAPR2_TIM14_REMAP</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">AFIO_REMAP_USE_MAPR2)</span></tt> - <p>Timer 14 remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM13</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(AFIO_MAPR2_TIM13_REMAP</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">AFIO_REMAP_USE_MAPR2)</span></tt> - <p>Timer 13 remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM11</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(AFIO_MAPR2_TIM11_REMAP</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">AFIO_REMAP_USE_MAPR2)</span></tt> - <p>Timer 11 remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM10</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(AFIO_MAPR2_TIM10_REMAP</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">AFIO_REMAP_USE_MAPR2)</span></tt> - <p>Timer 10 remapping. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_REMAP_TIM9</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(AFIO_MAPR2_TIM9_REMAP</span> <span class="pre">|</span>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="pre">AFIO_REMAP_USE_MAPR2)</span></tt> - <p>Timer 9. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1adf0eae937a658c033d31222faeff4446"></span><strong>afio_debug_cfg enum</strong></dt>
+<dd><p class="first">Debug port configuration. </p>
+<p><p>Used to configure the behavior of JTAG and Serial Wire (SW) debug ports and their associated GPIO pins.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><a class="reference internal" href="#project0gpio_8h_1a79ae17f7c580555f2f24b3372e68b4f7"><em>afio_cfg_debug_ports()</em></a></td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">AFIO_DEBUG_FULL_SWJ</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_SWJ_CFG_FULL_SWJ</span></tt> - <p>Full Serial Wire and JTAG debug. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_DEBUG_FULL_SWJ_NO_NJRST</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_SWJ_CFG_FULL_SWJ_NO_NJRST</span></tt> - <p>Full Serial Wire and JTAG, but no NJTRST. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_DEBUG_SW_ONLY</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_SWJ_CFG_NO_JTAG_SW</span></tt> - <p>Serial Wire debug only (JTAG-DP disabled, SW-DP enabled). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">AFIO_DEBUG_NONE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">AFIO_MAPR_SWJ_CFG_NO_JTAG_NO_SW</span></tt> - <p>No debug; all JTAG and SW pins are free for use as GPIOs. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1a829bf31b6c69ae7e61f14416692a6709"></span><a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  *const <strong>GPIOA</strong></dt>
+<dd><p class="first">GPIO port A device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1a00edb46953be7f97f1d39978fe5c0d47"></span><a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  *const <strong>GPIOB</strong></dt>
+<dd><p class="first">GPIO port B device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1a71c54805c47ff56813e1bfee09fddb83"></span><a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  *const <strong>GPIOC</strong></dt>
+<dd><p class="first">GPIO port C device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1a4c16dc7119606ef6e0f74e27c9d9699e"></span><a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  *const <strong>GPIOD</strong></dt>
+<dd><p class="first">GPIO port D device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1a7c93206f59ed7fea345ec5794f83e7ce"></span><a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  *const <strong>GPIOE</strong></dt>
+<dd><p class="first">GPIO port E device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1abb10f5e5583e38eabd6ae0e8bbb605fa"></span><a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  *const <strong>GPIOF</strong></dt>
+<dd><p class="first">GPIO port F device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1abdcf83c70e57087c11d56184815353c0"></span><a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  *const <strong>GPIOG</strong></dt>
+<dd><p class="first">GPIO port G device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id3">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1aadbbf17b8457242c7c7cc27353072ea9"></span><div class="line-block">
+<div class="line">void <strong>gpio_init</strong>(<a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize a GPIO device. </p>
+<p class="last"><p>Enables the clock for and resets the given device.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>GPIO device to initialize. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1ad24719387894174a0c8984c39777bf64"></span><div class="line-block">
+<div class="line">void <strong>gpio_init_all</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize and reset all available GPIO devices. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1a4d54c6b38efc90961d5a374ea7d4d9f1"></span><div class="line-block">
+<div class="line">void <strong>gpio_set_mode</strong>(<a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  * dev, uint8 pin, <a class="reference internal" href="#project0gpio_8h_1a3bb60796972f15de31c709442d82c7ea"><em>gpio_pin_mode</em></a> mode)</div>
+</div>
+</dt>
+<dd><p class="first">Set the mode of a GPIO pin. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>GPIO device. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">pin</span></tt> - <p>Pin on the device whose mode to set, 0&#8211;15. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mode</span></tt> - <p>General purpose or alternate function mode to set the pin to. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0gpio_8h_1a3bb60796972f15de31c709442d82c7ea"><em>gpio_pin_mode</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a34d4e2aa84f3b3f8cf3e8b0c581e0e78"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#project0gpio_8h_1a2575e4635087025b9c3077176aeb5e61"><em>afio_exti_port</em></a> <strong>gpio_exti_port</strong>(<a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Get a GPIO port&#8217;s corresponding afio_exti_port. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>GPIO device whose afio_exti_port to return. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a58adb02a517a5d32cc686df5bb2764a6"></span><div class="line-block">
+<div class="line">void <strong>gpio_write_bit</strong>(<a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  * dev, uint8 pin, uint8 val)</div>
+</div>
+</dt>
+<dd><p class="first">Set or reset a GPIO pin. </p>
+<p class="last"><p>Pin must have previously been configured to output mode.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>GPIO device whose pin to set. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">pin</span></tt> - <p>Pin on to set or reset </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">val</span></tt> - <p>If true, set the pin. If false, reset the pin. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a8aa80a01e2e617a06706518c5d754d21"></span><div class="line-block">
+<div class="line">uint32 <strong>gpio_read_bit</strong>(<a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  * dev, uint8 pin)</div>
+</div>
+</dt>
+<dd><p class="first">Determine whether or not a GPIO pin is set. </p>
+<p class="last"><p>Pin must have previously been configured to input mode.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>GPIO device whose pin to test. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">pin</span></tt> - <p>Pin on dev to test. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>True if the pin is set, false otherwise. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a7c75e94f4964db1c7897751a4cf90904"></span><div class="line-block">
+<div class="line">void <strong>gpio_toggle_bit</strong>(<a class="reference internal" href="#project0structgpio__dev"><em>gpio_dev</em></a>  * dev, uint8 pin)</div>
+</div>
+</dt>
+<dd><p class="first">Toggle a pin configured as output push-pull. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>GPIO device. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">pin</span></tt> - <p>Pin on dev to toggle. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1a57ab591123c908ebf160a06ebedac92e"></span><div class="line-block">
+<div class="line">void <strong>afio_init</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize the AFIO clock, and reset the AFIO registers. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8c_1a56640f28636267cc1292047116092056"></span><div class="line-block">
+<div class="line">void <strong>afio_exti_select</strong>(<a class="reference internal" href="#project0gpio_8h_1a155a78e19d9a90cf0cc63b1e1ce4d04c"><em>afio_exti_num</em></a> exti, <a class="reference internal" href="#project0gpio_8h_1a2575e4635087025b9c3077176aeb5e61"><em>afio_exti_port</em></a> gpio_port)</div>
+</div>
+</dt>
+<dd><p class="first">Select a source input for an external interrupt. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">exti</span></tt> - <p>External interrupt. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">gpio_port</span></tt> - <p>Port which contains pin to use as source input. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p><a class="reference internal" href="#project0gpio_8h_1a155a78e19d9a90cf0cc63b1e1ce4d04c"><em>afio_exti_num</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0gpio_8h_1a2575e4635087025b9c3077176aeb5e61"><em>afio_exti_port</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils" id="gpio-h-afio-remap">
+<dt id=""><span id="project0gpio_8c_1a6bb17cc8e794941fe5e1536ed2a392f8"></span><div class="line-block">
+<div class="line">void <strong>afio_remap</strong>(<a class="reference internal" href="#project0gpio_8h_1acd23b228f428f4f44bd28287d6f04c29"><em>afio_remap_peripheral</em></a> remapping)</div>
+</div>
+</dt>
+<dd><p class="first">Perform an alternate function remap. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">remapping</span></tt> - <p>Remapping to perform. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a79ae17f7c580555f2f24b3372e68b4f7"></span><div class="line-block">
+<div class="line">void <strong>afio_cfg_debug_ports</strong>(<a class="reference internal" href="#project0gpio_8h_1adf0eae937a658c033d31222faeff4446"><em>afio_debug_cfg</em></a> config)</div>
+</div>
+</dt>
+<dd><p class="first">Enable or disable the JTAG and SW debug ports. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">config</span></tt> - <p>Desired debug port configuration </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0gpio_8h_1adf0eae937a658c033d31222faeff4446"><em>afio_debug_cfg</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id4">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad7723846cc5db8e43a44d78cf21f6efa"></span><strong>GPIOA_BASE</strong></dt>
+<dd><p class="first">GPIO port A register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ac944a89eb789000ece920c0f89cb6a68"></span><strong>GPIOB_BASE</strong></dt>
+<dd><p class="first">GPIO port B register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a26f267dc35338eef219544c51f1e6b3f"></span><strong>GPIOC_BASE</strong></dt>
+<dd><p class="first">GPIO port C register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a1a93ab27129f04064089616910c296ec"></span><strong>GPIOD_BASE</strong></dt>
+<dd><p class="first">GPIO port D register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ab487b1983d936c4fee3e9e88b95aad9d"></span><strong>GPIOE_BASE</strong></dt>
+<dd><p class="first">GPIO port E register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a7f9a3f4223a1a784af464a114978d26e"></span><strong>GPIOF_BASE</strong></dt>
+<dd><p class="first">GPIO port F register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a5d8ca4020f2e8c00bde974e8e7c13cfe"></span><strong>GPIOG_BASE</strong></dt>
+<dd><p class="first">GPIO port G register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a5f7e3eacfcf4c313c25012795148a680"></span><strong>AFIO_BASE</strong></dt>
+<dd><p class="first">AFIO register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id5">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="gpio-control-registers">
+<h3><a class="toc-backref" href="#id6">GPIO Control Registers</a><a class="headerlink" href="#gpio-control-registers" title="Permalink to this headline">¶</a></h3>
+<p>These values apply to both the low and high configuration registers
+(ST RM0008: GPIOx_CRL and GPIOx_CRH).  You can shift them right by the
+appropriate number of bits for the GPIO port bit you&#8217;re interested in
+to obtain a bit mask.</p>
+<p>For example, to mask out just the value of GPIOA_CRH_CNF12, note that
+GPIO port bit 12&#8217;s configuration starts at bit 18 in the corresponding
+CRH.  Thus, an appropriate mask is <tt class="docutils literal"><span class="pre">GPIOA_BASE-&gt;CRH</span> <span class="pre">&amp;</span> <span class="pre">(GPIO_CR_CNF</span> <span class="pre">&lt;&lt;</span>
+<span class="pre">18)</span></tt>.</p>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1abdf12d5bab61bf397f98b89f61483bbb"></span><strong>GPIO_CR_CNF_INPUT_ANALOG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ae0b8bea89b586e495827ca063db81f27"></span><strong>GPIO_CR_CNF_INPUT_FLOATING</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a7424a481a0f6ad2f4d032e4db8732aa0"></span><strong>GPIO_CR_CNF_INPUT_PU_PD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1adab57456354c5776691fffa7cd63de20"></span><strong>GPIO_CR_CNF_OUTPUT_PP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1aeaf8d225d63cc37a295040ea1f47904d"></span><strong>GPIO_CR_CNF_OUTPUT_OD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a929894f2f31ebbb7b4fb1d6b9067b931"></span><strong>GPIO_CR_CNF_AF_OUTPUT_PP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad9f4bacaf7843ec9466ab437690edba9"></span><strong>GPIO_CR_CNF_AF_OUTPUT_OD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ab82a622fa0256ce7d9eb3d76a28bc4e3"></span><strong>GPIO_CR_MODE_INPUT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ae9450b923f937ad1b20087bdd3bf72a2"></span><strong>GPIO_CR_MODE_OUTPUT_10MHZ</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a30d9416a1da0a33518737f64619ecffb"></span><strong>GPIO_CR_MODE_OUTPUT_2MHZ</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1abfb5314ebee4f6a4c39c66ca0e0d8a42"></span><strong>GPIO_CR_MODE_OUTPUT_50MHZ</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="event-control-register">
+<h3><a class="toc-backref" href="#id7">Event Control Register</a><a class="headerlink" href="#event-control-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a5a24af5abfbcc69a979fe2d4410dad79"></span><strong>AFIO_EVCR_EVOE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a4a85c353b94b1e9d22dd67088b1ac4d3"></span><strong>AFIO_EVCR_PORT_PA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad2d0d2c1f1c046bdf055bb99465592ef"></span><strong>AFIO_EVCR_PORT_PB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a15241a60ec90040d0bb2d1b8c4c6b77f"></span><strong>AFIO_EVCR_PORT_PC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a45b10610230c14d7cc6a7fe15dabfc7d"></span><strong>AFIO_EVCR_PORT_PD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ab4931a15c9784e7b7d0e678271cba75a"></span><strong>AFIO_EVCR_PORT_PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a9277107f232c9726e5e16080610916b8"></span><strong>AFIO_EVCR_PIN_0</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1aa7bdaf9c0f54e75fc88a4c8cc4cfb005"></span><strong>AFIO_EVCR_PIN_1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ae3a7db6ae50a43056fe97a1b3b2cc163"></span><strong>AFIO_EVCR_PIN_2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a007202fece2abe8e0d458fd989c9729c"></span><strong>AFIO_EVCR_PIN_3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ab90dc940255c199d5f14da5efa35bd4c"></span><strong>AFIO_EVCR_PIN_4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a9d3b8b4524c2b2f6955aa68a5c845932"></span><strong>AFIO_EVCR_PIN_5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a3d976a0369bb341197ca1f9f8eed3625"></span><strong>AFIO_EVCR_PIN_6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ae03edb58bee68cdee5981da74d6241bd"></span><strong>AFIO_EVCR_PIN_7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a5bd7d98fe1b29f75e32aed6a4d830ac3"></span><strong>AFIO_EVCR_PIN_8</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a28fe3172cc61f222ece751d2e9e7cc80"></span><strong>AFIO_EVCR_PIN_9</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad1bf0817161ab36257c8239b211172c7"></span><strong>AFIO_EVCR_PIN_10</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1aa4e73a300a6c2c051a8b65b9c578e045"></span><strong>AFIO_EVCR_PIN_11</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ae500716ccd63a22fa22e331887bd6619"></span><strong>AFIO_EVCR_PIN_12</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a909cf5e4d6addd2a06037bb051221093"></span><strong>AFIO_EVCR_PIN_13</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1abea34fb1951e92c8cc5bd80b4ebefe6d"></span><strong>AFIO_EVCR_PIN_14</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1acb1c42501b17fc18fe5e6a6cf119c629"></span><strong>AFIO_EVCR_PIN_15</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="af-remap-and-debug-i-o-configuration-register">
+<h3><a class="toc-backref" href="#id8">AF Remap and Debug I/O Configuration Register</a><a class="headerlink" href="#af-remap-and-debug-i-o-configuration-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a1ab89d25a214b239fd90eb466776d4ec"></span><strong>AFIO_MAPR_SWJ_CFG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1afd1bc670b3535c3f358bd21c1a1d51b3"></span><strong>AFIO_MAPR_SWJ_CFG_FULL_SWJ</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1af6bf1618576f87cccabe50e3a9d12b04"></span><strong>AFIO_MAPR_SWJ_CFG_FULL_SWJ_NO_NJRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a2647514cde9c386242c05bd7644357c2"></span><strong>AFIO_MAPR_SWJ_CFG_NO_JTAG_SW</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ac8fa6ef93482850d12c7243c1efe8f7c"></span><strong>AFIO_MAPR_SWJ_CFG_NO_JTAG_NO_SW</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1abfadf6342c75bfbda1827bf69b651c33"></span><strong>AFIO_MAPR_ADC2_ETRGREG_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1aa9facf28699e7f71bba4bf715cc099a0"></span><strong>AFIO_MAPR_ADC2_ETRGINJ_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a94732d06ac1082d8f5a95ea32fd1c467"></span><strong>AFIO_MAPR_ADC1_ETRGREG_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a811c7ccd113621b431a00b8bd403eeb0"></span><strong>AFIO_MAPR_ADC1_ETRGINJ_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad39b3a437c4bef039df225f67104a971"></span><strong>AFIO_MAPR_TIM5CH4_IREMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a3b8e420451eba867183a37b1e0f82112"></span><strong>AFIO_MAPR_PD01_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a7c0210373a681217cc316f7ccab5fb77"></span><strong>AFIO_MAPR_CAN_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ac7ef6d4d185918b047144212c533617f"></span><strong>AFIO_MAPR_CAN_REMAP_NONE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a1508f3896106b4a594c7fac62a87380c"></span><strong>AFIO_MAPR_CAN_REMAP_PB8_PB9</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1aca11d98266f161ae614b69b95a301909"></span><strong>AFIO_MAPR_CAN_REMAP_PD0_PD1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a31d7ee2e14938f50f559a79fc514f277"></span><strong>AFIO_MAPR_TIM4_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a3ad0b1bfc0ee21ba6cc32116da16368c"></span><strong>AFIO_MAPR_TIM3_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a0d02552613e3dd727d618b13a89a3b65"></span><strong>AFIO_MAPR_TIM3_REMAP_NONE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a6f4e32fd858d09a80bdfde8a2a908b3d"></span><strong>AFIO_MAPR_TIM3_REMAP_PARTIAL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a6b673298641d531f1478d8c4f7ae3e7c"></span><strong>AFIO_MAPR_TIM3_REMAP_FULL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1aeb47d9a129138a6f5c7fe5a213c52e8b"></span><strong>AFIO_MAPR_TIM2_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad3d2ea577e374e403848ad13f080fe8c"></span><strong>AFIO_MAPR_TIM2_REMAP_NONE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a11adf40c023cdc87606711f184d14ac9"></span><strong>AFIO_MAPR_TIM2_REMAP_PA15_PB3_PA2_PA3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a3e1f71733e7b5986281aec6f1e971d6a"></span><strong>AFIO_MAPR_TIM2_REMAP_PA0_PA1_PB10_PB11</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1acaf0ce717b6b50bc239e84e9c65ef04a"></span><strong>AFIO_MAPR_TIM2_REMAP_FULL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a1527de28449dc06823fc55f6f1d6e61a"></span><strong>AFIO_MAPR_TIM1_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1acfa95f73f03677749504de2c58d8afcf"></span><strong>AFIO_MAPR_TIM1_REMAP_NONE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ac701c7a38f170104d5bf839e609575d4"></span><strong>AFIO_MAPR_TIM1_REMAP_PARTIAL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad293f6c4e0588570b74d7075111739b4"></span><strong>AFIO_MAPR_TIM1_REMAP_FULL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a0bc80459b8258134a4691f6e9462d4a4"></span><strong>AFIO_MAPR_USART3_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ab40e153a4f69ba7b078f48f986e74ee1"></span><strong>AFIO_MAPR_USART3_REMAP_NONE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1abf8a488df26381d7e9d8d8cee3ac8c50"></span><strong>AFIO_MAPR_USART3_REMAP_PARTIAL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a7dd79922207310f41da5d044e19a61f7"></span><strong>AFIO_MAPR_USART3_REMAP_FULL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a439c8d7670cfef18450ff624d19ec525"></span><strong>AFIO_MAPR_USART2_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a87539744f607522422b3d5db6d94bd41"></span><strong>AFIO_MAPR_USART1_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1aede0612a4efdce1e60bc23f6ec00d29a"></span><strong>AFIO_MAPR_I2C1_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a1ffdcd52f5810284a6306fc57daa8f1d"></span><strong>AFIO_MAPR_SPI1_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="external-interrupt-configuration-register-1">
+<h3><a class="toc-backref" href="#id9">External Interrupt Configuration Register 1</a><a class="headerlink" href="#external-interrupt-configuration-register-1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1abfd03f564c8f57caf98c316539fc0417"></span><strong>AFIO_EXTICR1_EXTI3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a997512c89370ea344a2bcd5c93bd58f5"></span><strong>AFIO_EXTICR1_EXTI3_PA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ac29af6af53fe4ef204e27297b01f67c2"></span><strong>AFIO_EXTICR1_EXTI3_PB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a4debafaa8694c4065cd9e24a248cb52e"></span><strong>AFIO_EXTICR1_EXTI3_PC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a9452bca38bfe641a4fc2050b617671eb"></span><strong>AFIO_EXTICR1_EXTI3_PD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a5e651df29896772fe9f3853489ee6f2a"></span><strong>AFIO_EXTICR1_EXTI3_PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad54b3ead5fdcdfaa75a70ddd75de76ad"></span><strong>AFIO_EXTICR1_EXTI3_PF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a238ec09330b1f3f3413cd94799fe01c2"></span><strong>AFIO_EXTICR1_EXTI3_PG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1af3ebc91bd269ac45cb6391187bcf7539"></span><strong>AFIO_EXTICR1_EXTI2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a5d7b7b9307dea62bace42fe51133ca7e"></span><strong>AFIO_EXTICR1_EXTI2_PA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad510aa89b9819d17e63b7573fc4aa646"></span><strong>AFIO_EXTICR1_EXTI2_PB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1af344e3fb3d2317acb4605eb26fc01a86"></span><strong>AFIO_EXTICR1_EXTI2_PC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ac80da160b943d018c9dc1116d372ebce"></span><strong>AFIO_EXTICR1_EXTI2_PD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a15e0e6550f443ec1bbd9692626635880"></span><strong>AFIO_EXTICR1_EXTI2_PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ae082912de2c081a8c32324b2ef4658d8"></span><strong>AFIO_EXTICR1_EXTI2_PF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a77b87e4b3280d7a7d4c462adafedfcd6"></span><strong>AFIO_EXTICR1_EXTI2_PG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1accbb32b96a712c94b42bce4e6a4ddfcf"></span><strong>AFIO_EXTICR1_EXTI1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ab3a7d9c289eaf89afa117634e212cfc4"></span><strong>AFIO_EXTICR1_EXTI1_PA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1afcca06b23b4ec1fdb91a45cc873becc6"></span><strong>AFIO_EXTICR1_EXTI1_PB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a65af4023576cc741299122a64ae1b383"></span><strong>AFIO_EXTICR1_EXTI1_PC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a15bf0d1d0725edac1ad4eb396e6175bb"></span><strong>AFIO_EXTICR1_EXTI1_PD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a3fe1509dc09a6f87fb35b4373749a98f"></span><strong>AFIO_EXTICR1_EXTI1_PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a011af6e4d078b341cf9e0a449a363a50"></span><strong>AFIO_EXTICR1_EXTI1_PF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ac84f332aaa2762958523d2bfa143692f"></span><strong>AFIO_EXTICR1_EXTI1_PG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a4a76d7ae8d4926338a6be22ef31b311d"></span><strong>AFIO_EXTICR1_EXTI0</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1adabd0f90ffee34a14d6a1f000ae2eaa4"></span><strong>AFIO_EXTICR1_EXTI0_PA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1aad6bdf8b97cf50ed00d8dd4e8ee7ea8e"></span><strong>AFIO_EXTICR1_EXTI0_PB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a6bdcac7c0d6ef7acd5f32467fa018568"></span><strong>AFIO_EXTICR1_EXTI0_PC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a92350544b7f821599e31dc8aa559af40"></span><strong>AFIO_EXTICR1_EXTI0_PD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a05586b1f5c510dd5a49b84d1826582dc"></span><strong>AFIO_EXTICR1_EXTI0_PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a28d9081b7bdfa6201f4325f9378816f0"></span><strong>AFIO_EXTICR1_EXTI0_PF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a2f2eb1d39f2eabb3d6f0f7eaec1645f5"></span><strong>AFIO_EXTICR1_EXTI0_PG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="external-interrupt-configuration-register-2">
+<h3><a class="toc-backref" href="#id10">External Interrupt Configuration Register 2</a><a class="headerlink" href="#external-interrupt-configuration-register-2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a212e4d4cfe884b2c8ccffb6078252cf0"></span><strong>AFIO_EXTICR2_EXTI7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a2d447f7884e518e9d7799ad2d6d55405"></span><strong>AFIO_EXTICR2_EXTI7_PA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1adc1080e69a26838459bb949862d4ae79"></span><strong>AFIO_EXTICR2_EXTI7_PB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ae15ae0750d0d996c309c2c5e25dd6f9e"></span><strong>AFIO_EXTICR2_EXTI7_PC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a38c86aa9bd6e7c670e691a6ca43da769"></span><strong>AFIO_EXTICR2_EXTI7_PD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a11e713516450ef91615f044070000cc5"></span><strong>AFIO_EXTICR2_EXTI7_PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a02247fbb913c2011b640615fbd40aa02"></span><strong>AFIO_EXTICR2_EXTI7_PF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ac85a8ce70fcfb95396b4c9b073588dea"></span><strong>AFIO_EXTICR2_EXTI7_PG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a7317f7e229e75fef4e83e4c22c43909b"></span><strong>AFIO_EXTICR2_EXTI6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a972dc06c372f38c996d93ef7a1c1f85e"></span><strong>AFIO_EXTICR2_EXTI6_PA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1af2995275d7c77d46e8bd137aa82ef716"></span><strong>AFIO_EXTICR2_EXTI6_PB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a5a8ed5d0e9e0fcc0338df5a67917b63b"></span><strong>AFIO_EXTICR2_EXTI6_PC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a7821358b1f796f98cbbe50a65bca0f72"></span><strong>AFIO_EXTICR2_EXTI6_PD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a93a5b1e7d9deec1a54595a66f7af3669"></span><strong>AFIO_EXTICR2_EXTI6_PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a75490e845a33ab81645bc1806e3c68d9"></span><strong>AFIO_EXTICR2_EXTI6_PF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad3f90dbce0f5d20e2649a1cbdab95ec7"></span><strong>AFIO_EXTICR2_EXTI6_PG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad9377dc8598bf60ee3380119c290434a"></span><strong>AFIO_EXTICR2_EXTI5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1adc989656f3311661f081e3b64ce97300"></span><strong>AFIO_EXTICR2_EXTI5_PA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a413820e35ed4ee872607877ad95677cb"></span><strong>AFIO_EXTICR2_EXTI5_PB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1abf7865926d5956e9475cc0c066b04422"></span><strong>AFIO_EXTICR2_EXTI5_PC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a4f6c7510dab484cee8fbff2706b1f71e"></span><strong>AFIO_EXTICR2_EXTI5_PD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1adefc651261fc971d87182091bafd6e58"></span><strong>AFIO_EXTICR2_EXTI5_PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ac64326ef24af7db6c187ac94c42815a9"></span><strong>AFIO_EXTICR2_EXTI5_PF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a19f0f00e4481514764ac4184c60cea0c"></span><strong>AFIO_EXTICR2_EXTI5_PG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a33b4ac98df898c047cf7f7bba7345c2c"></span><strong>AFIO_EXTICR2_EXTI4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ae09cf2c0e2b506bdd041f55bdb40b21e"></span><strong>AFIO_EXTICR2_EXTI4_PA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a5389cf9203b09f15d3b849d722285172"></span><strong>AFIO_EXTICR2_EXTI4_PB</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a6865341c5319938ce60eac3333799f6a"></span><strong>AFIO_EXTICR2_EXTI4_PC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ad10a38a25ea2f1c66a620faf5c1a838d"></span><strong>AFIO_EXTICR2_EXTI4_PD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1aa0f754184b299727c682ebee9f1fbe1e"></span><strong>AFIO_EXTICR2_EXTI4_PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a060cdc770e394f184301ce634a8f640d"></span><strong>AFIO_EXTICR2_EXTI4_PF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a1be03ef7c34728481526524399c98b1a"></span><strong>AFIO_EXTICR2_EXTI4_PG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="af-remap-and-debug-i-o-configuration-register-2">
+<h3><a class="toc-backref" href="#id11">AF Remap and Debug I/O Configuration Register 2</a><a class="headerlink" href="#af-remap-and-debug-i-o-configuration-register-2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a2e6e524b337372e7065a7d7143eb4ffa"></span><strong>AFIO_MAPR2_FSMC_NADV</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1acc1282952d0572b920e98775514c1f98"></span><strong>AFIO_MAPR2_TIM14_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a6512a2c5b597acd7405df0dfce2615d6"></span><strong>AFIO_MAPR2_TIM13_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1ac023d0d2169a5397ae27f8ddfc8204c5"></span><strong>AFIO_MAPR2_TIM11_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1afa39991b0768286307eb2ec20c1e3d59"></span><strong>AFIO_MAPR2_TIM10_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0gpio_8h_1a2449ad069a6497df350c1c1c7e13aace"></span><strong>AFIO_MAPR2_TIM9_REMAP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="i2c.html" title="i2c.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="fsmc.html" title="fsmc.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

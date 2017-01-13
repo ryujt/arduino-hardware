@@ -1,0 +1,1337 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>adc.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="bitband.h" href="bitband.html" />
+    <link rel="prev" title="APIs" href="../apis.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="bitband.html" title="bitband.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="../apis.html" title="APIs"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="adc-h">
+<span id="libmaple-adc"></span><h1><tt class="docutils literal"><span class="pre">adc.h</span></tt><a class="headerlink" href="#adc-h" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="../../adc.html#adc"><em>Analog to Digital Conversion</em></a> (ADC) support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id3">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id4">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id5">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#status-register" id="id6">Status register</a></li>
+<li><a class="reference internal" href="#control-register-1" id="id7">Control register 1</a></li>
+<li><a class="reference internal" href="#control-register-2" id="id8">Control register 2</a></li>
+<li><a class="reference internal" href="#sample-time-register-1" id="id9">Sample time register 1</a></li>
+<li><a class="reference internal" href="#sample-time-register-2" id="id10">Sample time register 2</a></li>
+<li><a class="reference internal" href="#injected-channel-data-offset-register" id="id11">Injected channel data offset register</a></li>
+<li><a class="reference internal" href="#watchdog-high-threshold-register" id="id12">Watchdog high threshold register</a></li>
+<li><a class="reference internal" href="#watchdog-low-threshold-register" id="id13">Watchdog low threshold register</a></li>
+<li><a class="reference internal" href="#regular-sequence-register-1" id="id14">Regular sequence register 1</a></li>
+<li><a class="reference internal" href="#regular-sequence-register-2" id="id15">Regular sequence register 2</a></li>
+<li><a class="reference internal" href="#regular-sequence-register-3" id="id16">Regular sequence register 3</a></li>
+<li><a class="reference internal" href="#injected-sequence-register" id="id17">Injected sequence register</a></li>
+<li><a class="reference internal" href="#injected-data-registers" id="id18">Injected data registers</a></li>
+<li><a class="reference internal" href="#regular-data-register" id="id19">Regular data register</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>adc_dev</strong></div>
+</div>
+<blockquote>
+<div><p>ADC device type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structadc__dev_1a05f4fc782026e3b163ba49b771d8ab9f"></span><a class="reference internal" href="#project0structadc__reg__map"><em>adc_reg_map</em></a>  * <strong>regs</strong></dt>
+<dd><p class="first">Register map. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__dev_1a9c34f932000c9008303a8d2c69965324"></span><a class="reference internal" href="rcc.html#project0rcc_8h_1ae3722d2d8eff5283fb0388429953640f"><em>rcc_clk_id</em></a> <strong>clk_id</strong></dt>
+<dd><p class="first">RCC clock information. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>adc_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>ADC register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structadc__reg__map_1a6353efa587df48ed29b578bb42e7db0b"></span>__io uint32 <strong>SR</strong></dt>
+<dd><p class="first">Status register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1a9c508f1d9f8b60215ea7cc8df4e48a89"></span>__io uint32 <strong>CR1</strong></dt>
+<dd><p class="first">Control register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1a5a59370540ebbf41d1a05ce5645ff1e6"></span>__io uint32 <strong>CR2</strong></dt>
+<dd><p class="first">Control register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1a1783cf2c5217280b1b0353f030f68cfd"></span>__io uint32 <strong>SMPR1</strong></dt>
+<dd><p class="first">Sample time register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1a465ba27397cc1369798a27aaeb43b23c"></span>__io uint32 <strong>SMPR2</strong></dt>
+<dd><p class="first">Sample time register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1ac0a911103bc1d64e9d00f2884acf3de7"></span>__io uint32 <strong>JOFR1</strong></dt>
+<dd><p class="first">Injected channel data offset register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1ab6b7152a392b5272eecd84b4723b4a37"></span>__io uint32 <strong>JOFR2</strong></dt>
+<dd><p class="first">Injected channel data offset register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1a470f1615b67380d0a2078097dcd6787d"></span>__io uint32 <strong>JOFR3</strong></dt>
+<dd><p class="first">Injected channel data offset register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1ae5eafb7719e94d062d9f9df4aa4c90fa"></span>__io uint32 <strong>JOFR4</strong></dt>
+<dd><p class="first">Injected channel data offset register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1ab9fd6de1f2fced9ee9ff475f51225e8a"></span>__io uint32 <strong>HTR</strong></dt>
+<dd><p class="first">Watchdog high threshold register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1a4a2353ec9d80b39c8b2b261ab99f8cb9"></span>__io uint32 <strong>LTR</strong></dt>
+<dd><p class="first">Watchdog low threshold register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1abf9ae5ccaf187b92844015dbe5d0e854"></span>__io uint32 <strong>SQR1</strong></dt>
+<dd><p class="first">Regular sequence register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1ab81feeca8cd7953d7ba3d58ad4b65f55"></span>__io uint32 <strong>SQR2</strong></dt>
+<dd><p class="first">Regular sequence register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1ab4443c5e93afb9b4e95afaf9fa07fe73"></span>__io uint32 <strong>SQR3</strong></dt>
+<dd><p class="first">Regular sequence register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1a64ea948da35502344f963a7fa742e122"></span>__io uint32 <strong>JSQR</strong></dt>
+<dd><p class="first">Injected sequence register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1aae40f40ad4df09fcc8fa708699f5c861"></span>__io uint32 <strong>JDR1</strong></dt>
+<dd><p class="first">Injected data register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1a261f8d73474d678dd2f0709a01800d93"></span>__io uint32 <strong>JDR2</strong></dt>
+<dd><p class="first">Injected data register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1ae685d988faba19f95106f931d3ed15a2"></span>__io uint32 <strong>JDR3</strong></dt>
+<dd><p class="first">Injected data register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1a6e6ad8427b381243e4fbbe3946d68e88"></span>__io uint32 <strong>JDR4</strong></dt>
+<dd><p class="first">Injected data register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structadc__reg__map_1ad5f04a2ecbaaf2381169bf5300eabbeb"></span>__io uint32 <strong>DR</strong></dt>
+<dd><p class="first">Regular data register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aee09c19b4403d1d39cb695e1c60e9c0f"></span><strong>adc_extsel_event enum</strong></dt>
+<dd><p class="first">External event selector for regular group conversion. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">adc_set_extsel</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC12_TIM1_CC1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC1 and ADC2: Timer 1 CC1 event. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC12_TIM1_CC2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(1</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC1 and ADC2: Timer 1 CC2 event. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC12_TIM1_CC3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(2</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC1 and ADC2: Timer 1 CC3 event. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC12_TIM2_CC2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(3</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC1 and ADC2: Timer 2 CC2 event. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC12_TIM3_TRGO</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(4</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC1 and ADC2: Timer 3 TRGO event. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC12_TIM4_CC4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(5</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC1 and ADC2: Timer 4 CC4 event. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC12_EXTI11</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(6</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC1 and ADC2: EXTI11 event. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC12_TIM8_TRGO</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(6</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC1 and ADC2: Timer 8 TRGO event (high density only). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC12_SWSTART</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(7</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC1 and ADC2: Software start. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC3_TIM3_CC1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC3: Timer 3 CC1 event (high density only). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC3_TIM2_CC3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(1</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC3: Timer 2 CC3 event (high density only). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC3_TIM1_CC3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(2</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC3: Timer 1 CC3 event (high density only). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC3_TIM8_CC1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(3</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC3: Timer 8 CC1 event (high density only). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC3_TIM8_TRGO</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(4</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC3: Timer 8 TRGO event (high density only). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC3_TIM5_CC1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(5</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC3: Timer 5 CC1 event (high density only). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC3_TIM5_CC3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(6</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC3: Timer 5 CC3 event (high density only). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_ADC3_SWSTART</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(7</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC3: Software start (high density only). </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_SWSTART</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(7</span> <span class="pre">&lt;&lt;</span> <span class="pre">17)</span></tt> - <p>ADC1, ADC2, ADC3: Software start. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ace843f98737343a7f8d1ef7ac8f9b519"></span><strong>adc_smp_rate enum</strong></dt>
+<dd><p class="first">ADC sample times, in ADC clock cycles. </p>
+<p>These control the amount of time spent sampling the input voltage. </p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">ADC_SMPR_1_5</span></tt> - <p>1.5 ADC cycles </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_SMPR_7_5</span></tt> - <p>7.5 ADC cycles </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_SMPR_13_5</span></tt> - <p>13.5 ADC cycles </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_SMPR_28_5</span></tt> - <p>28.5 ADC cycles </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_SMPR_41_5</span></tt> - <p>41.5 ADC cycles </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_SMPR_55_5</span></tt> - <p>55.5 ADC cycles </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_SMPR_71_5</span></tt> - <p>71.5 ADC cycles </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">ADC_SMPR_239_5</span></tt> - <p>239.5 ADC cycles </p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8c_1ab2f44c17129eb02974115fb9d44df277"></span>const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * <strong>ADC1</strong></dt>
+<dd><p class="first">ADC1 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8c_1a3972325ad3f36467628b7e8ce262d638"></span>const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * <strong>ADC2</strong></dt>
+<dd><p class="first">ADC2 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8c_1a3aa993e3ded670ff5703b3e3ce37ba7a"></span>const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * <strong>ADC3</strong></dt>
+<dd><p class="first">ADC3 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id3">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8c_1a8d588cf22e19f5fc152d509d9b654d40"></span><div class="line-block">
+<div class="line">void <strong>adc_init</strong>(const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize an ADC peripheral. </p>
+<p class="last"><p>Initializes the RCC clock line for the given peripheral. Resets ADC device registers.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>ADC peripheral to initialize </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8c_1afba48cea90f600c2e7c7c4764c8a1582"></span><div class="line-block">
+<div class="line">void <strong>adc_calibrate</strong>(const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Calibrate an ADC peripheral. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>adc device </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8c_1a8e63e11beaf9d04b92fd21b728e2aa18"></span><div class="line-block">
+<div class="line">void <strong>adc_set_extsel</strong>(const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * dev, <a class="reference internal" href="#project0adc_8h_1aee09c19b4403d1d39cb695e1c60e9c0f"><em>adc_extsel_event</em></a> event)</div>
+</div>
+</dt>
+<dd><p class="first">Set external event select for regular group. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>ADC device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">event</span></tt> - <p>Event used to trigger the start of conversion. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0adc_8h_1aee09c19b4403d1d39cb695e1c60e9c0f"><em>adc_extsel_event</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a39c14342d4f5e841505ecb4d4a2da715"></span><div class="line-block">
+<div class="line">void <strong>adc_enable</strong>(const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Enable an adc peripheral. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>ADC device to enable </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a4dfb1445a8e14d620d32673da4b3dde4"></span><div class="line-block">
+<div class="line">void <strong>adc_disable</strong>(const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Disable an ADC peripheral. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>ADC device to disable </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a4478bc9acdba36e0bbc026221996f538"></span><div class="line-block">
+<div class="line">void <strong>adc_disable_all</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Disable all ADC peripherals. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8c_1adb49446435db6389c73ec4a422b5d09d"></span><div class="line-block">
+<div class="line">void <strong>adc_foreach</strong>(void(*)(const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  *) fn)</div>
+</div>
+</dt>
+<dd><p class="first">Call a function on all ADC devices. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">fn</span></tt> - <p>Function to call on each ADC device. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8c_1a6ccbc8e99ac38893b04d7995631e0473"></span><div class="line-block">
+<div class="line">void <strong>adc_set_sample_rate</strong>(const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * dev, <a class="reference internal" href="#project0adc_8h_1ace843f98737343a7f8d1ef7ac8f9b519"><em>adc_smp_rate</em></a> smp_rate)</div>
+</div>
+</dt>
+<dd><p class="first">Turn the given sample rate into values for ADC_SMPRx. </p>
+<p class="last">Don&#8217;t call this during conversion. <table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>adc device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">smp_rate</span></tt> - <p>sample rate to set </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0adc_8h_1ace843f98737343a7f8d1ef7ac8f9b519"><em>adc_smp_rate</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8c_1a6fecdfa52f889c14238f0631582f88a9"></span><div class="line-block">
+<div class="line">uint16 <strong>adc_read</strong>(const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * dev, uint8 channel)</div>
+</div>
+</dt>
+<dd><p class="first">Perform a single synchronous software triggered conversion on a channel. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>ADC device to use for reading. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>channel to convert </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>conversion result </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a126f43fe7e241b944d2192ddfa637373"></span><div class="line-block">
+<div class="line">void <strong>adc_set_reg_seqlen</strong>(const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * dev, uint8 length)</div>
+</div>
+</dt>
+<dd><p class="first">Set the regular channel sequence length. </p>
+<p class="last"><p>Defines the total number of conversions in the regular channel conversion sequence.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>ADC device. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">length</span></tt> - <p>Regular channel sequence length, from 1 to 16. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ab4d49de3b0180f9e637c944ea51987e2"></span><div class="line-block">
+<div class="line">void <strong>adc_set_exttrig</strong>(const  <a class="reference internal" href="#project0structadc__dev"><em>adc_dev</em></a>  * dev, uint8 enable)</div>
+</div>
+</dt>
+<dd><p class="first">Set external trigger conversion mode event for regular channels. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>ADC device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">enable</span></tt> - <p>If 1, conversion on external events is enabled; if 0, disabled. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id4">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a695c9a2f892363a1c942405c8d351b91"></span><strong>ADC1_BASE</strong></dt>
+<dd><p class="first">ADC1 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a6544abc57f9759f610eee09a02442ae6"></span><strong>ADC2_BASE</strong></dt>
+<dd><p class="first">ADC2 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aca766f86c8e0b00a8e2b0224dcbb4c82"></span><strong>ADC3_BASE</strong></dt>
+<dd><p class="first">ADC3 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id5">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="status-register">
+<h3><a class="toc-backref" href="#id6">Status register</a><a class="headerlink" href="#status-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a8ccd940680661b2a006b8a1c18039976"></span><strong>ADC_SR_AWD_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ac1958843ff1cc758f53cc3dbb8f0dd45"></span><strong>ADC_SR_EOC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ae06cd19d475927164a617a0217fd60c0"></span><strong>ADC_SR_JEOC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aba53f4a1e8809365ac9b1ca562d41f18"></span><strong>ADC_SR_JSTRT_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a9e0471ad1df941f65d64820a893a505d"></span><strong>ADC_SR_STRT_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a8b7f27694281e4cad956da567e5583b2"></span><strong>ADC_SR_AWD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a3dc295c5253743aeb2cda582953b7b53"></span><strong>ADC_SR_EOC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1abc9f07589bb1a4e398781df372389b56"></span><strong>ADC_SR_JEOC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a7340a01ffec051c06e80a037eee58a14"></span><strong>ADC_SR_JSTRT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a45eb11ad986d8220cde9fa47a91ed222"></span><strong>ADC_SR_STRT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="control-register-1">
+<h3><a class="toc-backref" href="#id7">Control register 1</a><a class="headerlink" href="#control-register-1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a17decf2845e21fed20875ef206c22fd2"></span><strong>ADC_CR1_EOCIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a7fe768cf2bf9f619e304309cf853ca63"></span><strong>ADC_CR1_AWDIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a5c97ba334a041534dea3167297ce749c"></span><strong>ADC_CR1_JEOCIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a8559830cb1b76d49fb1dc467d131d89a"></span><strong>ADC_CR1_SCAN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a83c28fc7a3766e0833ff7cdea5fef90b"></span><strong>ADC_CR1_AWDSGL_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1adb8f13941679450ff1ec43a33c8de227"></span><strong>ADC_CR1_JAUTO_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1afbf79a5737a45a4df208527f35e184a6"></span><strong>ADC_CR1_DISCEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ac34bee6bac6864ab30f78c616a2e2de7"></span><strong>ADC_CR1_JDISCEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a85c92f1bb11d610d3cf6faafda654ad0"></span><strong>ADC_CR1_JAWDEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a7d8c79e49d11554ea9f0b279a6524430"></span><strong>ADC_CR1_AWDEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ad8bb755c7059bb2d4f5e2e999d2a2677"></span><strong>ADC_CR1_AWDCH</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aa39fee2e812a7ca45998cccf32e90aea"></span><strong>ADC_CR1_EOCIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1acd44f86b189696d5a3780342516de722"></span><strong>ADC_CR1_AWDIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a5c46fc1dc6c63acf88821f46a8f6d5e7"></span><strong>ADC_CR1_JEOCIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aaeab75ece0c73dd97e8f21911ed22d06"></span><strong>ADC_CR1_SCAN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a5c9fc31f19c04033dfa98e982519c451"></span><strong>ADC_CR1_AWDSGL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a6353cb0d564410358b3a086dd0241f8c"></span><strong>ADC_CR1_JAUTO</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1abd690297fc73fca40d797f4c90800b9a"></span><strong>ADC_CR1_DISCEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1acd06a2840346bf45ff335707db0b6e30"></span><strong>ADC_CR1_JDISCEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aeaa416a291023449ae82e7ef39844075"></span><strong>ADC_CR1_DISCNUM</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a4886de74bcd3a1e545094089f76fd0b3"></span><strong>ADC_CR1_JAWDEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a6e006d43fcb9fe1306745c95a1bdd651"></span><strong>ADC_CR1_AWDEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="control-register-2">
+<h3><a class="toc-backref" href="#id8">Control register 2</a><a class="headerlink" href="#control-register-2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a83d2ee10334f593adf6c6540404a3d7b"></span><strong>ADC_CR2_ADON_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a0e401cff6ca6650ee19a6f77e075f1ca"></span><strong>ADC_CR2_CONT_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aa92afaa2c86b11f0e1f5ab29e34926e1"></span><strong>ADC_CR2_CAL_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ab88d99df67674f84a1f9f969f6d37c09"></span><strong>ADC_CR2_RSTCAL_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aba868d12333abd1e15d51eea3c0680a2"></span><strong>ADC_CR2_DMA_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a85b263bddee8cb62ea4e881d11808897"></span><strong>ADC_CR2_ALIGN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a78b5a6e88cd3ab80ba64b71e6e49b9dc"></span><strong>ADC_CR2_JEXTTRIG_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aa910ae9c0c6e5682b88f3c12eed7ce72"></span><strong>ADC_CR2_EXTTRIG_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a0c3f19721c3527d1b86122ec38868f24"></span><strong>ADC_CR2_JSWSTART_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ab1ac572c7ed309f382c124e23420839e"></span><strong>ADC_CR2_SWSTART_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a6bdee33372f1cd36e10e324209c2ab74"></span><strong>ADC_CR2_TSEREFE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a89b646f092b052d8488d2016f6290f0e"></span><strong>ADC_CR2_ADON</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a49bb71a868c9d88a0f7bbe48918b2140"></span><strong>ADC_CR2_CONT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a2932a0004cf17558c1445f79baac54a1"></span><strong>ADC_CR2_CAL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a76a91ece4a71450541ef2637fdcdfdea"></span><strong>ADC_CR2_RSTCAL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a017309ac4b532bc8c607388f4e2cbbec"></span><strong>ADC_CR2_DMA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1af5950b5a7438a447584f6dd86c343362"></span><strong>ADC_CR2_ALIGN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aab3aa5d0e2a4b77960ec8f3b425a3eac"></span><strong>ADC_CR2_JEXTSEL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aa17af96980f14bc008357812c13bc4b3"></span><strong>ADC_CR2_JEXTTRIG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a6d1054d6cd017e305cf6e8a864ce96c8"></span><strong>ADC_CR2_EXTSEL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a1c0cfed2e6b3dfe7a8794b29822e314c"></span><strong>ADC_CR2_EXTTRIG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ac12fe8a6cc24eef2ed2e1f1525855678"></span><strong>ADC_CR2_JSWSTART</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a5eae65bad1a6c975e1911eb5ba117468"></span><strong>ADC_CR2_SWSTART</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a3279c3ab95dd29a74e30ced4c5675bc5"></span><strong>ADC_CR2_TSEREFE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="sample-time-register-1">
+<h3><a class="toc-backref" href="#id9">Sample time register 1</a><a class="headerlink" href="#sample-time-register-1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a9867370ecef7b99c32b8ecb44ad9e581"></span><strong>ADC_SMPR1_SMP17</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a2925d05347e46e9c6a970214fa76bbec"></span><strong>ADC_SMPR1_SMP16</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a5ae0043ad863f7710834217bc82c8ecf"></span><strong>ADC_SMPR1_SMP15</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ab1574fc02a40f22fc751073e02ebb781"></span><strong>ADC_SMPR1_SMP14</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a2df120cd93a177ea17946a656259129e"></span><strong>ADC_SMPR1_SMP13</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a433b5a7d944666fb7abed3b107c352fc"></span><strong>ADC_SMPR1_SMP12</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a4c74d559f2a70a2e8c807b7bcaccd800"></span><strong>ADC_SMPR1_SMP11</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a32242a2c2156a012a7343bcb43d490d0"></span><strong>ADC_SMPR1_SMP10</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="sample-time-register-2">
+<h3><a class="toc-backref" href="#id10">Sample time register 2</a><a class="headerlink" href="#sample-time-register-2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a5348f83daaa38060702d7b9cfe2e4005"></span><strong>ADC_SMPR2_SMP9</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a0695c289e658b772070a7f29797e9cc3"></span><strong>ADC_SMPR2_SMP8</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a6ec6ee971fc8b2d1890858df94a5c500"></span><strong>ADC_SMPR2_SMP7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a64cd99c27d07298913541dbdc31aa8ae"></span><strong>ADC_SMPR2_SMP6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a9500281fa740994b9cfa6a7df8227849"></span><strong>ADC_SMPR2_SMP5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aeab838fcf0aace87b2163b96d208bb64"></span><strong>ADC_SMPR2_SMP4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a081c3d61e5311a11cb046d56630e1fd0"></span><strong>ADC_SMPR2_SMP3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aea6e1e298372596bcdcdf93e763b3683"></span><strong>ADC_SMPR2_SMP2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a5b85dd0b1708cdf1bf403b07ad51da36"></span><strong>ADC_SMPR2_SMP1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a5a13b3c652e5759e2d8bc7e38889bc5e"></span><strong>ADC_SMPR2_SMP0</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="injected-channel-data-offset-register">
+<h3><a class="toc-backref" href="#id11">Injected channel data offset register</a><a class="headerlink" href="#injected-channel-data-offset-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a5681e409a565a02b382efc5e17a45361"></span><strong>ADC_JOFR_JOFFSET</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="watchdog-high-threshold-register">
+<h3><a class="toc-backref" href="#id12">Watchdog high threshold register</a><a class="headerlink" href="#watchdog-high-threshold-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ad685f031174465e636ef75a5bd7b637d"></span><strong>ADC_HTR_HT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="watchdog-low-threshold-register">
+<h3><a class="toc-backref" href="#id13">Watchdog low threshold register</a><a class="headerlink" href="#watchdog-low-threshold-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ac7ac18b970378acf726f04ae68232c24"></span><strong>ADC_LTR_LT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="regular-sequence-register-1">
+<h3><a class="toc-backref" href="#id14">Regular sequence register 1</a><a class="headerlink" href="#regular-sequence-register-1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ae68a19a18d72f6d87c6f2b8cc8bfc6dc"></span><strong>ADC_SQR1_L</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1afecb33099669a080cede6ce0236389e7"></span><strong>ADC_SQR1_SQ16</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a23222c591c6d926f7a741bc9346f1d8f"></span><strong>ADC_SQR1_SQ15</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ab0251199146cb3d0d2c1c0608fbca585"></span><strong>ADC_SQR1_SQ14</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a1ae1998c0dd11275958e7347a92852fc"></span><strong>ADC_SQR1_SQ13</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="regular-sequence-register-2">
+<h3><a class="toc-backref" href="#id15">Regular sequence register 2</a><a class="headerlink" href="#regular-sequence-register-2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a8731660b1710e63d5423cd31c11be184"></span><strong>ADC_SQR2_SQ12</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a7bf491b9c1542fb0d0b83fc96166362e"></span><strong>ADC_SQR2_SQ11</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a22e474b65f217ac21137b1d3f3cbb6bb"></span><strong>ADC_SQR2_SQ10</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1af5d91ecfc3d40cc6b1960544e526eb91"></span><strong>ADC_SQR2_SQ9</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a308ec58a8d20dcb3a348c30c332a0a8e"></span><strong>ADC_SQR2_SQ8</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aa9f66f702fc124040956117f20ef8df4"></span><strong>ADC_SQR2_SQ7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="regular-sequence-register-3">
+<h3><a class="toc-backref" href="#id16">Regular sequence register 3</a><a class="headerlink" href="#regular-sequence-register-3" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a723792274b16b342d16d6a02fce74ba6"></span><strong>ADC_SQR3_SQ6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aae841d68049442e4568b86322ed4be6f"></span><strong>ADC_SQR3_SQ5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a3fc43f70bb3c67c639678b91d852390b"></span><strong>ADC_SQR3_SQ4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a601f21b7c1e571fb8c5ff310aca021e1"></span><strong>ADC_SQR3_SQ3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a60637fb25c099f8da72a8a36211f7a8c"></span><strong>ADC_SQR3_SQ2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a52491114e8394648559004f3bae718d9"></span><strong>ADC_SQR3_SQ1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="injected-sequence-register">
+<h3><a class="toc-backref" href="#id17">Injected sequence register</a><a class="headerlink" href="#injected-sequence-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1aa624d1fe34014b88873e2dfa91f79232"></span><strong>ADC_JSQR_JL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a8f2b175347c6329d0b0ec7d66e8a1ffb"></span><strong>ADC_JSQR_JL_1CONV</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a787ae2aa40cbe59e7d1b757f074b50f5"></span><strong>ADC_JSQR_JL_2CONV</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a54db928d1a50ad27bba350dc085c89ef"></span><strong>ADC_JSQR_JL_3CONV</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ad850261eb7bc2bcf2ee7840606b5b1e8"></span><strong>ADC_JSQR_JL_4CONV</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a39a279051ef198ee34cad73743b996f4"></span><strong>ADC_JSQR_JSQ4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ae2fbdc1b854a54c4288402c2d3a7fca9"></span><strong>ADC_JSQR_JSQ3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a3e8446a5857e5379cff8cadf822e15d4"></span><strong>ADC_JSQR_JSQ2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ad7fa15dfe51b084b36cb5df2fbf44bb2"></span><strong>ADC_JSQR_JSQ1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="injected-data-registers">
+<h3><a class="toc-backref" href="#id18">Injected data registers</a><a class="headerlink" href="#injected-data-registers" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a40a820c68eb04e0d09980f1595f9de55"></span><strong>ADC_JDR_JDATA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="regular-data-register">
+<h3><a class="toc-backref" href="#id19">Regular data register</a><a class="headerlink" href="#regular-data-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1a67c396288ac97bfab2d37017bd536b98"></span><strong>ADC_DR_ADC2DATA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0adc_8h_1ada596183c4087696c486546e88176038"></span><strong>ADC_DR_DATA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="bitband.html" title="bitband.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="../apis.html" title="APIs"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

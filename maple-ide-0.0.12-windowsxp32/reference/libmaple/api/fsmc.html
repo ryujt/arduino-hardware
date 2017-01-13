@@ -1,0 +1,1128 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>fsmc.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="gpio.h" href="gpio.html" />
+    <link rel="prev" title="flash.h" href="flash.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="gpio.html" title="gpio.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="flash.html" title="flash.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="fsmc-h">
+<span id="libmaple-fsmc"></span><h1><tt class="docutils literal"><span class="pre">fsmc.h</span></tt><a class="headerlink" href="#fsmc-h" title="Permalink to this headline">¶</a></h1>
+<p>Flexible Static Memory Controller (FSMC) support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id3">Functions</a></li>
+<li><a class="reference internal" href="#memory-bank-boundary-addresses" id="id4">Memory Bank Boundary Addresses</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id5">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id6">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#nor-psram-chip-select-control-registers" id="id7">NOR/PSRAM Chip-Select Control Registers</a></li>
+<li><a class="reference internal" href="#sram-nor-flash-chip-select-timing-registers" id="id8">SRAM/NOR-Flash Chip-Select Timing Registers</a></li>
+<li><a class="reference internal" href="#sram-nor-flash-write-timing-registers" id="id9">SRAM/NOR-Flash Write Timing Registers</a></li>
+<li><a class="reference internal" href="#nand-flash-pc-card-controller-registers" id="id10">NAND Flash/PC Card Controller Registers</a></li>
+<li><a class="reference internal" href="#fifo-status-and-interrupt-registers" id="id11">FIFO Status And Interrupt Registers</a></li>
+<li><a class="reference internal" href="#common-memory-space-timing-registers" id="id12">Common Memory Space Timing Registers</a></li>
+<li><a class="reference internal" href="#attribute-memory-space-timing-registers" id="id13">Attribute Memory Space Timing Registers</a></li>
+<li><a class="reference internal" href="#i-o-space-timing-register-4" id="id14">I/O Space Timing Register 4</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>fsmc_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>FSMC register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structfsmc__reg__map_1a1fb48e034948173448747eccced8bd9e"></span>__io uint32 <strong>BCR1</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash chip-select control register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a6104d7ec09dac60e2beba9f2d6898509"></span>__io uint32 <strong>BTR1</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash chip-select timing register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1ac573320102c85a0ae5b596dce8760c97"></span>__io uint32 <strong>BCR2</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash chip-select control register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1af553413fcf809df0844d8b8d33e52b61"></span>__io uint32 <strong>BTR2</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash chip-select timing register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1afbe794f0ff6e603754e5d6bb22e4b6b1"></span>__io uint32 <strong>BCR3</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash chip-select control register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1aa3e5c766358bae3e60de2e51620606a3"></span>__io uint32 <strong>BTR3</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash chip-select timing register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a6aca9be911a63b6df93408b3911b72c3"></span>__io uint32 <strong>BCR4</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash chip-select control register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a8d12b82fc36e18c844c580f8d7d6cfad"></span>__io uint32 <strong>BTR4</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash chip-select timing register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1aeb4d9aceebeef1323d440b29c5d65815"></span>const uint8 <strong>RESERVED1</strong>[64]</dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1af9e46da6a7fc03adf4d1525de3ee5659"></span>__io uint32 <strong>PCR2</strong></dt>
+<dd><p class="first">PC Card/NAND Flash control register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a1da0e8f63f95aeb309393e575a337f30"></span>__io uint32 <strong>SR2</strong></dt>
+<dd><p class="first">FIFO status and interrupt register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a0f0c5cba630f43b512d1c82eaf2e22df"></span>__io uint32 <strong>PMEM2</strong></dt>
+<dd><p class="first">Common memory space timing register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a7fbff7e9eaba4e0aa3fe9aeaba3a5da5"></span>__io uint32 <strong>PATT2</strong></dt>
+<dd><p class="first">Attribute memory space timing register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1ad478df36124a4646897f8efaf4d93733"></span>const uint8 <strong>RESERVED2</strong>[4]</dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a8f231c889b3353bd5018f38414d66f31"></span>__io uint32 <strong>ECCR2</strong></dt>
+<dd><p class="first">ECC result register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a1b2536d95305b1c8e0ffaa489403cdfb"></span>const uint8 <strong>RESERVED3</strong>[2]</dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a27cce5c0b4a9161feb30a5344ef6cf31"></span>__io uint32 <strong>PCR3</strong></dt>
+<dd><p class="first">PC Card/NAND Flash control register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a7f99c956bfce77f43067af5cea2f33fd"></span>__io uint32 <strong>SR3</strong></dt>
+<dd><p class="first">FIFO status and interrupt register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1aa1316797a30423294e360191d55e5b50"></span>__io uint32 <strong>PMEM3</strong></dt>
+<dd><p class="first">Common memory space timing register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a7d8391975d90fb42ed414d7d893b90b6"></span>__io uint32 <strong>PATT3</strong></dt>
+<dd><p class="first">Attribute memory space timing register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a32b4b4455ae2df6881febb0bb1cd1ee8"></span>const uint32 <strong>RESERVED4</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a801025934631ccf7d26f281ef52d849b"></span>__io uint32 <strong>ECCR3</strong></dt>
+<dd><p class="first">ECC result register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a0a0a9f18a263149b236884979d82713e"></span>const uint8 <strong>RESERVED5</strong>[8]</dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a69409eba6e7892aecfbeead3ad2eb016"></span>__io uint32 <strong>PCR4</strong></dt>
+<dd><p class="first">PC Card/NAND Flash control register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1acccc4334509ac8c5ca42a5d5be4dbe03"></span>__io uint32 <strong>SR4</strong></dt>
+<dd><p class="first">FIFO status and interrupt register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a84c7294d067d074fc47f3f4e061b3547"></span>__io uint32 <strong>PMEM4</strong></dt>
+<dd><p class="first">Common memory space timing register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1ad98fa434538a2a95c63804e40b7c2c6b"></span>__io uint32 <strong>PATT4</strong></dt>
+<dd><p class="first">Attribute memory space timing register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a4bbeb0119d0db4b808973fbbdd066af1"></span>__io uint32 <strong>PIO4</strong></dt>
+<dd><p class="first">I/O space timing register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a6e8a50ac2993e4c8c44d3bea1efb2c7f"></span>const uint8 <strong>RESERVED6</strong>[80]</dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a5e8c07e1931430460a5ce6d51e089912"></span>__io uint32 <strong>BWTR1</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash write timing register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1afb3f18c1b9c0fc5af6cf72ccc06ee069"></span>const uint32 <strong>RESERVED7</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a1c639af5b7ea4910ba9b260a24a45c55"></span>__io uint32 <strong>BWTR2</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash write timing register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a67f9857951107c739431942a2c7850f0"></span>const uint32 <strong>RESERVED8</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a9dcd0773179079721c06b2563fdcafdf"></span>__io uint32 <strong>BWTR3</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash write timing register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1a46bbd38fb981993b82aaffa2a1b9af9c"></span>const uint32 <strong>RESERVED9</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__reg__map_1ad3793af341d7b7b557eabfbccf62386c"></span>__io uint32 <strong>BWTR4</strong></dt>
+<dd><p class="first">SRAM/NOR-Flash write timing register 4. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>fsmc_nor_psram_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>FSMC NOR/PSRAM register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structfsmc__nor__psram__reg__map_1a6c39f75e2dc630dd97164090107b8470"></span>__io uint32 <strong>BCR</strong></dt>
+<dd><p class="first">Chip-select control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__nor__psram__reg__map_1aebf04a77ade5475d58c6d659e1b0326d"></span>__io uint32 <strong>BTR</strong></dt>
+<dd><p class="first">Chip-select timing register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__nor__psram__reg__map_1a7f3c7b293d109f8164833121bef572e7"></span>const uint8 <strong>RESERVED</strong>[252]</dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structfsmc__nor__psram__reg__map_1a84d51bc7ce573e4110a2cbe68790e5cf"></span>__io uint32 <strong>BWTR</strong></dt>
+<dd><p class="first">Write timing register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<p>None at this time.</p>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id3">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8c_1af32e7c405291351d1a82e01f4f5ebcb8"></span><div class="line-block">
+<div class="line">void <strong>fsmc_sram_init_gpios</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Configure FSMC GPIOs for use with SRAM. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1abe478a0634204dd22a748efb93a2254b"></span><div class="line-block">
+<div class="line">void <strong>fsmc_nor_psram_set_datast</strong>(<a class="reference internal" href="#project0structfsmc__nor__psram__reg__map"><em>fsmc_nor_psram_reg_map</em></a>  * regs, uint8 datast)</div>
+</div>
+</dt>
+<dd><p class="first">Set the DATAST bits in the given NOR/PSRAM register map&#8217;s chip-select timing register (FSMC_BTR). </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">regs</span></tt> - <p>NOR Flash/PSRAM register map whose chip-select timing register to set. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">datast</span></tt> - <p>Value to use for DATAST bits. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1afb45f160edc2d2fc16ce5affa5182658"></span><div class="line-block">
+<div class="line">void <strong>fsmc_nor_psram_set_addset</strong>(<a class="reference internal" href="#project0structfsmc__nor__psram__reg__map"><em>fsmc_nor_psram_reg_map</em></a>  * regs, uint8 addset)</div>
+</div>
+</dt>
+<dd><p class="first">Set the ADDHLD bits in the given NOR/PSRAM register map&#8217;s chip select timing register (FSMC_BTRx). </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">regs</span></tt> - <p>NOR Flash/PSRAM register map whose chip-select timing register to set. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">addset</span></tt> - <p>Value to use for ADDSET bits. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="memory-bank-boundary-addresses">
+<h2><a class="toc-backref" href="#id4">Memory Bank Boundary Addresses</a><a class="headerlink" href="#memory-bank-boundary-addresses" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ad9f1205bd4a5a87047167cfd08c621be"></span><strong>FSMC_BANK1</strong></dt>
+<dd><p class="first">Pointer to base address of FSMC memory bank 1 (split into 4 regions, each supporting 1 NOR Flash, SRAM, or PSRAM chip). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ab93ba8c33d13343280413dbd7831a76f"></span><strong>FSMC_BANK2</strong></dt>
+<dd><p class="first">Pointer to base address of FSMC memory bank 2 (for NAND Flash). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a163dcfdb018a377ac2876f9d3d3c1479"></span><strong>FSMC_BANK3</strong></dt>
+<dd><p class="first">Pointer to base address of FSMC memory bank 3 (for NAND Flash). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a308474546151289034d64f28132546a6"></span><strong>FSMC_BANK4</strong></dt>
+<dd><p class="first">Pointer to base address of FSMC memory bank 4 (for PC card devices. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a7210ba71477a2d84d5736bb0a3aeef0b"></span><strong>FSMC_NOR_PSRAM_REGION1</strong></dt>
+<dd><p class="first">Pointer to base address of FSMC memory bank 1, region 1 (for NOR/PSRAM). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3d40dccc875a277b39e27886070aaff7"></span><strong>FSMC_NOR_PSRAM_REGION2</strong></dt>
+<dd><p class="first">Pointer to base address of FSMC memory bank 1, region 2 (for NOR/PSRAM). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a320694afe2ecb79846ed16416ea6447b"></span><strong>FSMC_NOR_PSRAM_REGION3</strong></dt>
+<dd><p class="first">Pointer to base address of FSMC memory bank 1, region 3 (for NOR/PSRAM). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a18b861aab6a27c3c3461c6966efb5d36"></span><strong>FSMC_NOR_PSRAM_REGION4</strong></dt>
+<dd><p class="first">Pointer to base address of FSMC memory bank 1, region 4 (for NOR/PSRAM). </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id5">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a679200df61ecb0695d72c030fdeb50a9"></span><strong>FSMC_BASE</strong></dt>
+<dd><p class="first">FSMC register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a2071582ec9585c31d26091fdb498169b"></span><strong>FSMC_NOR_PSRAM1_BASE</strong></dt>
+<dd><p class="first">FSMC NOR/PSRAM base pointer 1. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ab73acf8438c8734cfe79e2c5d8a3309d"></span><strong>FSMC_NOR_PSRAM2_BASE</strong></dt>
+<dd><p class="first">FSMC NOR/PSRAM base pointer 2. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a9af3ff5e93ef30664b4a57c624a93110"></span><strong>FSMC_NOR_PSRAM3_BASE</strong></dt>
+<dd><p class="first">FSMC NOR/PSRAM base pointer 3. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ac5c381d78d459b45813fbcbc996892c2"></span><strong>FSMC_NOR_PSRAM4_BASE</strong></dt>
+<dd><p class="first">FSMC NOR/PSRAM base pointer 4. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id6">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="nor-psram-chip-select-control-registers">
+<h3><a class="toc-backref" href="#id7">NOR/PSRAM Chip-Select Control Registers</a><a class="headerlink" href="#nor-psram-chip-select-control-registers" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ad7bf18dc753bf40d4c4ed74ad45a5379"></span><strong>FSMC_BCR_CBURSTRW_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ab4b9a1008f5fd050cbb3bba66569bf4b"></span><strong>FSMC_BCR_ASYNCWAIT_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a2f9293832cf91c07a46ab36c337adf46"></span><strong>FSMC_BCR_EXTMOD_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a2950a6fbaa885b76be4ae66ca80aa965"></span><strong>FSMC_BCR_WAITEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1aa86287595a58cf66a259d40557b7bc05"></span><strong>FSMC_BCR_WREN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a9f418a451ab18dbf1382ecad43efa724"></span><strong>FSMC_BCR_WAITCFG_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a059ec69b53421e5fa93115e524cc4188"></span><strong>FSMC_BCR_WRAPMOD_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a0a73bdf3e0af097947a0db6f2d53983a"></span><strong>FSMC_BCR_WAITPOL_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1abe8d7bb268d9df346d3f6bda08f2cb89"></span><strong>FSMC_BCR_BURSTEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a801f0d46fb801811b547c3b5150f71e6"></span><strong>FSMC_BCR_FACCEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a7ee18819c4b46e837db31287713baa3d"></span><strong>FSMC_BCR_MUXEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a5a7af7dbbe67bc95054854196e89221a"></span><strong>FSMC_BCR_MBKEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a7fde6c4e11c5dd933244cb182de67508"></span><strong>FSMC_BCR_CBURSTRW</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1afeb2eae95f704fd4c381cf60463dce5a"></span><strong>FSMC_BCR_ASYNCWAIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a2d344a0b6002e96ef2bdbf2f026d6f08"></span><strong>FSMC_BCR_EXTMOD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a207d7ed8e83856d47dd24f4f2f47cba6"></span><strong>FSMC_BCR_WAITEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a2d034e156907f24216a2b0a34959ece4"></span><strong>FSMC_BCR_WREN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3ff4b524c1374326edec64aebea34c50"></span><strong>FSMC_BCR_WAITCFG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1aa3eacf12a011d92ec9710056019c26af"></span><strong>FSMC_BCR_WRAPMOD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3ba2e90d1c312f99b0a049f5f9ec4f16"></span><strong>FSMC_BCR_WAITPOL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1af1c0148c6cbdfceccf7adb40201d202d"></span><strong>FSMC_BCR_BURSTEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3039281d46059d9bed587bb37e2bc783"></span><strong>FSMC_BCR_FACCEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ad5ab07b5209851fcdd7e497f31905ff5"></span><strong>FSMC_BCR_MWID</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1aeeb5717aaef6ca9a347086f46e20e17c"></span><strong>FSMC_BCR_MWID_8BITS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a745269ab5a8184af2741351e1dfa2df1"></span><strong>FSMC_BCR_MWID_16BITS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a73c572cb45ba48b8417924218ec45267"></span><strong>FSMC_BCR_MTYP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a543bdd97eacc8e19095cc770bccb8bf9"></span><strong>FSMC_BCR_MTYP_SRAM</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ab6ab4b85352efeb51ccd3c3cb51c1983"></span><strong>FSMC_BCR_MTYP_PSRAM</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1af982c4cca3409b2f58d5593fa0839964"></span><strong>FSMC_BCR_MTYP_NOR_FLASH</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ae956812f1a7e7b008c43c321929f15c8"></span><strong>FSMC_BCR_MUXEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a37c26a22565f8dde41b215c78c60a715"></span><strong>FSMC_BCR_MBKEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="sram-nor-flash-chip-select-timing-registers">
+<h3><a class="toc-backref" href="#id8">SRAM/NOR-Flash Chip-Select Timing Registers</a><a class="headerlink" href="#sram-nor-flash-chip-select-timing-registers" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a9e7a0edf096092a46b742ca3020bdbf4"></span><strong>FSMC_BTR_ACCMOD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1afb15129d09054dbdc0504c9c7692cff9"></span><strong>FSMC_BTR_ACCMOD_A</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a12b9a79199fa142e8d45389d436d8dfc"></span><strong>FSMC_BTR_ACCMOD_B</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1acc9f85bc3455eef4ae7f2e3cfd02906a"></span><strong>FSMC_BTR_ACCMOD_C</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ad0572e67d0437bc6765d66203d1dc1ea"></span><strong>FSMC_BTR_ACCMOD_D</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a6ec8d5297863643be64cf952c386b505"></span><strong>FSMC_BTR_DATLAT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a68cb01801fc102ed04c21777d1f7c424"></span><strong>FSMC_BTR_CLKDIV</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1aaffc35111f2117e51ca5bbcc8bbe7d76"></span><strong>FSMC_BTR_BUSTURN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3c4320b8d0ec3382c79a3c2c8bda26d8"></span><strong>FSMC_BTR_DATAST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ac4d97dd49f8bd7b46d2dcb8d518037d8"></span><strong>FSMC_BTR_ADDHLD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a23276415700c65b2fb29639c0dbcdb5f"></span><strong>FSMC_BTR_ADDSET</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="sram-nor-flash-write-timing-registers">
+<h3><a class="toc-backref" href="#id9">SRAM/NOR-Flash Write Timing Registers</a><a class="headerlink" href="#sram-nor-flash-write-timing-registers" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a2694b2a67f71325a749ddc18260f2907"></span><strong>FSMC_BWTR_ACCMOD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a1ae8fec90c40148a18787d481550e0ce"></span><strong>FSMC_BWTR_ACCMOD_A</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a27075a405b54d2e5fc4e803c7ff99521"></span><strong>FSMC_BWTR_ACCMOD_B</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ab4d5879968b34596bdd00e86e87092c0"></span><strong>FSMC_BWTR_ACCMOD_C</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a965b5754ee7510c3ae868a65f08d5e57"></span><strong>FSMC_BWTR_ACCMOD_D</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3be06361b0a2afa888e1fabccedac6e5"></span><strong>FSMC_BWTR_DATLAT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1af7cfb85c56249315e3bcdd09d5ad2b12"></span><strong>FSMC_BWTR_CLKDIV</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3efe7ba82dcce94d02488cf02e63a964"></span><strong>FSMC_BWTR_DATAST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ac3abd6b8c79a5d0052964605382f826a"></span><strong>FSMC_BWTR_ADDHLD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a2311f6cba52595c7d94f87527f103573"></span><strong>FSMC_BWTR_ADDSET</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="nand-flash-pc-card-controller-registers">
+<h3><a class="toc-backref" href="#id10">NAND Flash/PC Card Controller Registers</a><a class="headerlink" href="#nand-flash-pc-card-controller-registers" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1af8419b2b3adf14b7a75039029e8d21f1"></span><strong>FSMC_PCR_ECCEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1aafff1829f4a355b65d0829d99e42a1b1"></span><strong>FSMC_PCR_PTYP_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3083be38aab22e0291fb8967ddd780d2"></span><strong>FSMC_PCR_PBKEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ab11442dea502e02539dbb345aea0114c"></span><strong>FSMC_PCR_PWAITEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a5cc275efd34a9fa0f799d94864ad2e0e"></span><strong>FSMC_PCR_ECCPS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ad2c3871272f2dbd426bf100eb7f48679"></span><strong>FSMC_PCR_ECCPS_256B</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a338880d0c46b14b2adb462a604a1c4be"></span><strong>FSMC_PCR_ECCPS_512B</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a1221c2bdf78f47c00c3cc68746124c7f"></span><strong>FSMC_PCR_ECCPS_1024B</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a765fd53f196f2ebc998c37e78f117716"></span><strong>FSMC_PCR_ECCPS_2048B</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a88e053b76f17ec57c878f0ada5cd875f"></span><strong>FSMC_PCR_ECCPS_4096B</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ab18704bc5af4f81cca86df7c64ecf726"></span><strong>FSMC_PCR_ECCPS_8192B</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a8ff0b105a2d33a236acd77b84d95f946"></span><strong>FSMC_PCR_TAR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a215083ae81441f8875865459b620cfbc"></span><strong>FSMC_PCR_TCLR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a1edae2c7cb0f021c8a21387c3c043f3c"></span><strong>FSMC_PCR_ECCEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a5a1b48a696d3d8e36b1e9583a4f031a0"></span><strong>FSMC_PCR_PWID</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a06d0b85f148f0d2c8f84db35669dd83e"></span><strong>FSMC_PCR_PWID_8BITS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a92f6e4def690995e713270ada65b92f3"></span><strong>FSMC_PCR_PWID_16BITS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a2c257d65aa8176ebac0df466660db6d1"></span><strong>FSMC_PCR_PTYP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1aee39639a84c848a71e0e138691c68f2d"></span><strong>FSMC_PCR_PTYP_PC_CF_PCMCIA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ae3c08bd57aefccfc3ee0e6a9f35db18f"></span><strong>FSMC_PCR_PTYP_NAND</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1aefa95e839ff003340394d16c4ea2355d"></span><strong>FSMC_PCR_PBKEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a2e95c48fc2ef8b32b0563725fbb2bf13"></span><strong>FSMC_PCR_PWAITEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="fifo-status-and-interrupt-registers">
+<h3><a class="toc-backref" href="#id11">FIFO Status And Interrupt Registers</a><a class="headerlink" href="#fifo-status-and-interrupt-registers" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3c7304a4d24c45e364011d323ab2d52e"></span><strong>FSMC_SR_FEMPT_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a9232d0b80166931927c9bc68bf84bddb"></span><strong>FSMC_SR_IFEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a30b6b00a8370a757979d495d552e10c5"></span><strong>FSMC_SR_ILEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ac9a5eac0084e2857fb2e53ae90e60fbd"></span><strong>FSMC_SR_IREN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a98e0f84245c45c9b770be9667ad19620"></span><strong>FSMC_SR_IFS_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3ca7a2268873cb3fa416aca5659480be"></span><strong>FSMC_SR_ILS_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ad56b5e9d32ef144a626c23ed53cae0e7"></span><strong>FSMC_SR_IRS_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a092685524fbfe25c59311aeefba2ff87"></span><strong>FSMC_SR_FEMPT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a8b6310da1ae61a25736532018472bbf6"></span><strong>FSMC_SR_IFEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a5bf598f61a0707edd9b23bd5ae4d29e0"></span><strong>FSMC_SR_ILEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3ec784556db4b628b69f99259021948a"></span><strong>FSMC_SR_IREN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a3b7e60b3a7441887de4491b8353061d4"></span><strong>FSMC_SR_IFS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a0159a84ad1e9f3500575440bceb652f3"></span><strong>FSMC_SR_ILS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a4427fc341c3c989cb8ae0916c04a3d40"></span><strong>FSMC_SR_IRS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="common-memory-space-timing-registers">
+<h3><a class="toc-backref" href="#id12">Common Memory Space Timing Registers</a><a class="headerlink" href="#common-memory-space-timing-registers" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ae919a0acbe8bb09b925140e87d012bef"></span><strong>FSMC_PMEM_MEMHIZ</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ae731a99a8184eeb450d503faa4ae2e48"></span><strong>FSMC_PMEM_MEMHOLD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a6c1a19914122054ebb2b80c50b9b3290"></span><strong>FSMC_PMEM_MEMWAIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1aa16d76c844e17aa68c3f581017ecab7c"></span><strong>FSMC_PMEM_MEMSET</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="attribute-memory-space-timing-registers">
+<h3><a class="toc-backref" href="#id13">Attribute Memory Space Timing Registers</a><a class="headerlink" href="#attribute-memory-space-timing-registers" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a6885ea6aef4685d27f96914e69950288"></span><strong>FSMC_PATT_ATTHIZ</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ab7ca2ee5f8b1a7e193df0835735e674e"></span><strong>FSMC_PATT_ATTHOLD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a2741920e624dfcf014a50e820bb48536"></span><strong>FSMC_PATT_ATTWAIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a1e14bdbac65861808833b32ed6ed1860"></span><strong>FSMC_PATT_ATTSET</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="i-o-space-timing-register-4">
+<h3><a class="toc-backref" href="#id14">I/O Space Timing Register 4</a><a class="headerlink" href="#i-o-space-timing-register-4" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1ada7fed9bd53cf9e526bb2d0d834cfc92"></span><strong>FSMC_PIO_IOHIZ</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a7cd0b4b82ba84e5e4f093ac321a25f7e"></span><strong>FSMC_PIO_IOHOLD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a8596b5bfee3801554ea9ea6b6c4f6cea"></span><strong>FSMC_PIO_IOWAIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0fsmc_8h_1a1de8be6bde3249f9a5c966d033f7fa4b"></span><strong>FSMC_PIO_IOSET</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="gpio.html" title="gpio.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="flash.html" title="flash.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,2320 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>rcc.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="ring_buffer.h" href="ring_buffer.html" />
+    <link rel="prev" title="pwr.h" href="pwr.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ring_buffer.html" title="ring_buffer.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="pwr.html" title="pwr.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rcc-h">
+<span id="libmaple-rcc"></span><h1><tt class="docutils literal"><span class="pre">rcc.h</span></tt><a class="headerlink" href="#rcc-h" title="Permalink to this headline">¶</a></h1>
+<p>Reset and Clock Control (RCC) support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id3">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id4">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id5">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#clock-control-register" id="id6">Clock control register</a></li>
+<li><a class="reference internal" href="#clock-configuration-register" id="id7">Clock configuration register</a></li>
+<li><a class="reference internal" href="#clock-interrupt-register" id="id8">Clock interrupt register</a></li>
+<li><a class="reference internal" href="#apb2-peripheral-reset-register" id="id9">APB2 peripheral reset register</a></li>
+<li><a class="reference internal" href="#apb1-peripheral-reset-register" id="id10">APB1 peripheral reset register</a></li>
+<li><a class="reference internal" href="#ahb-peripheral-clock-enable-register" id="id11">AHB peripheral clock enable register</a></li>
+<li><a class="reference internal" href="#apb2-peripheral-clock-enable-register" id="id12">APB2 peripheral clock enable register</a></li>
+<li><a class="reference internal" href="#apb1-peripheral-clock-enable-register" id="id13">APB1 peripheral clock enable register</a></li>
+<li><a class="reference internal" href="#backup-domain-control-register" id="id14">Backup domain control register</a></li>
+<li><a class="reference internal" href="#control-status-register" id="id15">Control/status register</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>rcc_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>RCC register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structrcc__reg__map_1a5b6e32d372fe218af5895c7ac9de65b1"></span>__io uint32 <strong>CR</strong></dt>
+<dd><p class="first">Clock control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structrcc__reg__map_1a0deeb7534725341d3bfa4915598df804"></span>__io uint32 <strong>CFGR</strong></dt>
+<dd><p class="first">Clock configuration register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structrcc__reg__map_1a452fcfe7232f41c75f13358c3d77d561"></span>__io uint32 <strong>CIR</strong></dt>
+<dd><p class="first">Clock interrupt register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structrcc__reg__map_1ae81970ac6f4f700853dd603822b3a037"></span>__io uint32 <strong>APB2RSTR</strong></dt>
+<dd><p class="first">APB2 peripheral reset register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structrcc__reg__map_1afb72eb335ec86e537e4e89967fec39a2"></span>__io uint32 <strong>APB1RSTR</strong></dt>
+<dd><p class="first">APB1 peripheral reset register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structrcc__reg__map_1a3849bb7881ffdad7b9455760025ebcf9"></span>__io uint32 <strong>AHBENR</strong></dt>
+<dd><p class="first">AHB peripheral clock enable register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structrcc__reg__map_1a167f13e673c69d505a6831efe9d6d878"></span>__io uint32 <strong>APB2ENR</strong></dt>
+<dd><p class="first">APB2 peripheral clock enable register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structrcc__reg__map_1adf7efabb245f67bf0eec16168af69805"></span>__io uint32 <strong>APB1ENR</strong></dt>
+<dd><p class="first">APB1 peripheral clock enable register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structrcc__reg__map_1a4db089ce36375c3897e5e3d671bfc409"></span>__io uint32 <strong>BDCR</strong></dt>
+<dd><p class="first">Backup domain control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structrcc__reg__map_1aee4542cbcb60a94e0986d8afa49f991e"></span>__io uint32 <strong>CSR</strong></dt>
+<dd><p class="first">Control/status register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a2ed62482da272142b8e27178ac2b6813"></span><strong>rcc_sysclk_src enum</strong></dt>
+<dd><p class="first">SYSCLK sources. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">rcc_clk_init()</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">RCC_CLKSRC_HSI</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x0</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_CLKSRC_HSE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x1</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_CLKSRC_PLL</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x2</span></tt> - </li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a744cacb90ada168b161e146c097caa06"></span><strong>rcc_pllsrc enum</strong></dt>
+<dd><p class="first">PLL entry clock source. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">rcc_clk_init()</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLSRC_HSE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x1</span> <span class="pre">&lt;&lt;</span> <span class="pre">16)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLSRC_HSI_DIV_2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x0</span> <span class="pre">&lt;&lt;</span> <span class="pre">16)</span></tt> - </li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a91f017a07348f50f7626cca53b5b103b"></span><strong>rcc_pll_multiplier enum</strong></dt>
+<dd><p class="first">PLL multipliers. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">rcc_clk_init()</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x0</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x1</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x2</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_5</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x3</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_6</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x4</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_7</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x5</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_8</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x6</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_9</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x7</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_10</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x8</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_11</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0x9</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_12</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0xA</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_13</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0xB</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_14</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0xC</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_15</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0xD</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PLLMUL_16</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">(0xE</span> <span class="pre">&lt;&lt;</span> <span class="pre">18)</span></tt> - </li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ae3722d2d8eff5283fb0388429953640f"></span><strong>rcc_clk_id enum</strong></dt>
+<dd><p class="first">Identifies bus and clock line for a peripheral. </p>
+<p>Also generally useful as a unique identifier for that peripheral (or its corresponding device struct). </p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">RCC_GPIOA</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_GPIOB</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_GPIOC</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_GPIOD</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_AFIO</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_ADC1</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_ADC2</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_ADC3</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_USART1</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_USART2</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_USART3</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER1</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER2</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER3</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER4</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_SPI1</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_SPI2</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_DMA1</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PWR</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_BKP</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_I2C1</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_I2C2</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_CRC</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_FLITF</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_SRAM</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_GPIOE</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_GPIOF</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_GPIOG</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_UART4</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_UART5</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER5</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER6</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER7</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER8</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_FSMC</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_DAC</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_DMA2</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_SDIO</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_SPI3</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER9</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER10</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER11</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER12</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER13</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_TIMER14</span></tt> - </li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ab05391039156603f432acc02a5b84615"></span><strong>rcc_clk_domain enum</strong></dt>
+<dd><p class="first"></p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">RCC_APB1</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_APB2</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_AHB</span></tt> - </li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8ff91a258f95dbd0ac963090c6b9eecf"></span><strong>rcc_prescaler enum</strong></dt>
+<dd><p class="first">Prescaler identifiers. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">rcc_set_prescaler()</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">RCC_PRESCALER_AHB</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PRESCALER_APB1</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PRESCALER_APB2</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PRESCALER_USB</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_PRESCALER_ADC</span></tt> - </li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a355b527637b2f7eb1767c961e415eed3"></span><strong>rcc_adc_divider enum</strong></dt>
+<dd><p class="first">ADC prescaler dividers. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">rcc_set_prescaler()</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">RCC_ADCPRE_PCLK_DIV_2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x0</span> <span class="pre">&lt;&lt;</span> <span class="pre">14</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_ADCPRE_PCLK_DIV_4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x1</span> <span class="pre">&lt;&lt;</span> <span class="pre">14</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_ADCPRE_PCLK_DIV_6</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x2</span> <span class="pre">&lt;&lt;</span> <span class="pre">14</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_ADCPRE_PCLK_DIV_8</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x3</span> <span class="pre">&lt;&lt;</span> <span class="pre">14</span></tt> - </li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a7135b8c7c802b8ac71610376b2a58937"></span><strong>rcc_apb1_divider enum</strong></dt>
+<dd><p class="first">APB1 prescaler dividers. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">rcc_set_prescaler()</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">RCC_APB1_HCLK_DIV_1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x0</span> <span class="pre">&lt;&lt;</span> <span class="pre">8</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_APB1_HCLK_DIV_2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x4</span> <span class="pre">&lt;&lt;</span> <span class="pre">8</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_APB1_HCLK_DIV_4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x5</span> <span class="pre">&lt;&lt;</span> <span class="pre">8</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_APB1_HCLK_DIV_8</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x6</span> <span class="pre">&lt;&lt;</span> <span class="pre">8</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_APB1_HCLK_DIV_16</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x7</span> <span class="pre">&lt;&lt;</span> <span class="pre">8</span></tt> - </li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ac957124f1801a54787f8b93dd84ca658"></span><strong>rcc_apb2_divider enum</strong></dt>
+<dd><p class="first">APB2 prescaler dividers. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">rcc_set_prescaler()</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">RCC_APB2_HCLK_DIV_1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x0</span> <span class="pre">&lt;&lt;</span> <span class="pre">11</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_APB2_HCLK_DIV_2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x4</span> <span class="pre">&lt;&lt;</span> <span class="pre">11</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_APB2_HCLK_DIV_4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x5</span> <span class="pre">&lt;&lt;</span> <span class="pre">11</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_APB2_HCLK_DIV_8</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x6</span> <span class="pre">&lt;&lt;</span> <span class="pre">11</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_APB2_HCLK_DIV_16</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x7</span> <span class="pre">&lt;&lt;</span> <span class="pre">11</span></tt> - </li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af368e4fecef99916674ca207ed0d87f4"></span><strong>rcc_ahb_divider enum</strong></dt>
+<dd><p class="first">AHB prescaler dividers. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body">rcc_set_prescaler()</td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">RCC_AHB_SYSCLK_DIV_1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x0</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_AHB_SYSCLK_DIV_2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x8</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_AHB_SYSCLK_DIV_4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0x9</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_AHB_SYSCLK_DIV_8</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0xA</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_AHB_SYSCLK_DIV_16</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0xB</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_AHB_SYSCLK_DIV_32</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0xC</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_AHB_SYSCLK_DIV_64</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0xD</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_AHB_SYSCLK_DIV_128</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0xD</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_AHB_SYSCLK_DIV_256</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0xE</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - </li>
+<li><tt class="first docutils literal"><span class="pre">RCC_AHB_SYSCLK_DIV_512</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0xF</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - </li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id3">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8c_1a71fff95ed370de2756b75dbe13d901d3"></span><div class="line-block">
+<div class="line">void <strong>rcc_clk_init</strong>(<a class="reference internal" href="#project0rcc_8h_1a2ed62482da272142b8e27178ac2b6813"><em>rcc_sysclk_src</em></a> sysclk_src, <a class="reference internal" href="#project0rcc_8h_1a744cacb90ada168b161e146c097caa06"><em>rcc_pllsrc</em></a> pll_src, <a class="reference internal" href="#project0rcc_8h_1a91f017a07348f50f7626cca53b5b103b"><em>rcc_pll_multiplier</em></a> pll_mul)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize the clock control system. </p>
+<p class="last">Initializes the system clock source to use the PLL driven by an external oscillator <table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">sysclk_src</span></tt> - <p>system clock source, must be PLL </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">pll_src</span></tt> - <p>pll clock source, must be HSE </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">pll_mul</span></tt> - <p>pll multiplier </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8c_1a1980612399a3ebbce66ba2c07f5b9a20"></span><div class="line-block">
+<div class="line">void <strong>rcc_clk_enable</strong>(<a class="reference internal" href="#project0rcc_8h_1ae3722d2d8eff5283fb0388429953640f"><em>rcc_clk_id</em></a> id)</div>
+</div>
+</dt>
+<dd><p class="first">Turn on the clock line on a peripheral. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">id</span></tt> - <p>Clock ID of the peripheral to turn on. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8c_1aa3d6dc800a7e2e44dbb65bb13dad19f3"></span><div class="line-block">
+<div class="line">void <strong>rcc_reset_dev</strong>(<a class="reference internal" href="#project0rcc_8h_1ae3722d2d8eff5283fb0388429953640f"><em>rcc_clk_id</em></a> id)</div>
+</div>
+</dt>
+<dd><p class="first">Reset a peripheral. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">id</span></tt> - <p>Clock ID of the peripheral to reset. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8c_1ac9053653d122db400d9342d97d98b835"></span><div class="line-block">
+<div class="line">rcc_clk_domain <strong>rcc_dev_clk</strong>(<a class="reference internal" href="#project0rcc_8h_1ae3722d2d8eff5283fb0388429953640f"><em>rcc_clk_id</em></a> id)</div>
+</div>
+</dt>
+<dd><p class="first">Get a peripheral&#8217;s clock domain. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">id</span></tt> - <p>Clock ID of the peripheral whose clock domain to return </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>Clock source for the given clock ID </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8c_1ae8d2fdd8231355f811874ce14c077638"></span><div class="line-block">
+<div class="line">void <strong>rcc_set_prescaler</strong>(<a class="reference internal" href="#project0rcc_8h_1a8ff91a258f95dbd0ac963090c6b9eecf"><em>rcc_prescaler</em></a> prescaler, uint32 divider)</div>
+</div>
+</dt>
+<dd><p class="first">Set the divider on a peripheral prescaler. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">prescaler</span></tt> - <p>prescaler to set </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">divider</span></tt> - <p>prescaler divider </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id4">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a0e681b03f364532055d88f63fec0d99d"></span><strong>RCC_BASE</strong></dt>
+<dd><p class="first">RCC register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id5">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="clock-control-register">
+<h3><a class="toc-backref" href="#id6">Clock control register</a><a class="headerlink" href="#clock-control-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aa097dbeb69c6f9f0a8d48a2ee9cc481c"></span><strong>RCC_CR_PLLRDY_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a4a12fff854582b9bd1293abd84f5e34a"></span><strong>RCC_CR_PLLON_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a732ffd7a3d54cdaad1a575ea736de582"></span><strong>RCC_CR_CSSON_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aedeeb243dc1fcb124cd204849ee2d45a"></span><strong>RCC_CR_HSEBYP_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a41f59250d2a05376e2b770992f72a952"></span><strong>RCC_CR_HSERDY_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5173b48d21322986e1f93220b4ae3a97"></span><strong>RCC_CR_HSEON_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a00c10d9556c2d9a4e8ae5649e99ac71d"></span><strong>RCC_CR_HSIRDY_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1afefa7537e51ce320f2c9d01f3705531a"></span><strong>RCC_CR_HSION_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1afa12d7ac6a7f0f91d066aeb2c6071888"></span><strong>RCC_CR_PLLRDY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad0e73d5b0a4883e074d40029b49ee47e"></span><strong>RCC_CR_PLLON</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1acc05308869ad055e1e6f2c32d738aecd"></span><strong>RCC_CR_CSSON</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aa3288090671af5a959aae4d7f7696d55"></span><strong>RCC_CR_HSEBYP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a86a34e00182c83409d89ff566cb02cc4"></span><strong>RCC_CR_HSERDY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1adb8228c9020595b4cf9995137b8c9a7d"></span><strong>RCC_CR_HSEON</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a67ae770db9851f14ad7c14a693f0f6d3"></span><strong>RCC_CR_HSICAL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5cb4397b2095c31660a01b748386aa70"></span><strong>RCC_CR_HSITRIM</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a9dbac3f2bc04f04ebafe1e66ae3fcf0d"></span><strong>RCC_CR_HSIRDY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af4fcacf94a97f7d49a70e089b39cf474"></span><strong>RCC_CR_HSION</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="clock-configuration-register">
+<h3><a class="toc-backref" href="#id7">Clock configuration register</a><a class="headerlink" href="#clock-configuration-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a621268eefbc4dfc8b1a931b46f9ea962"></span><strong>RCC_CFGR_USBPRE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a28ba14ae4a1a289fa09f88db991800c6"></span><strong>RCC_CFGR_PLLXTPRE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aafba22290998f2f15c1c564e177a83b0"></span><strong>RCC_CFGR_PLLSRC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af2d7212d83114d355736613e6dc1dbde"></span><strong>RCC_CFGR_MCO</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ade6d5077566e1bf81dd47156743dd05e"></span><strong>RCC_CFGR_USBPRE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a538fd5df8d890696483a0e901d739309"></span><strong>RCC_CFGR_PLLMUL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a39cb6bd06fb93eed1e2fe9da0297810a"></span><strong>RCC_CFGR_PLLXTPRE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aba4a5dbbd286f07a97f5aa6e6f3f6a57"></span><strong>RCC_CFGR_PLLSRC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a970436533d6ba9f1cb8ac840476093fb"></span><strong>RCC_CFGR_ADCPRE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad61bd4f9f345ba41806813b0bfff1311"></span><strong>RCC_CFGR_PPRE2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a50b2423a5fea74a47b9eb8ab51869412"></span><strong>RCC_CFGR_PPRE1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1afe10e66938644ee8054a2426ff23efea"></span><strong>RCC_CFGR_HPRE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a15bf2269500dc97e137315f44aa015c9"></span><strong>RCC_CFGR_SWS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a2c67e2279804a83ef24438267d9d4a6c"></span><strong>RCC_CFGR_SWS_PLL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ae09a0202f441c1a43e69c62331d50a08"></span><strong>RCC_CFGR_SWS_HSE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a0eea5e5f7743a7e8995b8beeb18355c1"></span><strong>RCC_CFGR_SW</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a87389cacb2eaf53730da13a2a33cd487"></span><strong>RCC_CFGR_SW_PLL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1afb563f217242d969f4355d0818fde705"></span><strong>RCC_CFGR_SW_HSE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="clock-interrupt-register">
+<h3><a class="toc-backref" href="#id8">Clock interrupt register</a><a class="headerlink" href="#clock-interrupt-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af402ce4b43907aa3c4be08585313d05d"></span><strong>RCC_CIR_CSSC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aec1cd2a27a83f59349153bac7caa6220"></span><strong>RCC_CIR_PLLRDYC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ae6e6fbed9a082a91f8a2d509ff976830"></span><strong>RCC_CIR_HSERDYC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a60966ad5fc9e4610198812fa5b1e70e9"></span><strong>RCC_CIR_HSIRDYC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a6b7dc792e4075f23b64f6233b62c1437"></span><strong>RCC_CIR_LSERDYC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af993fa286dc423fb339cf50b89d844ef"></span><strong>RCC_CIR_LSIRDYC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a931f8cbcd444b9f9411d978dfdf4c698"></span><strong>RCC_CIR_PLLRDYIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1afbd0fb3d7d32ab21b03ac7dae0900c82"></span><strong>RCC_CIR_HSERDYIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a412c8c4e099f49a1f137b0af1a743547"></span><strong>RCC_CIR_HSIRDYIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af058955a4289e2125ca9093436516968"></span><strong>RCC_CIR_LSERDYIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8584a8d8bc19f05d18de841c3423e710"></span><strong>RCC_CIR_LSIRDYIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a89e4999ffdc78ecf55572622f3e65d21"></span><strong>RCC_CIR_CSSF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a4b509e3eaa1196fb538421943b56d362"></span><strong>RCC_CIR_PLLRDYF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ab151017c392936f521b6ed2ab9157048"></span><strong>RCC_CIR_HSERDYF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af56d4c72e2d95a2606b469b249764b7e"></span><strong>RCC_CIR_HSIRDYF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad49672118a0222c665d863373fbbfd84"></span><strong>RCC_CIR_LSERDYF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aa02e4873a151741445381f651e45d1b2"></span><strong>RCC_CIR_LSIRDYF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a46edb2b9568f002feba7b4312ed92c1f"></span><strong>RCC_CIR_CSSC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a245af864b194f0c2b2389ea1ee49a396"></span><strong>RCC_CIR_PLLRDYC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a9464e8188d717902990b467a9396d238"></span><strong>RCC_CIR_HSERDYC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad1b58377908e5c31a684747d0a80ecb2"></span><strong>RCC_CIR_HSIRDYC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a144b5147f3a8d0bfda04618e301986aa"></span><strong>RCC_CIR_LSERDYC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a982989563f1a95c89bf7f4a25d99f704"></span><strong>RCC_CIR_LSIRDYC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a1b70927cab2ba9cf82d1620cf88b0f95"></span><strong>RCC_CIR_PLLRDYIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5492f9b58600cf66616eb931b48b3c11"></span><strong>RCC_CIR_HSERDYIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ac714351a6f9dab4741354fb017638580"></span><strong>RCC_CIR_HSIRDYIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a6a0ad2672c9ba1b26012cbc6d423dff8"></span><strong>RCC_CIR_LSERDYIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a872ba937149a7372138df06f8188ab56"></span><strong>RCC_CIR_LSIRDYIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad66b719e4061294de35af58cc27aba7f"></span><strong>RCC_CIR_CSSF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a0f007895a17e668f22f7b8b24ca90aec"></span><strong>RCC_CIR_PLLRDYF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a11ea196450aac9ac35e283a66afc3da6"></span><strong>RCC_CIR_HSERDYF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad38877547c4cbbb94659d5726f377163"></span><strong>RCC_CIR_HSIRDYF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1abfc100e7ae673dfcec7be79af0d91dfe"></span><strong>RCC_CIR_LSERDYF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1acb94ccfe6a212f020e732d1dd787a6fb"></span><strong>RCC_CIR_LSIRDYF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="apb2-peripheral-reset-register">
+<h3><a class="toc-backref" href="#id9">APB2 peripheral reset register</a><a class="headerlink" href="#apb2-peripheral-reset-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aa7de56c2d2d2da6627ff4edf04b046bc"></span><strong>RCC_APB2RSTR_TIM11RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a051a8698528813030f42eab14ef2c5df"></span><strong>RCC_APB2RSTR_TIM10RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a00570203b09abcf400399f68df92f47a"></span><strong>RCC_APB2RSTR_TIM9RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5f63dfe764ac2f7167861159df7d23e1"></span><strong>RCC_APB2RSTR_ADC3RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a532259464d35bc2847141fc50891c0e2"></span><strong>RCC_APB2RSTR_USART1RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a501d1379d98279b3846c85a81bbf761d"></span><strong>RCC_APB2RSTR_TIM8RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5e1a6e621336b03530b23add401932b4"></span><strong>RCC_APB2RSTR_SPI1RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ae79a6c0e8b0c65db1600c10b3b969855"></span><strong>RCC_APB2RSTR_TIM1RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a00185266cc91866792b221e7cd67175e"></span><strong>RCC_APB2RSTR_ADC2RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a6b7a77749854ca554d673a842dff6d5e"></span><strong>RCC_APB2RSTR_ADC1RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad85ba054aadb33cdce50f3ba26400109"></span><strong>RCC_APB2RSTR_IOPGRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1abff0558a8c9c258837cd8f6f88cd26d3"></span><strong>RCC_APB2RSTR_IOPFRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aa07f7ce875176a2e065c5ee7431a6eda"></span><strong>RCC_APB2RSTR_IOPERST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1adc6b232561a4317a21580c7666a79d35"></span><strong>RCC_APB2RSTR_IOPDRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af43ea8aec390b29c6d755d061dfceddd"></span><strong>RCC_APB2RSTR_IOPCRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a558d25ab626bf2c094d2a340a0b29a8f"></span><strong>RCC_APB2RSTR_IOPBRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a26db5993b52e958b83bacaa2374f0b19"></span><strong>RCC_APB2RSTR_IOPARST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af8aac5b1e9d7ec7af3d91e7af9b287b6"></span><strong>RCC_APB2RSTR_AFIORST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a9651c8201d42ba03bb1bf89d9d39e60c"></span><strong>RCC_APB2RSTR_TIM11RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ac76155acdc99c8c6502ba3beba818f42"></span><strong>RCC_APB2RSTR_TIM10RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ab3aa588d4814a289d939e111492724af"></span><strong>RCC_APB2RSTR_TIM9RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a285db3fa6eae87b5e23595bed50216ae"></span><strong>RCC_APB2RSTR_ADC3RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ae7ae8e338b3b42ad037e9e5b6eeb2c41"></span><strong>RCC_APB2RSTR_USART1RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aa129b34dbaf6c5301f751410ab4668ca"></span><strong>RCC_APB2RSTR_TIM8RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a345f05d3508a9fd5128208761feb29fb"></span><strong>RCC_APB2RSTR_SPI1RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5bd060cbefaef05487963bbd6c48d7c6"></span><strong>RCC_APB2RSTR_TIM1RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a080ce46887825380c2c3aa902f31c3ae"></span><strong>RCC_APB2RSTR_ADC2RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a7b818d0d9747621c936ad16c93a4956a"></span><strong>RCC_APB2RSTR_ADC1RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5909d3306f632f4f3fcaa1d3319b3506"></span><strong>RCC_APB2RSTR_IOPGRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aeaf521ea67482ea73540f02db44d2f0e"></span><strong>RCC_APB2RSTR_IOPFRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a881a72d9654ea036eabb104279b8d5e8"></span><strong>RCC_APB2RSTR_IOPERST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a206daa5c302d774247f217d6eec788df"></span><strong>RCC_APB2RSTR_IOPDRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a2db2325306703e2f20b6ea2658b79ae9"></span><strong>RCC_APB2RSTR_IOPCRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a86b613f6af828f006926a59d2000c4d8"></span><strong>RCC_APB2RSTR_IOPBRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a364c5d4966543fe7fa3ef02e1d6c9bde"></span><strong>RCC_APB2RSTR_IOPARST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a54c01f7eac4d00d2011162116931a165"></span><strong>RCC_APB2RSTR_AFIORST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="apb1-peripheral-reset-register">
+<h3><a class="toc-backref" href="#id10">APB1 peripheral reset register</a><a class="headerlink" href="#apb1-peripheral-reset-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5d85ff55b72c0809e8dfc2f83e795ab6"></span><strong>RCC_APB1RSTR_DACRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a316668ec5af2594c52b7f311b8716bd6"></span><strong>RCC_APB1RSTR_PWRRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a3c07d97125f83aad1a5cc256b3052f60"></span><strong>RCC_APB1RSTR_BKPRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8a7414bf4526615b63692f486e3e7e31"></span><strong>RCC_APB1RSTR_CANRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad66c6301b373b262b0d02952888e0d14"></span><strong>RCC_APB1RSTR_USBRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a067fe8c4c68f97e0684a23322a222352"></span><strong>RCC_APB1RSTR_I2C2RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aaec00e8c99c19eaf77ea270f59f257ea"></span><strong>RCC_APB1RSTR_I2C1RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8cb114e85690453195802907b466ab05"></span><strong>RCC_APB1RSTR_UART5RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a92b6a010b53dab07e5364675570ce6d6"></span><strong>RCC_APB1RSTR_UART4RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1abbde8a3a0dfd749b1db7943f47a6335c"></span><strong>RCC_APB1RSTR_USART3RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af07f5760dd16f2279696fcfb03e2b836"></span><strong>RCC_APB1RSTR_USART2RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a7672cb73624cc75be0edcb4d49293a0b"></span><strong>RCC_APB1RSTR_SPI3RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a0dbf87822cd662bff1bb3a5b7930b97d"></span><strong>RCC_APB1RSTR_SPI2RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a9a599e9e5163b2abb0009dbd4108f760"></span><strong>RCC_APB1RSTR_WWDRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a3d151680d59eea30d5c370979e1eb134"></span><strong>RCC_APB1RSTR_TIM14RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1abfe6d8102a4007098184bfde0481ff46"></span><strong>RCC_APB1RSTR_TIM13RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a0b98a202d9f3b8ff1737a9627147b3e8"></span><strong>RCC_APB1RSTR_TIM12RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a90c14e89ca867c1a18f68e6671207f23"></span><strong>RCC_APB1RSTR_TIM7RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a33945dcd588d26c68810d261712b0867"></span><strong>RCC_APB1RSTR_TIM6RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a3e91403a6229b4d96e82faec284ffd17"></span><strong>RCC_APB1RSTR_TIM5RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a3ef7e7d5c0a7d4beda9d57beacf302d8"></span><strong>RCC_APB1RSTR_TIM4RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a20dc5661599265518c70ef418703f23a"></span><strong>RCC_APB1RSTR_TIM3RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1abd9da7afb3ec798fd61f10a76b19c91c"></span><strong>RCC_APB1RSTR_TIM2RST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a7fb9c125237cfe5b6436ca795e7f3564"></span><strong>RCC_APB1RSTR_DACRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a274d8cb48f0e89831efabea66d64af2a"></span><strong>RCC_APB1RSTR_PWRRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a3d90a520513e93163dd96058874ba7b0"></span><strong>RCC_APB1RSTR_BKPRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1abc9931aa7274a24666d5f7c45f77849e"></span><strong>RCC_APB1RSTR_CANRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a51baa4f973f66eb9781d690fa061f97f"></span><strong>RCC_APB1RSTR_USBRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a412d59407e5dad43cf8ae1ea6f8bc5c3"></span><strong>RCC_APB1RSTR_I2C2RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1adcd25346a7d7b0009090adfbca899b93"></span><strong>RCC_APB1RSTR_I2C1RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5e4d54359192c58725e5ece2b539f8ee"></span><strong>RCC_APB1RSTR_UART5RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a0802e99fa9eb9388393af3135ca2cb2b"></span><strong>RCC_APB1RSTR_UART4RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a766478ebdcbb647eb3f32962543bd194"></span><strong>RCC_APB1RSTR_USART3RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a195c39f08384ca1fa13b53a31d65d0a5"></span><strong>RCC_APB1RSTR_USART2RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a261e0f1b39cd1cab41ec6bf40c21867b"></span><strong>RCC_APB1RSTR_SPI3RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a0a6289a35547cf0d5300706f9baa18ea"></span><strong>RCC_APB1RSTR_SPI2RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5809ab9746fb2a9300328aae02e976c1"></span><strong>RCC_APB1RSTR_WWDRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a773e6d5b419eb2d4b6291c862e04b002"></span><strong>RCC_APB1RSTR_TIM14RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad59f66b35bdc0953428eb8c345397a7f"></span><strong>RCC_APB1RSTR_TIM13RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a067deb756dd4100c901c6b25229678e4"></span><strong>RCC_APB1RSTR_TIM12RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a40b1d355ee76ad9a044ad37f1629e760"></span><strong>RCC_APB1RSTR_TIM7RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8d64bd82cf47a209afebc7d663e28383"></span><strong>RCC_APB1RSTR_TIM6RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a1d1233dd5266ba55d9951e3b1a334552"></span><strong>RCC_APB1RSTR_TIM5RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a6a720364de988965b6d2f91ed6519570"></span><strong>RCC_APB1RSTR_TIM4RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8680c562fd372b494a160594525d7ce9"></span><strong>RCC_APB1RSTR_TIM3RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a51ca4659706d0e00333d4abff049dc0d"></span><strong>RCC_APB1RSTR_TIM2RST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="ahb-peripheral-clock-enable-register">
+<h3><a class="toc-backref" href="#id11">AHB peripheral clock enable register</a><a class="headerlink" href="#ahb-peripheral-clock-enable-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a13c5c8c15c859ec009c2f0bfe705f8b0"></span><strong>RCC_AHBENR_SDIOEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af650711c25070169684545511c997533"></span><strong>RCC_AHBENR_FSMCEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a0df3a9fb579c8fa7c28e5050a4608ac7"></span><strong>RCC_AHBENR_CRCEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a3c60fb0fa934f94f52ea2734bd000ccd"></span><strong>RCC_AHBENR_FLITFEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8cbca02b70394fae1a2a3037c11e005c"></span><strong>RCC_AHBENR_SRAMEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8b655e60d746331c4b736e93f711460b"></span><strong>RCC_AHBENR_DMA2EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1acec4263f2ff16ed5e81706812b32e4be"></span><strong>RCC_AHBENR_DMA1EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aaedfef4e0ebcbd9d052b33bb496801f4"></span><strong>RCC_AHBENR_SDIOEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aa9cb07b151b9ea4c8e34f2af743ee0ea"></span><strong>RCC_AHBENR_FSMCEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ade3ee302bf659a2bfbf75e1a00630242"></span><strong>RCC_AHBENR_CRCEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a67a12de126652d191a1bc2c114c3395a"></span><strong>RCC_AHBENR_FLITFEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a295a704767cb94ee624cbc4dd4c4cd9a"></span><strong>RCC_AHBENR_SRAMEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5c1919d23da5027f6d44fda6963fc984"></span><strong>RCC_AHBENR_DMA2EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ac8c3053f1ce37c9f643f0e31471927ea"></span><strong>RCC_AHBENR_DMA1EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="apb2-peripheral-clock-enable-register">
+<h3><a class="toc-backref" href="#id12">APB2 peripheral clock enable register</a><a class="headerlink" href="#apb2-peripheral-clock-enable-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aaa02717544ceffa4b30cd37e00fb3fde"></span><strong>RCC_APB2ENR_TIM11EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aac45be4ae69788dc1f57a34dece866a2"></span><strong>RCC_APB2ENR_TIM10EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a633db5b2f927c5681d01c354a9633e16"></span><strong>RCC_APB2ENR_TIM9EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ac54ef5a27baa32249509f330875e7424"></span><strong>RCC_APB2ENR_ADC3EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a9e35e475a977164c280b6903994c6eb5"></span><strong>RCC_APB2ENR_USART1EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a16c013ac7ae7352f19c6881bd3fbc747"></span><strong>RCC_APB2ENR_TIM8EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a4a2c439b1ba03ee01ce7fecedc4a4742"></span><strong>RCC_APB2ENR_SPI1EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a60e8509172f639ffdf55174426382111"></span><strong>RCC_APB2ENR_TIM1EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aaaa1e5f0bda4bc71116f64bd662fda7f"></span><strong>RCC_APB2ENR_ADC2EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1afe2fbed2f5e2318c15b06aa1a8534c7d"></span><strong>RCC_APB2ENR_ADC1EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5ed28f747a86837254cac2f205690122"></span><strong>RCC_APB2ENR_IOPGEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a78c19398f58e5a686b729efdb33da637"></span><strong>RCC_APB2ENR_IOPFEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af9555970f89b06d4346ddf90e0113827"></span><strong>RCC_APB2ENR_IOPEEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a927f09238a00ba574f173058a9e64a8b"></span><strong>RCC_APB2ENR_IOPDEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a676bcd3bd9872396aa52ea8bf67ae524"></span><strong>RCC_APB2ENR_IOPCEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a0265e759405d2184f13455a5c3662e44"></span><strong>RCC_APB2ENR_IOPBEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a100623c2ec1fbf46fc27d4506893413c"></span><strong>RCC_APB2ENR_IOPAEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1adadba38d9341e5192f9922fb69346c3f"></span><strong>RCC_APB2ENR_AFIOEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ab1d2aeebc8ccf4e2ee18f4d924a35188"></span><strong>RCC_APB2ENR_TIM11EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aa98e28e157787e24b93af95273ab3055"></span><strong>RCC_APB2ENR_TIM10EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a987ebd8255dc8f9c09127e1d608d1065"></span><strong>RCC_APB2ENR_TIM9EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5df23f931ddad97274ce7e2050b90a5a"></span><strong>RCC_APB2ENR_ADC3EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a4666bb90842e8134b32e6a34a0f165f3"></span><strong>RCC_APB2ENR_USART1EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a3669393b3538bc4543184d4bccd0b292"></span><strong>RCC_APB2ENR_TIM8EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ae08a3510371b9234eb96369c91d3552f"></span><strong>RCC_APB2ENR_SPI1EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a25852ad4ebc09edc724814de967816bc"></span><strong>RCC_APB2ENR_TIM1EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a11a9732e1cef24f107e815caecdbb445"></span><strong>RCC_APB2ENR_ADC2EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a57b9f50cb96a2e4ceba37728b4a32a42"></span><strong>RCC_APB2ENR_ADC1EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a3456ae618be58c593cff70c4b04e15cc"></span><strong>RCC_APB2ENR_IOPGEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a362395fa4b2b8375717f4bf521411596"></span><strong>RCC_APB2ENR_IOPFEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ae6193d7181f2f19656f08d40182b6f9d"></span><strong>RCC_APB2ENR_IOPEEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a778a0ac70714122cf143a6b7b275cc83"></span><strong>RCC_APB2ENR_IOPDEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a443ef1518a62fa7ecee3f1386b545d8c"></span><strong>RCC_APB2ENR_IOPCEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aa9ba85777143e752841c2e6a6977deb9"></span><strong>RCC_APB2ENR_IOPBEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad7b860fbeb386425bd7d4ef00ce17c27"></span><strong>RCC_APB2ENR_IOPAEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af67d9fc402ce254dd914525bee7361a6"></span><strong>RCC_APB2ENR_AFIOEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="apb1-peripheral-clock-enable-register">
+<h3><a class="toc-backref" href="#id13">APB1 peripheral clock enable register</a><a class="headerlink" href="#apb1-peripheral-clock-enable-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a4835545f17a8dc5a13d1bdcf61b9ff3a"></span><strong>RCC_APB1ENR_DACEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a51bb2654771d9ac71ac4cce3c476a6a4"></span><strong>RCC_APB1ENR_PWREN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5a1ebe937accef057d86d8d918eea187"></span><strong>RCC_APB1ENR_BKPEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aca18a99c1f8231a1df1635bafef590e2"></span><strong>RCC_APB1ENR_CANEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad7745fbbaf2ae76c88197a4c25431375"></span><strong>RCC_APB1ENR_USBEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a47b313a5dc706fef1f29e6184f35ecc7"></span><strong>RCC_APB1ENR_I2C2EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a6df55b7c155661e51267aeb0fa838755"></span><strong>RCC_APB1ENR_I2C1EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1af4e034358f3c05b5d5ada0c1bc4ea9b3"></span><strong>RCC_APB1ENR_UART5EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a9c3e1600d5b0a6866e40da6a9595fd9f"></span><strong>RCC_APB1ENR_UART4EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8f15f9dabf850f915511f86a5c55bc60"></span><strong>RCC_APB1ENR_USART3EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a74696268db9c25094affb739bc4d2624"></span><strong>RCC_APB1ENR_USART2EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a4a6b37aca7aeb8f44bdda5fc7fc1f033"></span><strong>RCC_APB1ENR_SPI3EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ae3845af820d91a46523beae86826e82b"></span><strong>RCC_APB1ENR_SPI2EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a1f8fc872ef4bf9b13c0251bab9dbad56"></span><strong>RCC_APB1ENR_WWDEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a22d04fb476fc427f32a1bfa12b4e0088"></span><strong>RCC_APB1ENR_TIM14EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ac7d8ad67908d19d40bf6aaa044017df0"></span><strong>RCC_APB1ENR_TIM13EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a73875783cf2a17da697b84a7f9eaf500"></span><strong>RCC_APB1ENR_TIM12EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad07fab92b1582fe957547508de88cb7e"></span><strong>RCC_APB1ENR_TIM7EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1abe3ed76c05bd61acd6c132500f14e019"></span><strong>RCC_APB1ENR_TIM6EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a23dab0436b138c2951715e17f3a747c5"></span><strong>RCC_APB1ENR_TIM5EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8f0d551ae220819d94085984a38bb2f3"></span><strong>RCC_APB1ENR_TIM4EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a88932a76b2d92dcbe4dc0edb988cf978"></span><strong>RCC_APB1ENR_TIM3EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a142e53bcb457778e4a343ff97c4c1a56"></span><strong>RCC_APB1ENR_TIM2EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a087968e2786321fb8645c46b22eea132"></span><strong>RCC_APB1ENR_DACEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5c19997ccd28464b80a7c3325da0ca60"></span><strong>RCC_APB1ENR_PWREN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad32a0efcb7062b8ffbf77865951d2a54"></span><strong>RCC_APB1ENR_BKPEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad447a7fe0f4949f283ea5617eb0535f7"></span><strong>RCC_APB1ENR_CANEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a563ec3f13e60adc91bc8741c5cc8184f"></span><strong>RCC_APB1ENR_USBEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1afd7d1c3c7dbe20aea87a694ae15840f6"></span><strong>RCC_APB1ENR_I2C2EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a5ca3afe0c517702b2d1366b692c8db0e"></span><strong>RCC_APB1ENR_I2C1EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a24a9eea153892405f53007f521efee2e"></span><strong>RCC_APB1ENR_UART5EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ae6b0fe571aa29ed30389f87bdbf37b46"></span><strong>RCC_APB1ENR_UART4EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8033e0312aea02ae7eb2d57da13e8298"></span><strong>RCC_APB1ENR_USART3EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ab840af4f735ec36419d61c7db3cfa00d"></span><strong>RCC_APB1ENR_USART2EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8757f8d1e1ff1447e08e5abea4615083"></span><strong>RCC_APB1ENR_SPI3EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1afdce64692c44bf95efbf2fed054e59be"></span><strong>RCC_APB1ENR_SPI2EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a73a68d8811e872abd4a50960eea9093c"></span><strong>RCC_APB1ENR_WWDEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aca040bd66d4a54d4d9e9b261c8102799"></span><strong>RCC_APB1ENR_TIM14EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a1a95079e68e7c76584ef0b3de371288a"></span><strong>RCC_APB1ENR_TIM13EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aecd88b56485ee4ee3e406b1d6c062081"></span><strong>RCC_APB1ENR_TIM12EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ab595fbaf4167297d8fe2825e41f41990"></span><strong>RCC_APB1ENR_TIM7EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1afb0279b1f0ff35c2df728d9653cabc0c"></span><strong>RCC_APB1ENR_TIM6EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a49abbbc8fd297c544df2d337b28f80e4"></span><strong>RCC_APB1ENR_TIM5EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ad4fbbf6b1beeec92c7d80e9e05bd1461"></span><strong>RCC_APB1ENR_TIM4EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a75bfa33eb00ee30c6e22f7ceea464ac7"></span><strong>RCC_APB1ENR_TIM3EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1acd3966a4d6ae47f06b3c095eaf26a610"></span><strong>RCC_APB1ENR_TIM2EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="backup-domain-control-register">
+<h3><a class="toc-backref" href="#id14">Backup domain control register</a><a class="headerlink" href="#backup-domain-control-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a4e942a2be2eb70802068216bcdceaf25"></span><strong>RCC_BDCR_BDRST_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a03b15ffa4e20d36a9f58dbd05f371775"></span><strong>RCC_BDCR_RTCEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a79d1b18d9646463bfc0955c749f2adeb"></span><strong>RCC_BDCR_LSEBYP_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a400ae9b72bdae3c66a83dfd1ca5a4c10"></span><strong>RCC_BDCR_LSERDY_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a60e4cbd7d2c659c9d66502817232f5b7"></span><strong>RCC_BDCR_LSEON_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a2b85b3ab656dfa2809b15e6e530c17a2"></span><strong>RCC_BDCR_BDRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a79ea6f2df75f09b17df9582037ed6a53"></span><strong>RCC_BDCR_RTCEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1abe30dbd38f6456990ee641648bc05d40"></span><strong>RCC_BDCR_RTCSEL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a4401f21edefdb839e9a5260447480447"></span><strong>RCC_BDCR_RTCSEL_NONE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a07f6cd2e581dabf6d442145603033205"></span><strong>RCC_BDCR_RTCSEL_LSE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ac9db61bfa161573b4225c147d4ea0c3e"></span><strong>RCC_BDCR_RTCSEL_HSE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a542dffd7f8dc4da5401b54d822a22af0"></span><strong>RCC_BDCR_LSEBYP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aafca81172ed857ce6b94582fcaada87c"></span><strong>RCC_BDCR_LSERDY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a00145f8814cb9a5b180d76499d97aead"></span><strong>RCC_BDCR_LSEON</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="control-status-register">
+<h3><a class="toc-backref" href="#id15">Control/status register</a><a class="headerlink" href="#control-status-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1aea113d5815a50c3f38d750530fbacdcd"></span><strong>RCC_CSR_LPWRRSTF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ac6b35d7109b5dec8a23ccac77e8534d9"></span><strong>RCC_CSR_WWDGRSTF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a8d9f213272f0a917f11e550f3f55a54d"></span><strong>RCC_CSR_IWDGRSTF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1acbd7626f9b9b46d6f06e42d007dda204"></span><strong>RCC_CSR_SFTRSTF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ab2d1c21a2fc6cf4ebecaa26120ebed53"></span><strong>RCC_CSR_PORRSTF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a4399c667c9bc4711e5a8de8f5f02eb5c"></span><strong>RCC_CSR_PINRSTF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ace573080916596678d64cf9e98ad344c"></span><strong>RCC_CSR_RMVF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a01aafe04f2c62cad76b4f88c001a8861"></span><strong>RCC_CSR_LSIRDY_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a37973221872f1e54e67a225e0730d3dd"></span><strong>RCC_CSR_LSION_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a675455250b91f125d52f5d347c2c0fbf"></span><strong>RCC_CSR_LPWRRSTF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1acabd7bbde7e78c9c8f5fd46e34771826"></span><strong>RCC_CSR_WWDGRSTF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a22a7079ba87dd7acd5ed7fe7b704e85f"></span><strong>RCC_CSR_IWDGRSTF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a16e89534934436ee8958440882b71e6f"></span><strong>RCC_CSR_SFTRSTF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a837e2d7e2395ac45ebe2aea95ecde9bf"></span><strong>RCC_CSR_PORRSTF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a4e26d2902d11e638cd0b702332f53ab1"></span><strong>RCC_CSR_PINRSTF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1afc26c5996b14005a70afbeaa29aae716"></span><strong>RCC_CSR_RMVF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1ab569110e757aee573ebf9ad80812e8bb"></span><strong>RCC_CSR_LSIRDY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0rcc_8h_1a803cbf97bda1ebaf9afee2a3c9f0851b"></span><strong>RCC_CSR_LSION</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ring_buffer.html" title="ring_buffer.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="pwr.html" title="pwr.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

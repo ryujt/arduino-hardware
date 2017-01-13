@@ -1,0 +1,557 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>flash.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="fsmc.h" href="fsmc.html" />
+    <link rel="prev" title="exti.h" href="exti.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="fsmc.html" title="fsmc.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="exti.html" title="exti.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="flash-h">
+<span id="libmaple-flash"></span><h1><tt class="docutils literal"><span class="pre">flash.h</span></tt><a class="headerlink" href="#flash-h" title="Permalink to this headline">¶</a></h1>
+<p>Flash support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#functions" id="id2">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id3">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id4">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#access-control-register" id="id5">Access control register</a></li>
+<li><a class="reference internal" href="#status-register" id="id6">Status register</a></li>
+<li><a class="reference internal" href="#control-register" id="id7">Control register</a></li>
+<li><a class="reference internal" href="#option-byte-register" id="id8">Option byte register</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>flash_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>Flash register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structflash__reg__map_1a43cb24fec8276d00c42d418451837162"></span>__io uint32 <strong>ACR</strong></dt>
+<dd><p class="first">Access control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structflash__reg__map_1aca3b328dedfbfdaea9bbab354a5252cb"></span>__io uint32 <strong>KEYR</strong></dt>
+<dd><p class="first">Key register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structflash__reg__map_1a71580c8cce3320b2c6919a4c8be316f6"></span>__io uint32 <strong>OPTKEYR</strong></dt>
+<dd><p class="first">OPTKEY register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structflash__reg__map_1a42af4d4677a06f5a853d62ac01ea3130"></span>__io uint32 <strong>SR</strong></dt>
+<dd><p class="first">Status register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structflash__reg__map_1acc1014e17f2fa7ec7214ccf95b77c9a5"></span>__io uint32 <strong>CR</strong></dt>
+<dd><p class="first">Control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structflash__reg__map_1aa277aaef7f182c236881347c8c64265c"></span>__io uint32 <strong>AR</strong></dt>
+<dd><p class="first">Address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structflash__reg__map_1a1428e0286bc209e16a7b9d92a46b6470"></span>__io uint32 <strong>OBR</strong></dt>
+<dd><p class="first">Option byte register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structflash__reg__map_1a689af8ace6616441e6307977eee5552b"></span>__io uint32 <strong>WRPR</strong></dt>
+<dd><p class="first">Write protection register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id2">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8c_1ae1a8e23f9850a6ae07e6bf1e94968b1b"></span><div class="line-block">
+<div class="line">void <strong>flash_enable_prefetch</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Turn on the hardware prefetcher. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8c_1ad43efe3233808b59c6a7af6a0599e905"></span><div class="line-block">
+<div class="line">void <strong>flash_set_latency</strong>(uint32 wait_states)</div>
+</div>
+</dt>
+<dd><p class="first">Set flash wait states. </p>
+<p class="last"><p>See ST PM0042, section 3.1 for restrictions on the acceptable value of wait_states for a given SYSCLK configuration.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">wait_states</span></tt> - <p>number of wait states (one of FLASH_WAIT_STATE_0, FLASH_WAIT_STATE_1, FLASH_WAIT_STATE_2). </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id3">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a23a9099a5f8fc9c6e253c0eecb2be8db"></span><strong>FLASH_BASE</strong></dt>
+<dd><p class="first">Flash register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id4">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="access-control-register">
+<h3><a class="toc-backref" href="#id5">Access control register</a><a class="headerlink" href="#access-control-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a5066a669a98ca0c669b6fb6140d363a3"></span><strong>FLASH_ACR_PRFTBS_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a942dda9f27074a337e041ce25e2826bf"></span><strong>FLASH_ACR_PRFTBE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1ad15449c380a23f0aaad4050466c27b01"></span><strong>FLASH_ACR_HLFCYA_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a1e73d25ffe7e7a258a873e1fbef17445"></span><strong>FLASH_ACR_PRFTBS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a5285ab198307213dce0629f9b7c6fc86"></span><strong>FLASH_ACR_PRFTBE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a6e66d0fa94c019e9c27a3d79e8228cd9"></span><strong>FLASH_ACR_HLFCYA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1aef5e44cbb084160a6004ca9951ec7318"></span><strong>FLASH_ACR_LATENCY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="status-register">
+<h3><a class="toc-backref" href="#id6">Status register</a><a class="headerlink" href="#status-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a299d210bf8ec4ca6a49c6bd45a09984f"></span><strong>FLASH_SR_EOP_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1aec9c051af1daff394318c500989c0793"></span><strong>FLASH_SR_WRPRTERR_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1ad50bf74926a6226cbd3c3e28cb2b5f45"></span><strong>FLASH_SR_PGERR_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a0bf783a52a8efe536c472d93d1cfff3d"></span><strong>FLASH_SR_BSY_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1ae1301c6b487cfefa247c54a576a0c12b"></span><strong>FLASH_SR_EOP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a2e403606e5ac23cb07701aeebc1f73e5"></span><strong>FLASH_SR_WRPRTERR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a60f40ca765714598a62aa216a5ccd8e4"></span><strong>FLASH_SR_PGERR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a4b86181a96fd2f1cc3828e9d8d83d368"></span><strong>FLASH_SR_BSY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="control-register">
+<h3><a class="toc-backref" href="#id7">Control register</a><a class="headerlink" href="#control-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a0667d1a6a7febd6aafb3c9b05088d008"></span><strong>FLASH_CR_EOPIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a53d288ef8b62c68ebf7e6dfd429fb6e5"></span><strong>FLASH_CR_ERRIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a91c9ec9dca49e79e89a72dba0558748f"></span><strong>FLASH_CR_OPTWRE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a1068f4b5a7a4f0d8c1de2374f9c72e00"></span><strong>FLASH_CR_LOCK_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a8525d8d09f9411f9cd944360d04efecc"></span><strong>FLASH_CR_STRT_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a6726b40c1fbca693f266746dcd3a381c"></span><strong>FLASH_CR_OPTER_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1ac7e8541c3a200d8331b99337c2c9eb93"></span><strong>FLASH_CR_OPTPG_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a91ab0366ca178388a1e28831096b9003"></span><strong>FLASH_CR_MER_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a894812c977dd26087e8a7b48f0e2c3ee"></span><strong>FLASH_CR_PER_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a4268f0b4876b2b1c04e2a9ecdd7d11a9"></span><strong>FLASH_CR_PG_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1ab9e69856f654ec430a42791a34799db0"></span><strong>FLASH_CR_EOPIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a930897cecdaa9dbef8c640b84acbd8c2"></span><strong>FLASH_CR_ERRIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a27d44bc9617cc430de9413b385dfe0c3"></span><strong>FLASH_CR_OPTWRE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1ab25f1fa4127fa015361b61a6f3180784"></span><strong>FLASH_CR_LOCK</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1afe4dd28134f93f52b1d4ec5b36a99864"></span><strong>FLASH_CR_STRT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a19fbf5dc4339b1ec8630675f03ad6fe0"></span><strong>FLASH_CR_OPTER</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a6736a5478a87f35a6a0cb66d8784a5ab"></span><strong>FLASH_CR_OPTPG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a4a287aa5a625125301306a02fb69c53a"></span><strong>FLASH_CR_MER</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1ad845355ade49d56cf70ad0ff09595a23"></span><strong>FLASH_CR_PER</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a47754b39bd7a7c79c251d6376f97f661"></span><strong>FLASH_CR_PG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="option-byte-register">
+<h3><a class="toc-backref" href="#id8">Option byte register</a><a class="headerlink" href="#option-byte-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a65f3d1b503326f2b47a1558932147c49"></span><strong>FLASH_OBR_nRST_STDBY_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1ad3420b2078c1828898cd0c773a2cd3ff"></span><strong>FLASH_OBR_nRST_STOP_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1acc74b778d112a720e477ac14834cdbbd"></span><strong>FLASH_OBR_WDG_SW_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a203ee96a8eebacb6b5cd35d28dcca687"></span><strong>FLASH_OBR_RDPRT_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1aa04f7732d898dd2345eaad7b5191f405"></span><strong>FLASH_OBR_OPTERR_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1ae48a097cfc60d888756d3fda266d87c9"></span><strong>FLASH_OBR_DATA1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a9380684d6fc14b681adf7eb97964c0bf"></span><strong>FLASH_OBR_DATA0</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a1585552c59923cb1e1979cdfdc77b991"></span><strong>FLASH_OBR_USER</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a3d863a776a1d5a136e267bac209f6a85"></span><strong>FLASH_OBR_nRST_STDBY</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a8e84d6c706420de2335619043a06760d"></span><strong>FLASH_OBR_nRST_STOP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a5a18df54a9254985b1ee69c5666e68b6"></span><strong>FLASH_OBR_WDG_SW</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1a052763d6c2daf0a422577a6c8a0be977"></span><strong>FLASH_OBR_RDPRT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0flash_8h_1ab52c27d6657bd72f1860fa25a1faf8e3"></span><strong>FLASH_OBR_OPTERR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="fsmc.html" title="fsmc.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="exti.html" title="exti.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

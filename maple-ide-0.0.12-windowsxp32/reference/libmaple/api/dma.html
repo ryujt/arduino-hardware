@@ -1,0 +1,1858 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dma.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="exti.h" href="exti.html" />
+    <link rel="prev" title="delay.h" href="delay.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="exti.html" title="exti.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="delay.html" title="delay.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dma-h">
+<span id="libmaple-dma"></span><h1><tt class="docutils literal"><span class="pre">dma.h</span></tt><a class="headerlink" href="#dma-h" title="Permalink to this headline">¶</a></h1>
+<p>Direct Memory Access (DMA) support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id3">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id4">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id5">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#interrupt-status-register" id="id6">Interrupt status register</a></li>
+<li><a class="reference internal" href="#interrupt-flag-clear-register" id="id7">Interrupt flag clear register</a></li>
+<li><a class="reference internal" href="#channel-configuration-register" id="id8">Channel configuration register</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>dma_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>DMA register map type. </p>
+<p>Note that DMA controller 2 (register map base pointer DMA2_BASE) only supports channels 1&#8211;5. </p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structdma__reg__map_1ab4a80843413c137819b883dda371523b"></span>__io uint32 <strong>ISR</strong></dt>
+<dd><p class="first">Interrupt status register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a90b7fa3d11d3c2f7c9dd8ee14aa61480"></span>__io uint32 <strong>IFCR</strong></dt>
+<dd><p class="first">Interrupt flag clear register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1ad99f173dd14e32b036c3d270945a8a58"></span>__io uint32 <strong>CCR1</strong></dt>
+<dd><p class="first">Channel 1 configuration register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a46f85282208b1c908a5c0383b43929ce"></span>__io uint32 <strong>CNDTR1</strong></dt>
+<dd><p class="first">Channel 1 number of data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a8c68c0f74a96063ceef75fda0f12a85d"></span>__io uint32 <strong>CPAR1</strong></dt>
+<dd><p class="first">Channel 1 peripheral address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a9c40eebcf23165b8228dd87a1da272c3"></span>__io uint32 <strong>CMAR1</strong></dt>
+<dd><p class="first">Channel 1 memory address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a902917bc37b2f3ab60d1005b784c60cc"></span>const uint32 <strong>RESERVED1</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a8c9c92149e8c7894e92e4c487df3bb61"></span>__io uint32 <strong>CCR2</strong></dt>
+<dd><p class="first">Channel 2 configuration register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a04fa4c579f276c22e4e880b7ea26ebeb"></span>__io uint32 <strong>CNDTR2</strong></dt>
+<dd><p class="first">Channel 2 number of data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1ac056142559715405aeb5e7917f786611"></span>__io uint32 <strong>CPAR2</strong></dt>
+<dd><p class="first">Channel 2 peripheral address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a56423ea61789ff342d075f863af90e2a"></span>__io uint32 <strong>CMAR2</strong></dt>
+<dd><p class="first">Channel 2 memory address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a2a55b2c23f5ee5b60e882f76cee915e8"></span>const uint32 <strong>RESERVED2</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1acfdd7ea1f1a100333babc184b6eb1a6e"></span>__io uint32 <strong>CCR3</strong></dt>
+<dd><p class="first">Channel 3 configuration register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1affc2b558ee9652d2ab82258423569618"></span>__io uint32 <strong>CNDTR3</strong></dt>
+<dd><p class="first">Channel 3 number of data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a04c0629bb6e593b4c60401c44186f867"></span>__io uint32 <strong>CPAR3</strong></dt>
+<dd><p class="first">Channel 3 peripheral address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1ac1e8fbece9fcd262d7488b6c19f7f5e1"></span>__io uint32 <strong>CMAR3</strong></dt>
+<dd><p class="first">Channel 3 memory address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a4bc5f64586815c37f82c272cf2a683fd"></span>const uint32 <strong>RESERVED3</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1aa395061bcb6eab2424c9871f4db8520c"></span>__io uint32 <strong>CCR4</strong></dt>
+<dd><p class="first">Channel 4 configuration register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1acd66d3c2fd6f34eec001184e0c97ff33"></span>__io uint32 <strong>CNDTR4</strong></dt>
+<dd><p class="first">Channel 4 number of data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a8a48e6d8a991a5f614d9a0f30e7afc1a"></span>__io uint32 <strong>CPAR4</strong></dt>
+<dd><p class="first">Channel 4 peripheral address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a0cb91599cc4345f8ee3e319c5e7f87aa"></span>__io uint32 <strong>CMAR4</strong></dt>
+<dd><p class="first">Channel 4 memory address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1abea6688373e5c705f6bb854046704b5f"></span>const uint32 <strong>RESERVED4</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1ad37b7403e61b70ecaf12fed1bc8ffcc7"></span>__io uint32 <strong>CCR5</strong></dt>
+<dd><p class="first">Channel 5 configuration register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a61d9bc61528af9d042793115879e7e85"></span>__io uint32 <strong>CNDTR5</strong></dt>
+<dd><p class="first">Channel 5 number of data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a02827d4eb9654aeb697c04cf0a146d39"></span>__io uint32 <strong>CPAR5</strong></dt>
+<dd><p class="first">Channel 5 peripheral address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1ac4b15aa259bb294ac9dec76c33fb6d9a"></span>__io uint32 <strong>CMAR5</strong></dt>
+<dd><p class="first">Channel 5 memory address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1add650dc6d16e1ee2adb0299e1cd527b3"></span>const uint32 <strong>RESERVED5</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1ad0be7c87431c10a74d3726358d5887ca"></span>__io uint32 <strong>CCR6</strong></dt>
+<dd><p class="first">Channel 6 configuration register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a547c0241e966f6eb9473e6be80838d9b"></span>__io uint32 <strong>CNDTR6</strong></dt>
+<dd><p class="first">Channel 6 number of data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a30ccabdeda09a70e5dc4b9b9fb5ef0f1"></span>__io uint32 <strong>CPAR6</strong></dt>
+<dd><p class="first">Channel 6 peripheral address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1ae38ef508908feef6bb391a91db1f1b93"></span>__io uint32 <strong>CMAR6</strong></dt>
+<dd><p class="first">Channel 6 memory address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a7f4ec1ad95da300d5a3eae8e463d9a2b"></span>const uint32 <strong>RESERVED6</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a19a5a35dc06c08b50c5863427df0d378"></span>__io uint32 <strong>CCR7</strong></dt>
+<dd><p class="first">Channel 7 configuration register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a30bf487cdb85121bd5a5a6a1fbdf2b6b"></span>__io uint32 <strong>CNDTR7</strong></dt>
+<dd><p class="first">Channel 7 number of data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a1bffc3650bb489cebacece325234737e"></span>__io uint32 <strong>CPAR7</strong></dt>
+<dd><p class="first">Channel 7 peripheral address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1a754fe00f89c3b11881521c78c484a3a1"></span>__io uint32 <strong>CMAR7</strong></dt>
+<dd><p class="first">Channel 7 memory address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__reg__map_1afad146cc30a21f7e8d5afe8c099dd2fb"></span>const uint32 <strong>RESERVED7</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>dma_dev</strong></div>
+</div>
+<blockquote>
+<div><p>DMA device type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structdma__dev_1a8f5bdbb8be935b20b76145ff23debc1f"></span><a class="reference internal" href="#project0structdma__reg__map"><em>dma_reg_map</em></a>  * <strong>regs</strong></dt>
+<dd><p class="first">Register map. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__dev_1ae529643f1617cc2884a5c1e59cee4d92"></span><a class="reference internal" href="rcc.html#project0rcc_8h_1ae3722d2d8eff5283fb0388429953640f"><em>rcc_clk_id</em></a> <strong>clk_id</strong></dt>
+<dd><p class="first">Clock ID. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__dev_1ae001d450b5b4ce3c07ab4b2de310cbb2"></span><a class="reference internal" href="#project0structdma__handler__config"><em>dma_handler_config</em></a> <strong>handlers</strong>[]</dt>
+<dd><p class="first">IRQ handlers and NVIC numbers. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p><a class="reference internal" href="#project0dma_8c_1a1ff49becb138eba7be8ef004ab19d41c"><em>dma_attach_interrupt()</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0dma_8c_1aa14dcbc06506d8547cd08bf9ba886d25"><em>dma_detach_interrupt()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>dma_handler_config</strong></div>
+</div>
+<blockquote>
+<div><p>Encapsulates state related to a DMA channel interrupt. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structdma__handler__config_1ac771c2cf86b0cb58b0da1c27412550f4"></span>void(* <strong>handler</strong>)(void)</dt>
+<dd><p class="first">User-specified channel interrupt handler. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__handler__config_1aa5d1dd770e57e8cb739cbbef9b30cf94"></span><a class="reference internal" href="nvic.html#project0nvic_8h_1a89e3d57340a69fbdef83f12661543d83"><em>nvic_irq_num</em></a> <strong>irq_line</strong></dt>
+<dd><p class="first">Channel&#8217;s NVIC interrupt number. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a87022d9b6ca90de66eb25b9f234e50fe"></span><strong>dma_mode_flags enum</strong></dt>
+<dd><p class="first">Flags for DMA transfer configuration. </p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">DMA_MEM_2_MEM</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">14</span></tt> - <p>Memory to memory mode. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_MINC_MODE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">7</span></tt> - <p>Auto-increment memory address. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_PINC_MODE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">6</span></tt> - <p>Auto-increment peripheral address. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_CIRC_MODE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">5</span></tt> - <p>Circular mode. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_FROM_MEM</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - <p>Read from memory to peripheral. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_TRNS_ERR</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">3</span></tt> - <p>Interrupt on transfer error. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_HALF_TRNS</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">2</span></tt> - <p>Interrupt on half-transfer. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_TRNS_CMPLT</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">1</span></tt> - <p>Interrupt on transfer completion. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a56f5f1271dceb83185618bbf2f36a9d8"></span><strong>dma_xfer_size enum</strong></dt>
+<dd><p class="first">Source and destination transfer sizes. </p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">DMA_SIZE_8BITS</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0</span></tt> - <p>8-bit transfers </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_SIZE_16BITS</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span></tt> - <p>16-bit transfers </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_SIZE_32BITS</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">2</span></tt> - <p>32-bit transfers </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"></span><strong>dma_channel enum</strong></dt>
+<dd><p class="first">DMA channel. </p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">DMA_CH1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span></tt> - <p>Channel 1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_CH2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">2</span></tt> - <p>Channel 2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_CH3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">3</span></tt> - <p>Channel 3. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_CH4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">4</span></tt> - <p>Channel 4. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_CH5</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">5</span></tt> - <p>Channel 5. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_CH6</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">6</span></tt> - <p>Channel 6. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_CH7</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">7</span></tt> - <p>Channel 7. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1acff7214370827484610e276b30f6da75"></span><strong>dma_priority enum</strong></dt>
+<dd><p class="first">DMA transfer priority. </p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">DMA_PRIORITY_LOW</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">DMA_CCR_PL_LOW</span></tt> - <p>Low priority. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_PRIORITY_MEDIUM</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">DMA_CCR_PL_MEDIUM</span></tt> - <p>Medium priority. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_PRIORITY_HIGH</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">DMA_CCR_PL_HIGH</span></tt> - <p>High priority. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_PRIORITY_VERY_HIGH</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">DMA_CCR_PL_VERY_HIGH</span></tt> - <p>Very high priority. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac2ee798d0badf18c1ade11946d788506"></span><strong>dma_irq_cause enum</strong></dt>
+<dd><p class="first">Encodes the reason why a DMA interrupt was called. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><a class="reference internal" href="#project0dma_8c_1a5db401f3b50026d7dd893fa3595b2565"><em>dma_get_irq_cause()</em></a></td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">DMA_TRANSFER_COMPLETE</span></tt> - <p>Transfer is complete. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_TRANSFER_HALF_COMPLETE</span></tt> - <p>Transfer is half complete. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">DMA_TRANSFER_ERROR</span></tt> - <p>Error occurred during transfer. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>dma_channel_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>DMA channel register map type. </p>
+<p>Provides access to an individual channel&#8217;s registers. </p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structdma__channel__reg__map_1acc7d75d79e01cb8c33126cc49dd5f3e4"></span>__io uint32 <strong>CCR</strong></dt>
+<dd><p class="first">Channel configuration register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__channel__reg__map_1ab837164625bb51b79aeca17e3a86c53f"></span>__io uint32 <strong>CNDTR</strong></dt>
+<dd><p class="first">Channel number of data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__channel__reg__map_1a04591a2895e9b08079413fd69692fd46"></span>__io uint32 <strong>CPAR</strong></dt>
+<dd><p class="first">Channel peripheral address register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structdma__channel__reg__map_1acf1a1214e3b12ca02b2de9608ed5b14b"></span>__io uint32 <strong>CMAR</strong></dt>
+<dd><p class="first">Channel memory address register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1a45c741e3187f7f599b190b3d25844f4b"></span><a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * <strong>DMA1</strong></dt>
+<dd><p class="first">DMA1 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1a4ed0852dbf444b5d1f50a614e36c11df"></span><a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * <strong>DMA2</strong></dt>
+<dd><p class="first">DMA2 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id3">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1a57ea06bbb1dd31e1170f283c15d219cb"></span><div class="line-block">
+<div class="line">void <strong>dma_init</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize a DMA device. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device to initialize. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1aab34011ca301787c6ce2179fd473e07a"></span><div class="line-block">
+<div class="line">void <strong>dma_setup_transfer</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel, __io void * peripheral_address, <a class="reference internal" href="#project0dma_8h_1a56f5f1271dceb83185618bbf2f36a9d8"><em>dma_xfer_size</em></a> peripheral_size, __io void * memory_address, <a class="reference internal" href="#project0dma_8h_1a56f5f1271dceb83185618bbf2f36a9d8"><em>dma_xfer_size</em></a> memory_size, uint32 mode)</div>
+</div>
+</dt>
+<dd><p class="first">Set up a DMA transfer. </p>
+<p class="last"><p>The channel will be disabled before being reconfigured. The transfer will have low priority by default. You may choose another priority before the transfer begins using <a class="reference internal" href="#project0dma_8c_1a05332163a62ced4183a7a33b539a6b39"><em>dma_set_priority()</em></a>, as well as performing any other configuration you desire. When the channel is configured to your liking, enable it using <a class="reference internal" href="#project0dma_8c_1ab3c98635e9e065a55897d9fa7ad43c7b"><em>dma_enable()</em></a>.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>DMA channel. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">peripheral_address</span></tt> - <p>Base address of peripheral data register involved in the transfer. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">peripheral_size</span></tt> - <p>Peripheral data transfer size. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">memory_address</span></tt> - <p>Base memory address involved in the transfer. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">memory_size</span></tt> - <p>Memory data transfer size. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mode</span></tt> - <p>Logical OR of dma_mode_flags </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Side Effects::</th><td class="field-body"><p class="first"><p>Disables the given DMA channel. </p>
+</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p><a class="reference internal" href="#project0dma_8h_1a56f5f1271dceb83185618bbf2f36a9d8"><em>dma_xfer_size</em></a></p>
+</p>
+<p><p><a class="reference internal" href="#project0dma_8h_1a87022d9b6ca90de66eb25b9f234e50fe"><em>dma_mode_flags</em></a></p>
+</p>
+<p><p><a class="reference internal" href="#project0dma_8c_1a6fdb88633503f5b9f17ae413ea017ca6"><em>dma_set_num_transfers()</em></a></p>
+</p>
+<p><p><a class="reference internal" href="#project0dma_8c_1a05332163a62ced4183a7a33b539a6b39"><em>dma_set_priority()</em></a></p>
+</p>
+<p><p><a class="reference internal" href="#project0dma_8c_1a1ff49becb138eba7be8ef004ab19d41c"><em>dma_attach_interrupt()</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0dma_8c_1ab3c98635e9e065a55897d9fa7ad43c7b"><em>dma_enable()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1a6fdb88633503f5b9f17ae413ea017ca6"></span><div class="line-block">
+<div class="line">void <strong>dma_set_num_transfers</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel, uint16 num_transfers)</div>
+</div>
+</dt>
+<dd><p class="first">Set the number of data to be transferred on a DMA channel. </p>
+<p class="last"><p>You may not call this function while the channel is enabled.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel through which the transfer occurs. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">num_transfers</span></tt> - <p></p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1a05332163a62ced4183a7a33b539a6b39"></span><div class="line-block">
+<div class="line">void <strong>dma_set_priority</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel, <a class="reference internal" href="#project0dma_8h_1acff7214370827484610e276b30f6da75"><em>dma_priority</em></a> priority)</div>
+</div>
+</dt>
+<dd><p class="first">Set the priority of a DMA transfer. </p>
+<p class="last"><p>You may not call this function while the channel is enabled.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>DMA channel </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">priority</span></tt> - <p>priority to set. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1a1ff49becb138eba7be8ef004ab19d41c"></span><div class="line-block">
+<div class="line">void <strong>dma_attach_interrupt</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel, void(*)(void) handler)</div>
+</div>
+</dt>
+<dd><p class="first">Attach an interrupt to a DMA transfer. </p>
+<p class="last"><p>Interrupts are enabled using appropriate mode flags in <a class="reference internal" href="#project0dma_8c_1aab34011ca301787c6ce2179fd473e07a"><em>dma_setup_transfer()</em></a>.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel to attach handler to </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">handler</span></tt> - <p>Interrupt handler to call when channel interrupt fires. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p><a class="reference internal" href="#project0dma_8c_1aab34011ca301787c6ce2179fd473e07a"><em>dma_setup_transfer()</em></a></p>
+</p>
+<p><p><a class="reference internal" href="#project0dma_8c_1a5db401f3b50026d7dd893fa3595b2565"><em>dma_get_irq_cause()</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0dma_8c_1aa14dcbc06506d8547cd08bf9ba886d25"><em>dma_detach_interrupt()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1aa14dcbc06506d8547cd08bf9ba886d25"></span><div class="line-block">
+<div class="line">void <strong>dma_detach_interrupt</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel)</div>
+</div>
+</dt>
+<dd><p class="first">Detach a DMA transfer interrupt handler. </p>
+<p class="last"><p>After calling this function, the given channel&#8217;s interrupts will be disabled.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose handler to detach </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Side Effects::</th><td class="field-body"><p class="first"><p>Clears interrupt enable bits in the channel&#8217;s CCR register. </p>
+</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0dma_8c_1a1ff49becb138eba7be8ef004ab19d41c"><em>dma_attach_interrupt()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1a5db401f3b50026d7dd893fa3595b2565"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#project0dma_8h_1ac2ee798d0badf18c1ade11946d788506"><em>dma_irq_cause</em></a> <strong>dma_get_irq_cause</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel)</div>
+</div>
+</dt>
+<dd><p class="first">Discover the reason why a DMA interrupt was called. </p>
+<p class="last"><p>You may only call this function within an attached interrupt handler for the given channel.</p>
+<p>This function resets the internal DMA register state which encodes the cause of the interrupt; consequently, it can only be called once per interrupt handler invocation.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose interrupt is being handled. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first"><p>Reason why the interrupt fired. </p>
+</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Side Effects::</th><td class="field-body"><p class="first"><p>Clears channel status flags in dev-&gt;regs-&gt;ISR. </p>
+</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p><a class="reference internal" href="#project0dma_8c_1a1ff49becb138eba7be8ef004ab19d41c"><em>dma_attach_interrupt()</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0dma_8h_1ac2ee798d0badf18c1ade11946d788506"><em>dma_irq_cause</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1ab3c98635e9e065a55897d9fa7ad43c7b"></span><div class="line-block">
+<div class="line">void <strong>dma_enable</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel)</div>
+</div>
+</dt>
+<dd><p class="first">Enable a DMA channel. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel to enable </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1a893cc9d375bbcde07a7fe5dedb1e4dfb"></span><div class="line-block">
+<div class="line">void <strong>dma_disable</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel)</div>
+</div>
+</dt>
+<dd><p class="first">Disable a DMA channel. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel to disable </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1a57381fc42f25610de33fbdbbf7a81701"></span><div class="line-block">
+<div class="line">void <strong>dma_set_mem_addr</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel, __io void * addr)</div>
+</div>
+</dt>
+<dd><p class="first">Set the base memory address where data will be read from or written to. </p>
+<p class="last"><p>You must not call this function while the channel is enabled.</p>
+<p>If the DMA memory size is 16 bits, the address is automatically aligned to a half-word. If the DMA memory size is 32 bits, the address is aligned to a word.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA Device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose base memory address to set. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">addr</span></tt> - <p>Memory base address to use. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8c_1a36aabeaf4b50b67af24ba4e3b25295e1"></span><div class="line-block">
+<div class="line">void <strong>dma_set_per_addr</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel, __io void * addr)</div>
+</div>
+</dt>
+<dd><p class="first">Set the base peripheral address where data will be read from or written to. </p>
+<p class="last"><p>You must not call this function while the channel is enabled.</p>
+<p>If the DMA peripheral size is 16 bits, the address is automatically aligned to a half-word. If the DMA peripheral size is 32 bits, the address is aligned to a word.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA Device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose peripheral data register base address to set. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">addr</span></tt> - <p>Peripheral memory base address to use. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a8715e22604010e556eba58a394bfcd65"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#project0structdma__channel__reg__map"><em>dma_channel_reg_map</em></a>  * <strong>dma_channel_regs</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel)</div>
+</div>
+</dt>
+<dd><p class="first">Obtain a pointer to an individual DMA channel&#8217;s registers. </p>
+<p class="last"><p>For example, dma_channel_regs(DMA1, DMA_CH1)-&gt;CCR is DMA1_BASE-&gt;CCR1.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>DMA channel whose channel register map to obtain. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a466733f31298ba458a91fae0966cd56f"></span><div class="line-block">
+<div class="line">uint8 <strong>dma_is_channel_enabled</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel)</div>
+</div>
+</dt>
+<dd><p class="first">Check if a DMA channel is enabled. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose enabled bit to check. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a1b9b6288bc40dd5059923ee105d64ae2"></span><div class="line-block">
+<div class="line">uint8 <strong>dma_get_isr_bits</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel)</div>
+</div>
+</dt>
+<dd><p class="first">Get the ISR status bits for a DMA channel. </p>
+<p class="last"><p>The bits are returned right-aligned, in the following order: transfer error flag, half-transfer flag, transfer complete flag, global interrupt flag.</p>
+<p>If you&#8217;re attempting to figure out why a DMA interrupt fired; you may find <a class="reference internal" href="#project0dma_8c_1a5db401f3b50026d7dd893fa3595b2565"><em>dma_get_irq_cause()</em></a> more convenient.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose ISR bits to return. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0dma_8c_1a5db401f3b50026d7dd893fa3595b2565"><em>dma_get_irq_cause()</em></a>. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a8566f5e2b45a9ada964fb639dd4284a7"></span><div class="line-block">
+<div class="line">void <strong>dma_clear_isr_bits</strong>(<a class="reference internal" href="#project0structdma__dev"><em>dma_dev</em></a>  * dev, <a class="reference internal" href="#project0dma_8h_1a34bd82a90dd729c4d77f81ae92ff6e69"><em>dma_channel</em></a> channel)</div>
+</div>
+</dt>
+<dd><p class="first">Clear the ISR status bits for a given DMA channel. </p>
+<p class="last"><p>If you&#8217;re attempting to clean up after yourself in a DMA interrupt, you may find <a class="reference internal" href="#project0dma_8c_1a5db401f3b50026d7dd893fa3595b2565"><em>dma_get_irq_cause()</em></a> more convenient.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>DMA device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose ISR bits to clear. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0dma_8c_1a5db401f3b50026d7dd893fa3595b2565"><em>dma_get_irq_cause()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id4">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ab2d8a917a0e4ea99a22ac6ebf279bc72"></span><strong>DMA1_BASE</strong></dt>
+<dd><p class="first">DMA controller 1 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ab72a9ae145053ee13d1d491fb5c1df64"></span><strong>DMA2_BASE</strong></dt>
+<dd><p class="first">DMA controller 2 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id5">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="interrupt-status-register">
+<h3><a class="toc-backref" href="#id6">Interrupt status register</a><a class="headerlink" href="#interrupt-status-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ae77c3355bb47d9bec99d365685581de4"></span><strong>DMA_ISR_TEIF7_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ae0e20e73cc3ef076c8c1a98c65bc108a"></span><strong>DMA_ISR_HTIF7_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac7e9f2fc767aae9312750453967ff279"></span><strong>DMA_ISR_TCIF7_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a9987a7b73d61643e340ec38f3ea7586e"></span><strong>DMA_ISR_GIF7_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a770057693935faad31f62fd8dfdc3da4"></span><strong>DMA_ISR_TEIF6_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a69b4347e99247d684a3a53c776720461"></span><strong>DMA_ISR_HTIF6_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aef4a33e6de136f14010ded044f24a7b5"></span><strong>DMA_ISR_TCIF6_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a8d07a0fde7b3d762a517366291cf1fe5"></span><strong>DMA_ISR_GIF6_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac8769675bf8ac359df2f68d757fde052"></span><strong>DMA_ISR_TEIF5_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aa98a2f6b52cae2ac1bd0cc84ae746a9c"></span><strong>DMA_ISR_HTIF5_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a6aba20cb379aa909cf80e3e09ea36de5"></span><strong>DMA_ISR_TCIF5_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac7bd275ef916fecb8a864331808ba261"></span><strong>DMA_ISR_GIF5_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1adb1a6a18b27fe60f99cb202cc5cb9708"></span><strong>DMA_ISR_TEIF4_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a8085125bb1dec29f0636095d5d27c811"></span><strong>DMA_ISR_HTIF4_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aeca5009c1e5b23749d3c549cd925ac93"></span><strong>DMA_ISR_TCIF4_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a934972955a3857ec8c2c3a14f8ce6c37"></span><strong>DMA_ISR_GIF4_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a23b85db2a911e5f7825019beac8e704a"></span><strong>DMA_ISR_TEIF3_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ae9251c70ce37454e6f5a5330d968bcc6"></span><strong>DMA_ISR_HTIF3_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a05e91740383a47368f645b64ac1a7b48"></span><strong>DMA_ISR_TCIF3_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aad533c564005ab8f25ff69a1e39a016e"></span><strong>DMA_ISR_GIF3_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a57dfbcaf6c98d3b98223cf25eab0867c"></span><strong>DMA_ISR_TEIF2_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a5b2afb9b63070db91678e6ab742a4107"></span><strong>DMA_ISR_HTIF2_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a4cc5d2eb5d65462711ba201dfd2df65f"></span><strong>DMA_ISR_TCIF2_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a5588f32ff471fb4e9645ded26ebce52e"></span><strong>DMA_ISR_GIF2_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a2e052cb249b4ae3ced5f1335358162a9"></span><strong>DMA_ISR_TEIF1_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ae373a10a4e7c4782b109973562db70d4"></span><strong>DMA_ISR_HTIF1_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a680fa38af2831b5ce30d27ecd99810b3"></span><strong>DMA_ISR_TCIF1_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1acc1ddbc2f354e4eee6f9a6dea99f1c03"></span><strong>DMA_ISR_GIF1_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1af8333b3c78b7d0a07bd4b1e91e902b31"></span><strong>DMA_ISR_TEIF7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a769016c2b0bf22ff3ad6967b3dc0e2bb"></span><strong>DMA_ISR_HTIF7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a4528af54928542c09502c01827418732"></span><strong>DMA_ISR_TCIF7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a86f178e879b2d8ceeea351e4750272dd"></span><strong>DMA_ISR_GIF7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ae47d914969922381708ae06c1c71123a"></span><strong>DMA_ISR_TEIF6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a41b6d9787aeff76a51581d9488b4604f"></span><strong>DMA_ISR_HTIF6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a2d76395cf6c6ef50e05c96d7ae723058"></span><strong>DMA_ISR_TCIF6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac55f4836aa8e6cfc9bdcadfabf65b5d8"></span><strong>DMA_ISR_GIF6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a42f9b12c4c80cbb7cd0f94f139c73de3"></span><strong>DMA_ISR_TEIF5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a3d1f2b8c82b1e20b4311af8ca9576736"></span><strong>DMA_ISR_HTIF5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a5ea57d09f13edbd6ad8afe9465e0fa70"></span><strong>DMA_ISR_TCIF5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a83d4d9cba635d1e33e3477b773379cfd"></span><strong>DMA_ISR_GIF5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a12fcc1471918f3e7b293b2d825177253"></span><strong>DMA_ISR_TEIF4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a684cf326c770f1ab21c604a5f62907ad"></span><strong>DMA_ISR_HTIF4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ad7d4e46949a35cf037a303bd65a0c87a"></span><strong>DMA_ISR_TCIF4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1af4f69823d44810c353af1f0a89eaf180"></span><strong>DMA_ISR_GIF4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aa624379143a2535d7a60d87d59834d10"></span><strong>DMA_ISR_TEIF3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a53bb9a00737c52faffaaa91ff08b34a1"></span><strong>DMA_ISR_HTIF3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a28664595df654d9d8052fb6f9cc48495"></span><strong>DMA_ISR_TCIF3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1acb0bd8fb0e580688c5cf617b618bbc17"></span><strong>DMA_ISR_GIF3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a5bcd07efcadd5fef598edec1cca70e38"></span><strong>DMA_ISR_TEIF2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a8ee1947aef188f437f37d3ff444f8646"></span><strong>DMA_ISR_HTIF2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a631741eb4843eda3578808a3d8b527b2"></span><strong>DMA_ISR_TCIF2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a44fa823dbb15b829621961efc60d6a95"></span><strong>DMA_ISR_GIF2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a26bfd55e965445ae253a5c5fa8f1769a"></span><strong>DMA_ISR_TEIF1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a5f83359698adf05854b55705f78d8a5c"></span><strong>DMA_ISR_HTIF1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a1a1522414af27c7fff2cc27edac1d680"></span><strong>DMA_ISR_TCIF1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a3475228c998897d0f408a4c5da066186"></span><strong>DMA_ISR_GIF1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="interrupt-flag-clear-register">
+<h3><a class="toc-backref" href="#id7">Interrupt flag clear register</a><a class="headerlink" href="#interrupt-flag-clear-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a159e2f626ae61c744c37e2691eb0d6bd"></span><strong>DMA_IFCR_CTEIF7_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aa02e9b36e8f268f838969a2a6627f4ca"></span><strong>DMA_IFCR_CHTIF7_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ad3bc015216dfc5d68686efd7431b26bd"></span><strong>DMA_IFCR_CTCIF7_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a4845f66d7bb1b0ee2cb0c8e22b97b43c"></span><strong>DMA_IFCR_CGIF7_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac4dadb544a5fa6b09f9d46a2d542050a"></span><strong>DMA_IFCR_CTEIF6_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a0139e7589ed3c8b80d1de86f8ac54bc1"></span><strong>DMA_IFCR_CHTIF6_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1acc9b5d3ba3e16e67acca5bda14d08f1a"></span><strong>DMA_IFCR_CTCIF6_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a4be0d972fb5e031b026205f90f3a6e9f"></span><strong>DMA_IFCR_CGIF6_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a6f2a40bf27b6528465b879437030ad83"></span><strong>DMA_IFCR_CTEIF5_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ad8d91277f7243eb6019a3abc4d849531"></span><strong>DMA_IFCR_CHTIF5_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a6ae3261bcae1039841f125b79bfb0019"></span><strong>DMA_IFCR_CTCIF5_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a5731cfd77eeef019c6f08e547d029571"></span><strong>DMA_IFCR_CGIF5_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac07956092b0097f1411a76406f6dd5ee"></span><strong>DMA_IFCR_CTEIF4_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a8687d22c3f718179edc4d6bb76fc5db1"></span><strong>DMA_IFCR_CHTIF4_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1afcd64fce99721063ecce56191e4e96ff"></span><strong>DMA_IFCR_CTCIF4_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a3a6f73b1e024deb91ac855fa1c38b23b"></span><strong>DMA_IFCR_CGIF4_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac1acc02940b503dfc22a973ce78425a9"></span><strong>DMA_IFCR_CTEIF3_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a023049eb50ba664336769c0d7c2630ed"></span><strong>DMA_IFCR_CHTIF3_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a8cdf134c5ff5da3624cfa1f966bde940"></span><strong>DMA_IFCR_CTCIF3_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aeaf3b14da1b928970604b8395d4d63e5"></span><strong>DMA_IFCR_CGIF3_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a509613e836ce3904c6ed5940eefa7227"></span><strong>DMA_IFCR_CTEIF2_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a5cfc3ae4133781ecdf8c9deb7b314d4f"></span><strong>DMA_IFCR_CHTIF2_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a6dbaebba06fd9be7836955252350ea1b"></span><strong>DMA_IFCR_CTCIF2_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a5526473c9d3938b31839a3b09d380332"></span><strong>DMA_IFCR_CGIF2_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ae5120b5fca90ad7ee721fb8bdd838271"></span><strong>DMA_IFCR_CTEIF1_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a0a5db4a9b50df04303aea3464fd3e10c"></span><strong>DMA_IFCR_CHTIF1_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ad0b354010e993af8896b55ea07c895b7"></span><strong>DMA_IFCR_CTCIF1_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ae7462072c815c00afe9c35d21c6b7eec"></span><strong>DMA_IFCR_CGIF1_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a4076bf1ed67fb39d4a0175e5943d5f2d"></span><strong>DMA_IFCR_CTEIF7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aa7378f7a26730bfd5c950b7c7efb9272"></span><strong>DMA_IFCR_CHTIF7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac26181e8c2bd1fddc1e774cb7b621e5b"></span><strong>DMA_IFCR_CTCIF7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aad9f01dfeb289156448f5a5a0ad54099"></span><strong>DMA_IFCR_CGIF7</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a1e523c5cbf5594ffe8540c317bce6933"></span><strong>DMA_IFCR_CTEIF6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ae67273db02ffd8f2bfe0a5c93e9282a4"></span><strong>DMA_IFCR_CHTIF6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac3dca486df2f235aac8f3975f5f4ab75"></span><strong>DMA_IFCR_CTCIF6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a7fc61098c5cf9a7d53ddcb155e34c984"></span><strong>DMA_IFCR_CGIF6</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a6ec6326d337a773b4ced9d8a680c05a9"></span><strong>DMA_IFCR_CTEIF5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a3c23c727a4dbbc45a356c8418299275d"></span><strong>DMA_IFCR_CHTIF5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aae4c7d1d10beb535aec39de9a8bdc327"></span><strong>DMA_IFCR_CTCIF5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a943245d2a8300854d53fd07bb957a6fc"></span><strong>DMA_IFCR_CGIF5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a6fdda8f7f2507c1d3988c7310a35d46c"></span><strong>DMA_IFCR_CTEIF4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a950664b81ec2d4d843f89ef102107d7b"></span><strong>DMA_IFCR_CHTIF4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a34b431fd4e034f8333e44594712f75eb"></span><strong>DMA_IFCR_CTCIF4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a73d22139e4567c89e2afcb4aef71104c"></span><strong>DMA_IFCR_CGIF4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a59bad79f1ae37b69b048834808e8d067"></span><strong>DMA_IFCR_CTEIF3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a2dea86ca2ec8aa945b840f2c1866e1f6"></span><strong>DMA_IFCR_CHTIF3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1accb4c0c5e0f2e01dec12ba366b83cb4d"></span><strong>DMA_IFCR_CTCIF3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a0d98e88c334091e20e931372646a6b0d"></span><strong>DMA_IFCR_CGIF3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a4abb0afb7dbe362c150bf80c4c751a67"></span><strong>DMA_IFCR_CTEIF2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a3e769c78024a22b4d1f528ce03ccc760"></span><strong>DMA_IFCR_CHTIF2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a8505b947a04834750e164dc320dfae09"></span><strong>DMA_IFCR_CTCIF2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ab907e446bbf1e1400dc5fdbd929d0e5f"></span><strong>DMA_IFCR_CGIF2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a989699cace2fa87efa867b825c1deb29"></span><strong>DMA_IFCR_CTEIF1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a66e9aa2475130fbf63db304ceea019eb"></span><strong>DMA_IFCR_CHTIF1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a60085fa798cf77f80365839e7d88c8f1"></span><strong>DMA_IFCR_CTCIF1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a75ad797334d9fb70750ace14b16e0122"></span><strong>DMA_IFCR_CGIF1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="channel-configuration-register">
+<h3><a class="toc-backref" href="#id8">Channel configuration register</a><a class="headerlink" href="#channel-configuration-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac09d2a57bbe9ad65694dcffa337ce44c"></span><strong>DMA_CCR_MEM2MEM_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac08f8e528859e2737fe937c0dc96cf5e"></span><strong>DMA_CCR_MINC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a8d4f19b33d994a6cbb74f20b521b81ae"></span><strong>DMA_CCR_PINC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a6a3473bacc21ed00eb4295b3421de01c"></span><strong>DMA_CCR_CIRC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1af8c8b03fddf1ca49e1d9747fc51736f3"></span><strong>DMA_CCR_DIR_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a3672a47c5c3c14272069b1a2584372a4"></span><strong>DMA_CCR_TEIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ace4019561a56e139645d261706b1f3d9"></span><strong>DMA_CCR_HTIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a75bde681464def753c13c0988262140e"></span><strong>DMA_CCR_TCIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a301939931a6bfad942e893dbf29b63c2"></span><strong>DMA_CCR_EN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a5c87a41026384e25fe2312d03af76215"></span><strong>DMA_CCR_MEM2MEM</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a97726688157629243aa59bb60e33c284"></span><strong>DMA_CCR_PL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a9c5ae836d47137392f4a450cd62b370c"></span><strong>DMA_CCR_PL_LOW</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac8594f023fdec14bc6f83b210c069adf"></span><strong>DMA_CCR_PL_MEDIUM</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aba1d489116e5f395de6cf500d8644393"></span><strong>DMA_CCR_PL_HIGH</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a4a657e997558322161744302430fdec9"></span><strong>DMA_CCR_PL_VERY_HIGH</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a492495253fe3f05ea83dd3c3dbb5dddf"></span><strong>DMA_CCR_MSIZE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ac6fa883f398be6ee0f7669ca8a2fa02b"></span><strong>DMA_CCR_MSIZE_8BITS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a4d555d2e5707278b94338a6ec43d8010"></span><strong>DMA_CCR_MSIZE_16BITS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1abadbb16a8d6c96c911a0e7cbcc84bad3"></span><strong>DMA_CCR_MSIZE_32BITS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a1a8d824b9bff520523fccfbe57b07516"></span><strong>DMA_CCR_PSIZE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1afc5e6d180131948747ca2efd30c79dd3"></span><strong>DMA_CCR_PSIZE_8BITS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a62e2bfda679748d1a5d97483288c224c"></span><strong>DMA_CCR_PSIZE_16BITS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1afe71cfd8c8adce3c8b093724726db342"></span><strong>DMA_CCR_PSIZE_32BITS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aa189138f534283d876f654ec9474987e"></span><strong>DMA_CCR_MINC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a028cb96357bd24868a74ee1134a35b7e"></span><strong>DMA_CCR_PINC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a445471396e741418bcd6f63404f4052c"></span><strong>DMA_CCR_CIRC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a8f1ece172cf3c3e696b86d401d7345a2"></span><strong>DMA_CCR_DIR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a3dd2204c9046500140e3c720fb5a415f"></span><strong>DMA_CCR_TEIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1a0f0fae31377ab1d33e36cead97b1811b"></span><strong>DMA_CCR_HTIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1aaba9cd82cab0cca23de038e946f81c6a"></span><strong>DMA_CCR_TCIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0dma_8h_1ababa3817d21a78079be76bc26b2c10f2"></span><strong>DMA_CCR_EN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="exti.html" title="exti.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="delay.html" title="delay.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

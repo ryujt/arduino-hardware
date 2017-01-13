@@ -1,0 +1,1299 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>usart.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="util.h" href="util.html" />
+    <link rel="prev" title="timer.h" href="timer.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="util.html" title="util.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="timer.html" title="timer.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="usart-h">
+<span id="libmaple-usart"></span><h1><tt class="docutils literal"><span class="pre">usart.h</span></tt><a class="headerlink" href="#usart-h" title="Permalink to this headline">¶</a></h1>
+<p>Universal Synchronous/Asynchronous Receiver/Transmitter (USART, or
+commonly <em>serial port</em>) support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id3">Functions</a></li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id4">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id5">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#status-register" id="id6">Status Register</a></li>
+<li><a class="reference internal" href="#data-register" id="id7">Data register</a></li>
+<li><a class="reference internal" href="#baud-rate-register" id="id8">Baud Rate Register</a></li>
+<li><a class="reference internal" href="#control-register-1" id="id9">Control Register 1</a></li>
+<li><a class="reference internal" href="#control-register-2" id="id10">Control Register 2</a></li>
+<li><a class="reference internal" href="#control-register-3" id="id11">Control Register 3</a></li>
+<li><a class="reference internal" href="#guard-time-and-prescaler-register" id="id12">Guard Time and Prescaler Register</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>usart_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>USART register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structusart__reg__map_1a2608675b685e36c0993fb534e6a37c27"></span>__io uint32 <strong>SR</strong></dt>
+<dd><p class="first">Status register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structusart__reg__map_1a878865a91b0ad6eb0673a1260bdc009d"></span>__io uint32 <strong>DR</strong></dt>
+<dd><p class="first">Data register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structusart__reg__map_1a25fb1970fe9d9ea0f18f601eda2576f9"></span>__io uint32 <strong>BRR</strong></dt>
+<dd><p class="first">Baud rate register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structusart__reg__map_1ad97a57d1cacb209d66166d61c423b947"></span>__io uint32 <strong>CR1</strong></dt>
+<dd><p class="first">Control register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structusart__reg__map_1af9d2d241c5f55a08155461bc6e889db8"></span>__io uint32 <strong>CR2</strong></dt>
+<dd><p class="first">Control register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structusart__reg__map_1ab3aa06a42a976a341cec9edc0e02bf6d"></span>__io uint32 <strong>CR3</strong></dt>
+<dd><p class="first">Control register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structusart__reg__map_1aa8dd2f4bc62498b9438a26a1d0351dbb"></span>__io uint32 <strong>GTPR</strong></dt>
+<dd><p class="first">Guard time and prescaler register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>usart_dev</strong></div>
+</div>
+<blockquote>
+<div><p>USART device type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structusart__dev_1a78190808091aa1c52aff1c2432d1580a"></span><a class="reference internal" href="#project0structusart__reg__map"><em>usart_reg_map</em></a>  * <strong>regs</strong></dt>
+<dd><p class="first">Register map. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structusart__dev_1a41b77903cca126923c49204fe58fa646"></span><a class="reference internal" href="ring_buffer.html#project0structring__buffer"><em>ring_buffer</em></a>  * <strong>rb</strong></dt>
+<dd><p class="first">RX ring buffer. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structusart__dev_1a9db8c2a81396375505cba76e4220bc96"></span>uint32 <strong>max_baud</strong></dt>
+<dd><p class="first">Maximum baud. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structusart__dev_1a4f04099f0748dc368de960d386040a2a"></span>uint8 <strong>rx_buf</strong>[USART_RX_BUF_SIZE]</dt>
+<dd><p class="first">Deprecated. </p>
+<p class="last">Actual RX buffer used by rb. This field will be removed in a future release. </p>
+</dd>
+<dt id=""><span id="project0structusart__dev_1a97216f26534f0290171efb40453ff028"></span><a class="reference internal" href="rcc.html#project0rcc_8h_1ae3722d2d8eff5283fb0388429953640f"><em>rcc_clk_id</em></a> <strong>clk_id</strong></dt>
+<dd><p class="first">RCC clock information. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structusart__dev_1ade349ba928d1b1329f238d327a046ef0"></span><a class="reference internal" href="nvic.html#project0nvic_8h_1a89e3d57340a69fbdef83f12661543d83"><em>nvic_irq_num</em></a> <strong>irq_num</strong></dt>
+<dd><p class="first">USART NVIC interrupt. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1a4d115720656155ba3fcffac95ea18d33"></span><a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * <strong>USART1</strong></dt>
+<dd><p class="first">USART1 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1ae413e6bb2ff2c87336aefd387294169b"></span><a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * <strong>USART2</strong></dt>
+<dd><p class="first">USART2 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1a6b4d25bc4b89f06c8f7436454b79a4c1"></span><a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * <strong>USART3</strong></dt>
+<dd><p class="first">USART3 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1ae038774150fdba32590403d652567640"></span><a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * <strong>UART4</strong></dt>
+<dd><p class="first">UART4 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1a80daf75a0d0cb1f4e6278d7b9c344009"></span><a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * <strong>UART5</strong></dt>
+<dd><p class="first">UART5 device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id3">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1a4e681821539d76f652db1f96e1cab966"></span><div class="line-block">
+<div class="line">void <strong>usart_init</strong>(<a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize a serial port. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Serial port to be initialized </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1acb3dad2577b5add75dc061c12cddf3fe"></span><div class="line-block">
+<div class="line">void <strong>usart_set_baud_rate</strong>(<a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * dev, uint32 clock_speed, uint32 baud)</div>
+</div>
+</dt>
+<dd><p class="first">Configure a serial port&#8217;s baud rate. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Serial port to be configured </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">clock_speed</span></tt> - <p>Clock speed, in megahertz. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">baud</span></tt> - <p>Baud rate for transmit/receive. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1a2707484d73b19ccb708facc0a413d56a"></span><div class="line-block">
+<div class="line">void <strong>usart_enable</strong>(<a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Enable a serial port. </p>
+<p class="last"><p>USART is enabled in single buffer transmission mode, multibuffer receiver mode, 8n1.</p>
+<p>Serial port must have a baud rate configured to work properly.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Serial port to enable. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0usart_8c_1acb3dad2577b5add75dc061c12cddf3fe"><em>usart_set_baud_rate()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1aacc27700ee5d75bbf5a84587631917a8"></span><div class="line-block">
+<div class="line">void <strong>usart_disable</strong>(<a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Turn off a serial port. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Serial port to be disabled </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a978fd153d351e4d05e42d5da8356e297"></span><div class="line-block">
+<div class="line">void <strong>usart_disable_all</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Disable all serial ports. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1aad11e38166160c2e27d7253c5708541d"></span><div class="line-block">
+<div class="line">void <strong>usart_foreach</strong>(void(*)( <a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  *) fn)</div>
+</div>
+</dt>
+<dd><p class="first">Call a function on each USART. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">fn</span></tt> - <p>Function to call. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1a8a77e40c330e1393f2b2e5c8a880f561"></span><div class="line-block">
+<div class="line">uint32 <strong>usart_tx</strong>(<a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * dev, const uint8 * buf, uint32 len)</div>
+</div>
+</dt>
+<dd><p class="first">Nonblocking USART transmit. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Serial port to transmit over </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">buf</span></tt> - <p>Buffer to transmit </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">len</span></tt> - <p>Maximum number of bytes to transmit </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>Number of bytes transmitted </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8c_1adc07cc9819ac5baa43e4639d88a296a7"></span><div class="line-block">
+<div class="line">void <strong>usart_putudec</strong>(<a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * dev, uint32 val)</div>
+</div>
+</dt>
+<dd><p class="first">Transmit an unsigned integer to the specified serial port in decimal format. </p>
+<p class="last"><p>This function blocks until the integer&#8217;s digits have been completely transmitted.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Serial port to send on </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">val</span></tt> - <p>Number to print </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a76f511d4799bfc2ad702eb5b03b72f8b"></span><div class="line-block">
+<div class="line">void <strong>usart_putc</strong>(<a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * dev, uint8 byte)</div>
+</div>
+</dt>
+<dd><p class="first">Transmit one character on a serial port. </p>
+<p class="last"><p>This function blocks until the character has been successfully transmitted.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Serial port to send on. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">byte</span></tt> - <p>Byte to transmit. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1adfd73cdc84463809e6938b0328532fbe"></span><div class="line-block">
+<div class="line">void <strong>usart_putstr</strong>(<a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * dev, const char * str)</div>
+</div>
+</dt>
+<dd><p class="first">Transmit a character string on a serial port. </p>
+<p class="last"><p>This function blocks until str is completely transmitted.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Serial port to send on </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">str</span></tt> - <p>String to send </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1afaad8cb780b4dfe75651dc4cd5483390"></span><div class="line-block">
+<div class="line">uint8 <strong>usart_getc</strong>(<a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Read one character from a serial port. </p>
+<p class="last"><p>It&#8217;s not safe to call this function if the serial port has no data available.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Serial port to read from </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first"><p>byte read </p>
+</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0usart_8h_1acc07fab64a315ca7f70f404d4c29ccef"><em>usart_data_available()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1acc07fab64a315ca7f70f404d4c29ccef"></span><div class="line-block">
+<div class="line">uint32 <strong>usart_data_available</strong>(<a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Return the amount of data available in a serial port&#8217;s RX buffer. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Serial port to check </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>Number of bytes in dev&#8217;s RX buffer. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a10dd0720ef249ba461e6ca3f4ba13c83"></span><div class="line-block">
+<div class="line">void <strong>usart_reset_rx</strong>(<a class="reference internal" href="#project0structusart__dev"><em>usart_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Discard the contents of a serial port&#8217;s RX buffer. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Serial port whose buffer to empty. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id4">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a86162ab3f740db9026c1320d46938b4d"></span><strong>USART1_BASE</strong></dt>
+<dd><p class="first">USART1 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ade83162a04bca0b15b39018a8e8ec090"></span><strong>USART2_BASE</strong></dt>
+<dd><p class="first">USART2 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1abe0d6539ac0026d598274ee7f45b0251"></span><strong>USART3_BASE</strong></dt>
+<dd><p class="first">USART3 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a94d92270bf587ccdc3a37a5bb5d20467"></span><strong>UART4_BASE</strong></dt>
+<dd><p class="first">UART4 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aa155689c0e206e6994951dc3cf31052a"></span><strong>UART5_BASE</strong></dt>
+<dd><p class="first">UART5 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id5">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="status-register">
+<h3><a class="toc-backref" href="#id6">Status Register</a><a class="headerlink" href="#status-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a3508b43d36ea3f485106f2db8a51aecb"></span><strong>USART_SR_CTS_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a33d4aaee9cb0f118b489af514337123f"></span><strong>USART_SR_LBD_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a3145bbd810288d4fb3c6daa51ded0c7c"></span><strong>USART_SR_TXE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a17e87ef96961c57bf73e2773ee3cd978"></span><strong>USART_SR_TC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a81e342ffb6c5c54045d6bf5ea99f9e83"></span><strong>USART_SR_RXNE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a73b5ea3121327a0d7af98a6f2acfdf79"></span><strong>USART_SR_IDLE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aa4e242ac679c1dab792767e1898d8b7e"></span><strong>USART_SR_ORE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a498ba5eb3b999d0956f2514cf7adb114"></span><strong>USART_SR_NE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a6a7d2d9e76ea98338729901b684a1132"></span><strong>USART_SR_FE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1adf41ed73b6c19387738d3ee0f7e987ce"></span><strong>USART_SR_PE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a9250ae2793db0541e6c4bb8837424541"></span><strong>USART_SR_CTS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a5b868b59576f42421226d35628c6b628"></span><strong>USART_SR_LBD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a65e9cddf0890113d405342f1d8b5b980"></span><strong>USART_SR_TXE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a76229b05ac37a5a688e6ba45851a29f1"></span><strong>USART_SR_TC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aa0c99e2bb265b3d58a91aca7a93f7836"></span><strong>USART_SR_RXNE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a336fa8c9965ce18c10972ac80ded611f"></span><strong>USART_SR_IDLE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a4560fc7a60df4bdf402fc7219ae7b558"></span><strong>USART_SR_ORE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a8938468c5666a8305ade6d80d467c572"></span><strong>USART_SR_NE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a9eb6fd3f820bd12e0b5a981de1894804"></span><strong>USART_SR_FE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ac88be3484245af8c1b271ae5c1b97a14"></span><strong>USART_SR_PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="data-register">
+<h3><a class="toc-backref" href="#id7">Data register</a><a class="headerlink" href="#data-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ad84ad1e1d0202b41021e2d6e40486bff"></span><strong>USART_DR_DR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="baud-rate-register">
+<h3><a class="toc-backref" href="#id8">Baud Rate Register</a><a class="headerlink" href="#baud-rate-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aac5ff609d9d5f5cb4bdbd3a5c0c9a8c2"></span><strong>USART_BRR_DIV_MANTISSA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a2d7dd57632bcc0f7f3b635da39b4be3e"></span><strong>USART_BRR_DIV_FRACTION</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="control-register-1">
+<h3><a class="toc-backref" href="#id9">Control Register 1</a><a class="headerlink" href="#control-register-1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a70884d5f967dd50d8bb82fb649febb93"></span><strong>USART_CR1_UE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ad329a94f312297f1688f390817d5f87a"></span><strong>USART_CR1_M_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1af3e93c9619b1bfaea53c5c576fb3435c"></span><strong>USART_CR1_WAKE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a2e9cce6af385ab0b2b118a741b54cb11"></span><strong>USART_CR1_PCE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a7b7f208c0a396bb350484375d0d1341c"></span><strong>USART_CR1_PS_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a2cd4fd71bd7b817cd351e78e48155d53"></span><strong>USART_CR1_PEIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ae9e470c504704c11b04c054de851c9d7"></span><strong>USART_CR1_TXEIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1af5eb931d5466f99cad30987d36439670"></span><strong>USART_CR1_TCIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ac64f355d68892834e6022416644ed072"></span><strong>USART_CR1_RXNEIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a23b85165709243082ec0b33f264c84f5"></span><strong>USART_CR1_IDLEIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a762a9979577b9f04b294e10ba5a83fd7"></span><strong>USART_CR1_TE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a9c869b0565dde8daf53cd272d56317dd"></span><strong>USART_CR1_RE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1affbab7822f981b9ca2d084b72f941b5e"></span><strong>USART_CR1_RWU_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a443854ac0ba2b07d3bf641e5703413ed"></span><strong>USART_CR1_SBK_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a2bb650676aaae4a5203f372d497d5947"></span><strong>USART_CR1_UE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a95f0288b9c6aaeca7cb6550a2e6833e2"></span><strong>USART_CR1_M</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ad831dfc169fcf14b7284984dbecf322d"></span><strong>USART_CR1_WAKE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a604170385f3f68719d9dd764bca87229"></span><strong>USART_CR1_WAKE_IDLE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a14ba33a91579b61060a070d300e882e4"></span><strong>USART_CR1_WAKE_ADDR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a60f8fcf084f9a8514efafb617c70b074"></span><strong>USART_CR1_PCE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a2e159d36ab2c93a2c1942df60e9eebbe"></span><strong>USART_CR1_PS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a06dd8046f0be5bf34ee6af36a1811785"></span><strong>USART_CR1_PS_EVEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ad5e07c22b70d6370d4af989104f5ba7e"></span><strong>USART_CR1_PS_ODD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a27405d413b6d355ccdb076d52fef6875"></span><strong>USART_CR1_PEIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a70422871d15f974b464365e7fe1877e9"></span><strong>USART_CR1_TXEIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aa17130690a1ca95b972429eb64d4254e"></span><strong>USART_CR1_TCIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a91118f867adfdb2e805beea86666de04"></span><strong>USART_CR1_RXNEIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a5221d09eebd12445a20f221bf98066f8"></span><strong>USART_CR1_IDLEIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ade7f090b04fd78b755b43357ecaa9622"></span><strong>USART_CR1_TE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ada0d5d407a22264de847bc1b40a17aeb"></span><strong>USART_CR1_RE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aa7d61ab5a4e2beaa3f591c56bd15a27b"></span><strong>USART_CR1_RWU</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a493bdabe0c6dfce23994fe26d80391c4"></span><strong>USART_CR1_RWU_ACTIVE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a330f226711df15acea3f4ab1ab066f4b"></span><strong>USART_CR1_RWU_MUTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ac457c519baa28359ab7959fbe0c5cda1"></span><strong>USART_CR1_SBK</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="control-register-2">
+<h3><a class="toc-backref" href="#id10">Control Register 2</a><a class="headerlink" href="#control-register-2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a40b339fb007c47567ddc55bf2ccca75b"></span><strong>USART_CR2_LINEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ab5a323c9c7da85b437bdf3f7bdfd127e"></span><strong>USART_CR2_CLKEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a3544da106b4e20863c7d4aef67cf6fde"></span><strong>USART_CR2_CPOL_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ad01df5c7d1693b65f7cf050cc3b8d60a"></span><strong>USART_CR2_CPHA_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ac2ad226d41d164760f70d002e68ed208"></span><strong>USART_CR2_LBCL_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aabbe97edd1b172440cbee6202f7dc75e"></span><strong>USART_CR2_LBDIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a0adb3fe851f575f395cde7dce6bcb43b"></span><strong>USART_CR2_LBDL_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ac8931efa62c29d92f5c0ec5a05f907ef"></span><strong>USART_CR2_LINEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1af993e483318ebcecffd18649de766dc6"></span><strong>USART_CR2_STOP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1af63d9cb47a328204529f6cd3a02dfc1d"></span><strong>USART_CR2_STOP_BITS_1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1adde2464871c7a707a1b2329db45e3cf1"></span><strong>USART_CR2_STOP_BITS_POINT_5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a451ef86b366d4c96282b34c761924ad9"></span><strong>USART_CR2_STOP_BITS_1_POINT_5</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a9664240981ee04aa80f842f1afdc9ff1"></span><strong>USART_CR2_STOP_BITS_2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a42a396cde02ffa0c4d3fd9817b6af853"></span><strong>USART_CR2_CLKEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1afbb4336ac93d94d4e78f9fb7b3a0dc68"></span><strong>USART_CR2_CPOL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a6010560f872aa1687fb5f12b8d124842"></span><strong>USART_CR2_CPOL_LOW</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a917197e4ebfd2d48b4fa622c4a9cd3eb"></span><strong>USART_CR2_CPOL_HIGH</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a362976ce813e58310399d113d2cf09cb"></span><strong>USART_CR2_CPHA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a6c4b9baf9b7ad5a04c1ca9e5399f8fe2"></span><strong>USART_CR2_CPHA_FIRST</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a4d0e767ecc9242a7560b354909208917"></span><strong>USART_CR2_CPHA_SECOND</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a4a62e93ae7864e89622bdd92508b615e"></span><strong>USART_CR2_LBCL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aa02ef5d22553f028ea48e5d9f08192b4"></span><strong>USART_CR2_LBDIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a7f9bc41700717fd93548e0e95b6072ed"></span><strong>USART_CR2_LBDL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a3d273ceb8390618baba19cf0551bb310"></span><strong>USART_CR2_LBDL_10_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a59518e9184fd7631c237acbae75faa1d"></span><strong>USART_CR2_LBDL_11_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a3ee77fac25142271ad56d49685e518b3"></span><strong>USART_CR2_ADD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="control-register-3">
+<h3><a class="toc-backref" href="#id11">Control Register 3</a><a class="headerlink" href="#control-register-3" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a40b0dc8c0981812c249d2d285c634bfe"></span><strong>USART_CR3_CTSIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1acd0b7d90fefc2d91c5cb59193bfb0b61"></span><strong>USART_CR3_CTSE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a4d674bd658accbcdd58a6fa4b931cb01"></span><strong>USART_CR3_RTSE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ad2c19b7f2815c6da2b7f950337e8a623"></span><strong>USART_CR3_DMAT_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a8ce5dbd3037ef22f4ed35e296aa60a52"></span><strong>USART_CR3_DMAR_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a8c3b8d9b15b23312e7e7a35cdb0c1631"></span><strong>USART_CR3_SCEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a819ff9b2fed8d4969c4e104f89eabcfe"></span><strong>USART_CR3_NACK_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a488db2978f3c39589c431093a4b8bce5"></span><strong>USART_CR3_HDSEL_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ac660a8ea5172882005d1588bdbd5b1f0"></span><strong>USART_CR3_IRLP_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ac285eb55103cc0f512eb3f0f1bb27281"></span><strong>USART_CR3_IREN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a0e828e7e1413c03bc412f4621a844ac6"></span><strong>USART_CR3_EIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a636d5ec2e9556949fc68d13ad45a1e90"></span><strong>USART_CR3_CTSIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aa125f026b1ca2d76eab48b191baed265"></span><strong>USART_CR3_CTSE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a7c5d6fcd84a4728cda578a0339b4cac2"></span><strong>USART_CR3_RTSE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a5bb515d3814d448f84e2c98bf44f3993"></span><strong>USART_CR3_DMAT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aff130f15493c765353ec2fd605667c5a"></span><strong>USART_CR3_DMAR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a9180b9249a26988f71d4bb2b0c3eec27"></span><strong>USART_CR3_SCEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a3f3b70b2ee9ff0b59e952fd7ab04373c"></span><strong>USART_CR3_NACK</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1ac71129810fab0b46d91161a39e3f8d01"></span><strong>USART_CR3_HDSEL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a22af8d399f1adda62e31186f0309af80"></span><strong>USART_CR3_IRLP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a3811fd90ae3cd7918fb0c8f5e8c06ee1"></span><strong>USART_CR3_IRLP_NORMAL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a8d9a0b693fcb41746992ae2d6880979e"></span><strong>USART_CR3_IRLP_LOW_POWER</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a31c66373bfbae7724c836ac63b8411dd"></span><strong>USART_CR3_IREN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aaed1a39c551b1641128f81893ff558d0"></span><strong>USART_CR3_EIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="guard-time-and-prescaler-register">
+<h3><a class="toc-backref" href="#id12">Guard Time and Prescaler Register</a><a class="headerlink" href="#guard-time-and-prescaler-register" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1a8e927fad0bfa430f54007e158e01f43b"></span><strong>USART_GTPR_GT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0usart_8h_1aa0b423f0f4baf7d510ea70477e5c9203"></span><strong>USART_GTPR_PSC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="util.html" title="util.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="timer.html" title="timer.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

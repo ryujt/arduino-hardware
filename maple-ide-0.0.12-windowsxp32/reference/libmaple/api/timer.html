@@ -1,0 +1,3261 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>timer.h &mdash; Maple v0.0.12 Documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/breathe.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.0.12',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/round_logo_32x32.ico"/>
+    <link rel="top" title="Maple v0.0.12 Documentation" href="../../index.html" />
+    <link rel="up" title="APIs" href="../apis.html" />
+    <link rel="next" title="usart.h" href="usart.html" />
+    <link rel="prev" title="systick.h" href="systick.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="usart.html" title="usart.h"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="systick.html" title="systick.h"
+             accesskey="P">previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" accesskey="U">APIs</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="timer-h">
+<span id="libmaple-timer"></span><h1><tt class="docutils literal"><span class="pre">timer.h</span></tt><a class="headerlink" href="#timer-h" title="Permalink to this headline">¶</a></h1>
+<p>Timer support.</p>
+<div class="contents local topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#types" id="id1">Types</a></li>
+<li><a class="reference internal" href="#devices" id="id2">Devices</a></li>
+<li><a class="reference internal" href="#functions" id="id3">Functions</a><ul>
+<li><a class="reference internal" href="#enabling-and-disabling" id="id4">Enabling and Disabling</a></li>
+<li><a class="reference internal" href="#general-configuration" id="id5">General Configuration</a></li>
+<li><a class="reference internal" href="#count-and-prescaler" id="id6">Count and Prescaler</a></li>
+<li><a class="reference internal" href="#interrupts" id="id7">Interrupts</a></li>
+<li><a class="reference internal" href="#capture-compare" id="id8">Capture/Compare</a></li>
+<li><a class="reference internal" href="#dma" id="id9">DMA</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#register-map-base-pointers" id="id10">Register Map Base Pointers</a></li>
+<li><a class="reference internal" href="#register-bit-definitions" id="id11">Register Bit Definitions</a><ul>
+<li><a class="reference internal" href="#control-register-1-cr1" id="id12">Control register 1 (CR1)</a></li>
+<li><a class="reference internal" href="#control-register-2-cr2" id="id13">Control register 2 (CR2)</a></li>
+<li><a class="reference internal" href="#slave-mode-control-register-smcr" id="id14">Slave mode control register (SMCR)</a></li>
+<li><a class="reference internal" href="#dma-interrupt-enable-register-dier" id="id15">DMA/Interrupt enable register (DIER)</a></li>
+<li><a class="reference internal" href="#status-register-sr" id="id16">Status register (SR)</a></li>
+<li><a class="reference internal" href="#event-generation-register-egr" id="id17">Event generation register (EGR)</a></li>
+<li><a class="reference internal" href="#capture-compare-mode-registers-common-values" id="id18">Capture/compare mode registers, common values</a></li>
+<li><a class="reference internal" href="#capture-compare-mode-register-1-ccmr1" id="id19">Capture/compare mode register 1 (CCMR1)</a></li>
+<li><a class="reference internal" href="#capture-compare-mode-register-2-ccmr2" id="id20">Capture/compare mode register 2 (CCMR2)</a></li>
+<li><a class="reference internal" href="#capture-compare-enable-register-ccer" id="id21">Capture/compare enable register (CCER)</a></li>
+<li><a class="reference internal" href="#break-and-dead-time-register-bdtr" id="id22">Break and dead-time register (BDTR)</a></li>
+<li><a class="reference internal" href="#dma-control-register-dcr" id="id23">DMA control register (DCR)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2><a class="toc-backref" href="#id1">Types</a><a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<p>The timer register map type, unlike that for most other peripherals in
+libmaple, is a union rather than a struct.  This is due to the fact
+that there are advanced, general purpose, and basic timers.  Thus,
+each kind of timer has a register map type, and a <tt class="docutils literal"><span class="pre">union</span>
+<span class="pre">timer_reg_map</span></tt> ties it all together.</p>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>timer_adv_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>Advanced control timer register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structtimer__adv__reg__map_1add888670a199fecc2c0e9b50bda1f671"></span>__io uint32 <strong>CR1</strong></dt>
+<dd><p class="first">Control register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a92b5970d77b7319516519c8786b477de"></span>__io uint32 <strong>CR2</strong></dt>
+<dd><p class="first">Control register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a19d488c32a5edacf9b8d104b22797656"></span>__io uint32 <strong>SMCR</strong></dt>
+<dd><p class="first">Slave mode control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1ac93ee1e1c9054147994e4dcb5c4d0c49"></span>__io uint32 <strong>DIER</strong></dt>
+<dd><p class="first">DMA/Interrupt enable register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1af50571a1f004fca6fdf4fac8e8fc2fec"></span>__io uint32 <strong>SR</strong></dt>
+<dd><p class="first">Status register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a61221cd9c0a5ab185a269243fbb49114"></span>__io uint32 <strong>EGR</strong></dt>
+<dd><p class="first">Event generation register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a1fab0dfbbf7b4cf8edd484f8cc0d4396"></span>__io uint32 <strong>CCMR1</strong></dt>
+<dd><p class="first">Capture/compare mode register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a45915ea234ee3f173fe29a226179283d"></span>__io uint32 <strong>CCMR2</strong></dt>
+<dd><p class="first">Capture/compare mode register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a34756f7838137c48dbaa28488a35706c"></span>__io uint32 <strong>CCER</strong></dt>
+<dd><p class="first">Capture/compare enable register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a3bfd4a589b110f4f24705c89902687a9"></span>__io uint32 <strong>CNT</strong></dt>
+<dd><p class="first">Counter. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a4081f4e49a86ecf4375b2ce7f533d4a2"></span>__io uint32 <strong>PSC</strong></dt>
+<dd><p class="first">Prescaler. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a9abaa5d07ce03c2e86564de79a65d5bf"></span>__io uint32 <strong>ARR</strong></dt>
+<dd><p class="first">Auto-reload register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1ab03165172f959c51880f339feeade244"></span>__io uint32 <strong>RCR</strong></dt>
+<dd><p class="first">Repetition counter register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a519d839e790a2c53010bd453fe04657d"></span>__io uint32 <strong>CCR1</strong></dt>
+<dd><p class="first">Capture/compare register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a5729ca67355bd77bf0a27b2be81b8ad8"></span>__io uint32 <strong>CCR2</strong></dt>
+<dd><p class="first">Capture/compare register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1abfd5bb6bc3244e7f237bfc90b9d35001"></span>__io uint32 <strong>CCR3</strong></dt>
+<dd><p class="first">Capture/compare register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1ac663bcb492500c43e34c469152d37ab1"></span>__io uint32 <strong>CCR4</strong></dt>
+<dd><p class="first">Capture/compare register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1aecf2514461cf101bd115e6b4373720a8"></span>__io uint32 <strong>BDTR</strong></dt>
+<dd><p class="first">Break and dead-time register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a9af838afec7eed947a3147379f77b211"></span>__io uint32 <strong>DCR</strong></dt>
+<dd><p class="first">DMA control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__adv__reg__map_1a85e5b652d342984b5e6a4d0c7a6ad35e"></span>__io uint32 <strong>DMAR</strong></dt>
+<dd><p class="first">DMA address for full transfer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>timer_gen_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>General purpose timer register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structtimer__gen__reg__map_1a35b8736c977a655f72a41be4fd5f29f2"></span>__io uint32 <strong>CR1</strong></dt>
+<dd><p class="first">Control register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a678b25ebec910b448527494698d020e1"></span>__io uint32 <strong>CR2</strong></dt>
+<dd><p class="first">Control register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a44e46eb61543052faac3d6bc758f7959"></span>__io uint32 <strong>SMCR</strong></dt>
+<dd><p class="first">Slave mode control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1ac703708b06e3a72c1c7334c805e5300a"></span>__io uint32 <strong>DIER</strong></dt>
+<dd><p class="first">DMA/Interrupt enable register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1af2050de7e57474ea1cad4172976415f0"></span>__io uint32 <strong>SR</strong></dt>
+<dd><p class="first">Status register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a009c6354c89b969778606089ecce9160"></span>__io uint32 <strong>EGR</strong></dt>
+<dd><p class="first">Event generation register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a9ecb2ca0294d8af3ae98a7cdc3f9d6db"></span>__io uint32 <strong>CCMR1</strong></dt>
+<dd><p class="first">Capture/compare mode register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a4b0e6ca0860b5289193d8dc66d9b4b7d"></span>__io uint32 <strong>CCMR2</strong></dt>
+<dd><p class="first">Capture/compare mode register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a37631cb2c3890cf5fa95217e8cecdbd1"></span>__io uint32 <strong>CCER</strong></dt>
+<dd><p class="first">Capture/compare enable register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a0c29c7a9f18a62592507608361ff2a94"></span>__io uint32 <strong>CNT</strong></dt>
+<dd><p class="first">Counter. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a435bb12f4d0aca4b3d01d7bb98603902"></span>__io uint32 <strong>PSC</strong></dt>
+<dd><p class="first">Prescaler. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1aca5e68ff6af38db178511be5394644bb"></span>__io uint32 <strong>ARR</strong></dt>
+<dd><p class="first">Auto-reload register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1abd04fffa0db4baf159928a5a37fe84d2"></span>const uint32 <strong>RESERVED1</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1aae9ded9f019fb26c07348b2ac1b9ad04"></span>__io uint32 <strong>CCR1</strong></dt>
+<dd><p class="first">Capture/compare register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a2f99ed59e6770a1b4f1e13a1110a9ec2"></span>__io uint32 <strong>CCR2</strong></dt>
+<dd><p class="first">Capture/compare register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a31c5d20d18ad2443513f5fcd1360c412"></span>__io uint32 <strong>CCR3</strong></dt>
+<dd><p class="first">Capture/compare register 3. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a8ed2f47f8cb79490fb04def89d1ed4c5"></span>__io uint32 <strong>CCR4</strong></dt>
+<dd><p class="first">Capture/compare register 4. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1ac49341e02659e516c5dad664fbf4a88b"></span>const uint32 <strong>RESERVED2</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1ab6def1523729782e8e3c3e600b8ad6f9"></span>__io uint32 <strong>DCR</strong></dt>
+<dd><p class="first">DMA control register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__gen__reg__map_1a85026dbd4e43f413485c8aa3c8487b95"></span>__io uint32 <strong>DMAR</strong></dt>
+<dd><p class="first">DMA address for full transfer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>timer_bas_reg_map</strong></div>
+</div>
+<blockquote>
+<div><p>Basic timer register map type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structtimer__bas__reg__map_1a410dd281d118211885595cbb8a5a39b6"></span>__io uint32 <strong>CR1</strong></dt>
+<dd><p class="first">Control register 1. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__bas__reg__map_1a5fa2374f6de6da072391e945ecde26aa"></span>__io uint32 <strong>CR2</strong></dt>
+<dd><p class="first">Control register 2. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__bas__reg__map_1a26a54d0853e9d4fe2dcbb9eb651aa9e4"></span>const uint32 <strong>RESERVED1</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__bas__reg__map_1a68bd8f20da42d9bc90c5f7fb24e64870"></span>__io uint32 <strong>DIER</strong></dt>
+<dd><p class="first">DMA/Interrupt enable register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__bas__reg__map_1a178d900d217cca5c9e8f565dc2b0e2b6"></span>__io uint32 <strong>SR</strong></dt>
+<dd><p class="first">Status register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__bas__reg__map_1a8d3f9c30a6899138e0de69485ae3234f"></span>__io uint32 <strong>EGR</strong></dt>
+<dd><p class="first">Event generation register. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__bas__reg__map_1a75ab46c84db8dc7a5c0999fdbc91449a"></span>const uint32 <strong>RESERVED2</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__bas__reg__map_1ad5185b9ccb4fdb19cb0eb95b2cccf793"></span>const uint32 <strong>RESERVED3</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__bas__reg__map_1a52d75bc9dda1284ab26c8ee449dac38c"></span>const uint32 <strong>RESERVED4</strong></dt>
+<dd><p class="first">Reserved. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__bas__reg__map_1a26e19c7878cb800869bf36085b803b4d"></span>__io uint32 <strong>CNT</strong></dt>
+<dd><p class="first">Counter. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__bas__reg__map_1a245825690827bd170c28bce5c1189282"></span>__io uint32 <strong>PSC</strong></dt>
+<dd><p class="first">Prescaler. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__bas__reg__map_1a79d86bf37a37b6756123c4032006bc53"></span>__io uint32 <strong>ARR</strong></dt>
+<dd><p class="first">Auto-reload register. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a96d92a0967e019b8223089e7968971c1"></span><strong>timer_type enum</strong></dt>
+<dd><p class="first">Timer type. </p>
+<p><p>Type marker for <a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a></td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">TIMER_ADVANCED</span></tt> - <p>Advanced type. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_GENERAL</span></tt> - <p>General purpose type. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_BASIC</span></tt> - <p>Basic type. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<div class="line-block">
+<div class="line"><em>struct</em> <strong>timer_dev</strong></div>
+</div>
+<blockquote>
+<div><p>Timer device type. </p>
+<p></p>
+<em>Public Members</em><blockquote>
+<div><dl class="docutils">
+<dt id=""><span id="project0structtimer__dev_1a2bb0cda9590b90f2d767ceb540633d8e"></span>timer_reg_map <strong>regs</strong></dt>
+<dd><p class="first">Register map. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__dev_1a9f76fb96b4ee0e2081b81cd859475d1f"></span><a class="reference internal" href="rcc.html#project0rcc_8h_1ae3722d2d8eff5283fb0388429953640f"><em>rcc_clk_id</em></a> <strong>clk_id</strong></dt>
+<dd><p class="first">RCC clock information. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__dev_1a178dad71538821d7119ba07d209100c6"></span><a class="reference internal" href="#project0timer_8h_1a96d92a0967e019b8223089e7968971c1"><em>timer_type</em></a> <strong>type</strong></dt>
+<dd><p class="first">Timer&#8217;s type. </p>
+<p class="last"></p>
+</dd>
+<dt id=""><span id="project0structtimer__dev_1a6612456d9af23142eb0b9c595528c34a"></span>voidFuncPtr <strong>handlers</strong>[]</dt>
+<dd><p class="first">User IRQ handlers. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div></blockquote>
+</div></blockquote>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a28110292f2481f7b44d1517fb4ce3c15"></span><strong>timer_mode enum</strong></dt>
+<dd><p class="first">Used to configure the behavior of a timer channel. </p>
+<p>Note that not all timers can be configured in every mode. </p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">TIMER_DISABLED</span></tt> - <p>In this mode, the timer stops counting, channel interrupts are detached, and no state changes are output. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_PWM</span></tt> - <p>PWM output mode. </p>
+<p>This is the default mode for pins after initialization. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_OUTPUT_COMPARE</span></tt> - <p>In this mode, the timer counts from 0 to its reload value repeatedly; every time the counter value reaches one of the channel compare values, the corresponding interrupt is fired. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a59cf27ab194b377006b4dc9086df6328"></span><strong>timer_channel enum</strong></dt>
+<dd><p class="first">Timer channel numbers. </p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">TIMER_CH1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span></tt> - <p>Channel 1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_CH2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">2</span></tt> - <p>Channel 2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_CH3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">3</span></tt> - <p>Channel 3. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_CH4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">4</span></tt> - <p>Channel 4. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae61e0dd2adb3cee75d7e6681aac15119"></span><strong>timer_interrupt_id enum</strong></dt>
+<dd><p class="first">Timer interrupt number. </p>
+<p>Not all timers support all of these values; see the descriptions for each value. </p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">TIMER_UPDATE_INTERRUPT</span></tt> - <p>Update interrupt, available on all timers. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_CC1_INTERRUPT</span></tt> - <p>Capture/compare 1 interrupt, available on general and advanced timers only. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_CC2_INTERRUPT</span></tt> - <p>Capture/compare 2 interrupt, general and advanced timers only. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_CC3_INTERRUPT</span></tt> - <p>Capture/compare 3 interrupt, general and advanced timers only. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_CC4_INTERRUPT</span></tt> - <p>Capture/compare 4 interrupt, general and advanced timers only. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_COM_INTERRUPT</span></tt> - <p>COM interrupt, advanced timers only. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_TRG_INTERRUPT</span></tt> - <p>Trigger interrupt, general and advanced timers only. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_BREAK_INTERRUPT</span></tt> - <p>Break interrupt, advanced timers only. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1acefc6b93b26794425087790300b11899"></span><strong>timer_dma_base_addr enum</strong></dt>
+<dd><p class="first">Timer DMA base address. </p>
+<p>Defines the base address for DMA transfers. </p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_CR1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_CR1</span></tt> - <p>Base is control register 1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_CR2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_CR2</span></tt> - <p>Base is control register 2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_SMCR</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_SMCR</span></tt> - <p>Base is slave mode control register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_DIER</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_DIER</span></tt> - <p>Base is DMA interrupt enable register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_SR</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_SR</span></tt> - <p>Base is status register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_EGR</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_EGR</span></tt> - <p>Base is event generation register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_CCMR1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_CCMR1</span></tt> - <p>Base is capture/compare mode register 1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_CCMR2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_CCMR2</span></tt> - <p>Base is capture/compare mode register 2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_CCER</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_CCER</span></tt> - <p>Base is capture/compare enable register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_CNT</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_CNT</span></tt> - <p>Base is counter. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_PSC</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_PSC</span></tt> - <p>Base is prescaler. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_ARR</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_ARR</span></tt> - <p>Base is auto-reload register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_RCR</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_RCR</span></tt> - <p>Base is repetition counter register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_CCR1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_CCR1</span></tt> - <p>Base is capture/compare register 1. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_CCR2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_CCR2</span></tt> - <p>Base is capture/compare register 2. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_CCR3</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_CCR3</span></tt> - <p>Base is capture/compare register 3. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_CCR4</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_CCR4</span></tt> - <p>Base is capture/compare register 4. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_BDTR</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_BDTR</span></tt> - <p>Base is break and dead-time register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_DCR</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_DCR</span></tt> - <p>Base is DMA control register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_DMA_BASE_DMAR</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">TIMER_DCR_DBA_DMAR</span></tt> - <p>Base is DMA address for full transfer. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ab5a473ea9040378659bcbbd48ed36595"></span><strong>timer_oc_mode enum</strong></dt>
+<dd><p class="first">Timer output compare modes. </p>
+<p></p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">TIMER_OC_MODE_FROZEN</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">0</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - <p>Frozen: comparison between output compare register and counter has no effect on the outputs. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_OC_MODE_ACTIVE_ON_MATCH</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">1</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - <p>OCxREF signal is forced high when the count matches the channel capture/compare register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_OC_MODE_INACTIVE_ON_MATCH</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">2</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - <p>OCxREF signal is forced low when the counter matches the channel capture/compare register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_OC_MODE_TOGGLE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">3</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - <p>OCxREF toggles when counter matches the cannel capture/compare register. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_OC_MODE_FORCE_INACTIVE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">4</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - <p>OCxREF is forced low. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_OC_MODE_FORCE_ACTIVE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">5</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - <p>OCxREF is forced high. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_OC_MODE_PWM_1</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">6</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - <p>PWM mode 1. </p>
+<p>In upcounting, channel is active as long as count is less than channel capture/compare register, else inactive. In downcounting, channel is inactive as long as count exceeds capture/compare register, else active. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_OC_MODE_PWM_2</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">7</span> <span class="pre">&lt;&lt;</span> <span class="pre">4</span></tt> - <p>PWM mode 2. </p>
+<p>In upcounting, channel is inactive as long as count is less than capture/compare register, else active. In downcounting, channel is active as long as count exceeds capture/compare register, else inactive. </p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2d49aabeac428e1afa61bdf38ba427d2"></span><strong>timer_oc_mode_flags enum</strong></dt>
+<dd><p class="first">Timer output compare mode flags. </p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><a class="reference internal" href="#project0timer_8h_1a8f9bdd4839c155992ff426112c6a770d"><em>timer_oc_set_mode()</em></a></td>
+</tr>
+</tbody>
+</table>
+</p>
+<p><em>Values:</em></p>
+<ul class="breatheenumvalues last">
+<li><tt class="first docutils literal"><span class="pre">TIMER_OC_CE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">BIT(7)</span></tt> - <p>Output compare clear enable. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_OC_PE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">BIT(3)</span></tt> - <p>Output compare preload enable. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">TIMER_OC_FE</span></tt><tt class="docutils literal"> <span class="pre">=</span>  <span class="pre">BIT(2)</span></tt> - <p>Output compare fast enable. </p>
+</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="devices">
+<h2><a class="toc-backref" href="#id2">Devices</a><a class="headerlink" href="#devices" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1a9e5364c45a25fc4193cdc4be3d55a721"></span><a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * <strong>TIMER1</strong></dt>
+<dd><p class="first">Timer 1 device (advanced). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1a8a772ced952a8cca95650db02e44ecc9"></span><a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * <strong>TIMER2</strong></dt>
+<dd><p class="first">Timer 2 device (general-purpose). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1ae1f111c61f5f8a279d1dde23436e978c"></span><a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * <strong>TIMER3</strong></dt>
+<dd><p class="first">Timer 3 device (general-purpose). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1ac36ee49512ce9d48d06391dddb9e92e6"></span><a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * <strong>TIMER4</strong></dt>
+<dd><p class="first">Timer 4 device (general-purpose). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1ac0cdd6856cbe695f15aa7e370889bd85"></span><a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * <strong>TIMER5</strong></dt>
+<dd><p class="first">Timer 5 device (general-purpose). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1aba898f32e58b1774e48528c028979864"></span><a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * <strong>TIMER6</strong></dt>
+<dd><p class="first">Timer 6 device (basic). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1ac991071e825b096edfc0a28957a0184c"></span><a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * <strong>TIMER7</strong></dt>
+<dd><p class="first">Timer 7 device (basic). </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1add5719c18577816da5a0937643c73655"></span><a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * <strong>TIMER8</strong></dt>
+<dd><p class="first">Timer 8 device (advanced). </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#id3">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="enabling-and-disabling">
+<h3><a class="toc-backref" href="#id4">Enabling and Disabling</a><a class="headerlink" href="#enabling-and-disabling" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1af81de5fe197902422475d88556653f14"></span><div class="line-block">
+<div class="line">void <strong>timer_init</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize a timer, and reset its register map. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer to initialize </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a270b9d01210a029d12d475483f102939"></span><div class="line-block">
+<div class="line">void <strong>timer_init_all</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Initialize all timer devices on the chip. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1afe23911cb1a5cc945baa25caed6a724f"></span><div class="line-block">
+<div class="line">void <strong>timer_disable</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Disable a timer. </p>
+<p class="last"><p>The timer will stop counting, all DMA requests and interrupts will be disabled, and no state changes will be output.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer to disable. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9d13b9d3e63fa7d21b1fd3d117fae402"></span><div class="line-block">
+<div class="line">void <strong>timer_disable_all</strong>(void)</div>
+</div>
+</dt>
+<dd><p class="first">Disables all timers on the device. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="general-configuration">
+<h3><a class="toc-backref" href="#id5">General Configuration</a><a class="headerlink" href="#general-configuration" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1a471f66c82b67c3529845f880bf75823b"></span><div class="line-block">
+<div class="line">void <strong>timer_set_mode</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 channel, <a class="reference internal" href="#project0timer_8h_1a28110292f2481f7b44d1517fb4ce3c15"><em>timer_mode</em></a> mode)</div>
+</div>
+</dt>
+<dd><p class="first">Sets the mode of an individual timer channel. </p>
+<p class="last"><p>Note that not all timers can be configured in every mode. For example, basic timers cannot be configured to output compare mode. Be sure to use a timer which is appropriate for the mode you want.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer whose channel mode to set </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Relevant channel </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mode</span></tt> - <p>New timer mode for channel </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1a8bdc7cae7d104e6e90873ad4055db77c"></span><div class="line-block">
+<div class="line">void <strong>timer_foreach</strong>(void(*)( <a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  *) fn)</div>
+</div>
+</dt>
+<dd><p class="first">Call a function on timer devices. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">fn</span></tt> - <p>Function to call on each timer device. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="count-and-prescaler">
+<h3><a class="toc-backref" href="#id6">Count and Prescaler</a><a class="headerlink" href="#count-and-prescaler" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a33e8e1e7cec61248db27366c3573f6a8"></span><div class="line-block">
+<div class="line">uint16 <strong>timer_get_count</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Returns the timer&#8217;s counter value. </p>
+<p class="last"><p>This value is likely to be inaccurate if the counter is running with a low prescaler.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer whose counter to return </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a47e92d8d5707791a2f7fe93374e5f4c2"></span><div class="line-block">
+<div class="line">void <strong>timer_set_count</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint16 value)</div>
+</div>
+</dt>
+<dd><p class="first">Sets the counter value for the given timer. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer whose counter to set </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">value</span></tt> - <p>New counter value </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af48c047a4c1951fa45d186e379555bd2"></span><div class="line-block">
+<div class="line">void <strong>timer_pause</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Stop a timer&#8217;s counter from changing. </p>
+<p class="last"><p>Does not affect the timer&#8217;s mode or other settings.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device whose counter to pause. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae16414fe11f38c814ce911f8da9ed407"></span><div class="line-block">
+<div class="line">void <strong>timer_resume</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Start a timer&#8217;s counter. </p>
+<p class="last"><p>Does not affect the timer&#8217;s mode or other settings.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Device whose counter to resume </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a0b83c73b9877c830b16b3b27d613fa55"></span><div class="line-block">
+<div class="line">void <strong>timer_generate_update</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Generate an update event for the given timer. </p>
+<p class="last"><p>Normally, this will cause the prescaler and auto-reload values in the PSC and ARR registers to take immediate effect. However, this function will do nothing if the UDIS bit is set in the timer&#8217;s CR1 register (UDIS is cleared by default).</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device to generate an update for. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a262bbfc4625f23cfd4c5f4f5312277c3"></span><div class="line-block">
+<div class="line">uint16 <strong>timer_get_prescaler</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Returns the given timer&#8217;s prescaler. </p>
+<p class="last"><p>Note that if the timer&#8217;s prescaler is set (e.g. via <a class="reference internal" href="#project0timer_8h_1a7f4eea5614cb3f527ac73e13b4863120"><em>timer_set_prescaler()</em></a> or accessing a TIMx_PSC register), the value returned by this function will reflect the new setting, but the timer&#8217;s counter will only reflect the new prescaler at the next update event.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer whose prescaler to return </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0timer_8h_1a0b83c73b9877c830b16b3b27d613fa55"><em>timer_generate_update()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a7f4eea5614cb3f527ac73e13b4863120"></span><div class="line-block">
+<div class="line">void <strong>timer_set_prescaler</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint16 psc)</div>
+</div>
+</dt>
+<dd><p class="first">Set a timer&#8217;s prescale value. </p>
+<p class="last"><p>The new value will not take effect until the next update event.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer whose prescaler to set </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">psc</span></tt> - <p>New prescaler value </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0timer_8h_1a0b83c73b9877c830b16b3b27d613fa55"><em>timer_generate_update()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1acc3171ed332a7e021e5d9b1097117af8"></span><div class="line-block">
+<div class="line">uint16 <strong>timer_get_reload</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Returns a timer&#8217;s reload value. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer whose reload value to return </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ab87dce61a1dfe313c190e46591d37aef"></span><div class="line-block">
+<div class="line">void <strong>timer_set_reload</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint16 arr)</div>
+</div>
+</dt>
+<dd><p class="first">Set a timer&#8217;s reload value. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer whose reload value to set </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">arr</span></tt> - <p>New reload value to use. Takes effect at next update event. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0timer_8h_1a0b83c73b9877c830b16b3b27d613fa55"><em>timer_generate_update()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="interrupts">
+<h3><a class="toc-backref" href="#id7">Interrupts</a><a class="headerlink" href="#interrupts" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1a022e444b1be2b3a47f598d16b0386f95"></span><div class="line-block">
+<div class="line">void <strong>timer_attach_interrupt</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 interrupt, voidFuncPtr handler)</div>
+</div>
+</dt>
+<dd><p class="first">Attach a timer interrupt. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">interrupt</span></tt> - <p>Interrupt number to attach to; this may be any timer_interrupt_id or timer_channel value appropriate for the timer. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">handler</span></tt> - <p>Handler to attach to the given interrupt. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p><a class="reference internal" href="#project0timer_8h_1ae61e0dd2adb3cee75d7e6681aac15119"><em>timer_interrupt_id</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0timer_8h_1a59cf27ab194b377006b4dc9086df6328"><em>timer_channel</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8c_1a821dbe60f78dd6e022d3a56d080589d1"></span><div class="line-block">
+<div class="line">void <strong>timer_detach_interrupt</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 interrupt)</div>
+</div>
+</dt>
+<dd><p class="first">Detach a timer interrupt. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">interrupt</span></tt> - <p>Interrupt number to detach; this may be any timer_interrupt_id or timer_channel value appropriate for the timer. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p><a class="reference internal" href="#project0timer_8h_1ae61e0dd2adb3cee75d7e6681aac15119"><em>timer_interrupt_id</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0timer_8h_1a59cf27ab194b377006b4dc9086df6328"><em>timer_channel</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a6c4d71e208cfc56627ac9a2c6b77a67d"></span><div class="line-block">
+<div class="line">void <strong>timer_enable_irq</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 interrupt)</div>
+</div>
+</dt>
+<dd><p class="first">Enable a timer interrupt. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">interrupt</span></tt> - <p>Interrupt number to enable; this may be any timer_interrupt_id value appropriate for the timer. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p><a class="reference internal" href="#project0timer_8h_1ae61e0dd2adb3cee75d7e6681aac15119"><em>timer_interrupt_id</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0timer_8h_1a59cf27ab194b377006b4dc9086df6328"><em>timer_channel</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ab35817f6e24cffa5366279277b44b606"></span><div class="line-block">
+<div class="line">void <strong>timer_disable_irq</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 interrupt)</div>
+</div>
+</dt>
+<dd><p class="first">Disable a timer interrupt. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">interrupt</span></tt> - <p>Interrupt number to disable; this may be any timer_interrupt_id value appropriate for the timer. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p><a class="reference internal" href="#project0timer_8h_1ae61e0dd2adb3cee75d7e6681aac15119"><em>timer_interrupt_id</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0timer_8h_1a59cf27ab194b377006b4dc9086df6328"><em>timer_channel</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="capture-compare">
+<h3><a class="toc-backref" href="#id8">Capture/Compare</a><a class="headerlink" href="#capture-compare" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a8e8aa6f96fc3e3bb7547671079018839"></span><div class="line-block">
+<div class="line">uint16 <strong>timer_get_compare</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 channel)</div>
+</div>
+</dt>
+<dd><p class="first">Get the compare value for the given timer channel. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose compare value to get. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2b31d2507b572734b090360c7b7f25f5"></span><div class="line-block">
+<div class="line">void <strong>timer_set_compare</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 channel, uint16 value)</div>
+</div>
+</dt>
+<dd><p class="first">Set the compare value for the given timer channel. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose compare value to set. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">value</span></tt> - <p>New compare value. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a0f4d049490eb476eba409a9138571326"></span><div class="line-block">
+<div class="line">void <strong>timer_cc_enable</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 channel)</div>
+</div>
+</dt>
+<dd><p class="first">Enable a timer channel&#8217;s capture/compare signal. </p>
+<p class="last"><p>If the channel is configured as output, the corresponding output compare signal will be output on the corresponding output pin. If the channel is configured as input, enables capture of the counter value into the input capture/compare register.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel to enable, from 1 to 4. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a52cb6f1e8645daf27a3f83f110bc94e4"></span><div class="line-block">
+<div class="line">void <strong>timer_cc_disable</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 channel)</div>
+</div>
+</dt>
+<dd><p class="first">Disable a timer channel&#8217;s output compare or input capture signal. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel to disable, from 1 to 4. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p><a class="reference internal" href="#project0timer_8h_1a0f4d049490eb476eba409a9138571326"><em>timer_cc_enable()</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae1bf889c5dab8b8214b69a5cd66dedd4"></span><div class="line-block">
+<div class="line">uint8 <strong>timer_cc_get_pol</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 channel)</div>
+</div>
+</dt>
+<dd><p class="first">Get a channel&#8217;s capture/compare output polarity. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose capture/compare output polarity to get. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first"><p>Polarity, either 0 or 1. </p>
+</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first last"><p>timer_cc_set_polarity() </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a732e637188b820b211e064bb9f56b62b"></span><div class="line-block">
+<div class="line">void <strong>timer_cc_set_pol</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 channel, uint8 pol)</div>
+</div>
+</dt>
+<dd><p class="first">Set a timer channel&#8217;s capture/compare output polarity. </p>
+<p class="last"><p>If the timer channel is configured as output: polarity == 0 means the output channel will be active high; polarity == 1 means active low.</p>
+<p>If the timer channel is configured as input: polarity == 0 means capture is done on the rising edge of ICn; when used as an external trigger, ICn is non-inverted. polarity == 1 means capture is done on the falling edge of ICn; when used as an external trigger, ICn is inverted.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose capture/compare output polarity to set. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">pol</span></tt> - <p>New polarity, 0 or 1. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a8f9bdd4839c155992ff426112c6a770d"></span><div class="line-block">
+<div class="line">void <strong>timer_oc_set_mode</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 channel, <a class="reference internal" href="#project0timer_8h_1ab5a473ea9040378659bcbbd48ed36595"><em>timer_oc_mode</em></a> mode, uint8 flags)</div>
+</div>
+</dt>
+<dd><p class="first">Configure a channel&#8217;s output compare mode. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel to configure in output compare mode. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">mode</span></tt> - <p>Timer mode to set. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">flags</span></tt> - <p>OR of timer_oc_mode_flags. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">See:</th><td class="field-body"><p class="first"><p><a class="reference internal" href="#project0timer_8h_1ab5a473ea9040378659bcbbd48ed36595"><em>timer_oc_mode</em></a></p>
+</p>
+<p class="last"><p><a class="reference internal" href="#project0timer_8h_1a2d49aabeac428e1afa61bdf38ba427d2"><em>timer_oc_mode_flags</em></a></p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+</div>
+<div class="section" id="dma">
+<h3><a class="toc-backref" href="#id9">DMA</a><a class="headerlink" href="#dma" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a07730e6a5c6dfacada22556eefd82b14"></span><div class="line-block">
+<div class="line">void <strong>timer_dma_enable_trg_req</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Enable a timer&#8217;s trigger DMA request. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a81c96365bbcf0333d0f9236acfd54280"></span><div class="line-block">
+<div class="line">void <strong>timer_dma_disable_trg_req</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Disable a timer&#8217;s trigger DMA request. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2d30cc43889e9335ef72098d68efc319"></span><div class="line-block">
+<div class="line">void <strong>timer_dma_enable_req</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 channel)</div>
+</div>
+</dt>
+<dd><p class="first">Enable a timer channel&#8217;s DMA request. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">channel</span></tt> - <p>Channel whose DMA request to enable. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a86e6ea58cdee6d430720d86c6718c984"></span><div class="line-block">
+<div class="line">uint8 <strong>timer_dma_get_burst_len</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Get a timer&#8217;s DMA burst length. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>Number of bytes to be transferred per DMA request, from 1 to 18. </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a3ff742df30aac1581b0849b25eee93bf"></span><div class="line-block">
+<div class="line">void <strong>timer_dma_set_burst_len</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, uint8 length)</div>
+</div>
+</dt>
+<dd><p class="first">Set a timer&#8217;s DMA burst length. </p>
+<p class="last"><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">length</span></tt> - <p>DMA burst length; i.e., number of bytes to transfer per DMA request, from 1 to 18. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac057b7b78c26b75fdada1b06d9f3ccf5"></span><div class="line-block">
+<div class="line"><a class="reference internal" href="#project0timer_8h_1acefc6b93b26794425087790300b11899"><em>timer_dma_base_addr</em></a> <strong>timer_dma_get_base_addr</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev)</div>
+</div>
+</dt>
+<dd><p class="first">Get the timer&#8217;s DMA base address. </p>
+<p class="last"><p>Some restrictions apply; see ST RM0008.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL. </p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Return:</th><td class="field-body"><p class="first last"><p>DMA base address </p>
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9c2e56a105d630fd995ec010d2111d37"></span><div class="line-block">
+<div class="line">void <strong>timer_dma_set_base_addr</strong>(<a class="reference internal" href="#project0structtimer__dev"><em>timer_dev</em></a>  * dev, <a class="reference internal" href="#project0timer_8h_1acefc6b93b26794425087790300b11899"><em>timer_dma_base_addr</em></a> dma_base)</div>
+</div>
+</dt>
+<dd><p class="first">Set the timer&#8217;s DMA base address. </p>
+<p class="last"><p>Some restrictions apply; see ST RM0008.</p>
+<p><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="breatheparameterlist first last">
+<li><tt class="first docutils literal"><span class="pre">dev</span></tt> - <p>Timer device, must have type TIMER_ADVANCED or TIMER_GENERAL. </p>
+</li>
+<li><tt class="first docutils literal"><span class="pre">dma_base</span></tt> - <p>DMA base address. </p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</p>
+</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="register-map-base-pointers">
+<h2><a class="toc-backref" href="#id10">Register Map Base Pointers</a><a class="headerlink" href="#register-map-base-pointers" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a7a4bd01d91a70285f0bec70f4e9e88bb"></span><strong>TIMER1_BASE</strong></dt>
+<dd><p class="first">Timer 1 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a933376d74e94dae8f42e17c09bd91faa"></span><strong>TIMER2_BASE</strong></dt>
+<dd><p class="first">Timer 2 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2bcbc0fe8296511a1a9d12caff242819"></span><strong>TIMER3_BASE</strong></dt>
+<dd><p class="first">Timer 3 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a3d3c56ae603d1285c29871a81dc25e89"></span><strong>TIMER4_BASE</strong></dt>
+<dd><p class="first">Timer 4 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a76cd93576c17923d6397ccfea12e695f"></span><strong>TIMER5_BASE</strong></dt>
+<dd><p class="first">Timer 5 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a719e1b3ece82ede702b87c3895341302"></span><strong>TIMER6_BASE</strong></dt>
+<dd><p class="first">Timer 6 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae72b467b9548154db3d0dc81e81565bb"></span><strong>TIMER7_BASE</strong></dt>
+<dd><p class="first">Timer 7 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a8a0b5559af4cd58c1a92f90e742d302a"></span><strong>TIMER8_BASE</strong></dt>
+<dd><p class="first">Timer 8 register map base pointer. </p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="register-bit-definitions">
+<h2><a class="toc-backref" href="#id11">Register Bit Definitions</a><a class="headerlink" href="#register-bit-definitions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="control-register-1-cr1">
+<h3><a class="toc-backref" href="#id12">Control register 1 (CR1)</a><a class="headerlink" href="#control-register-1-cr1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af2031b8d9a97647ad96d8cc768aacedc"></span><strong>TIMER_CR1_ARPE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a33929dc20ed0b4f2907e957d8668d573"></span><strong>TIMER_CR1_DIR_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a168e4f6fb543077ef5d7cf53f111248c"></span><strong>TIMER_CR1_OPM_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9fdb18cfce7897a03802e8afbf6153e7"></span><strong>TIMER_CR1_URS_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a02d75145433f10156f45ab329f771344"></span><strong>TIMER_CR1_UDIS_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a619326dae3af7a545b9e790f3754ed11"></span><strong>TIMER_CR1_CEN_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ab1491bcaf95ba391bb03e0708918bd6f"></span><strong>TIMER_CR1_CKD</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ade64ec27c6057f049dc13816be749337"></span><strong>TIMER_CR1_CKD_1TCKINT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a41e40a6b878f03d603bbb8aea4aee3a9"></span><strong>TIMER_CR1_CKD_2TCKINT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a67a1490d76570c5417b2618c079dea7f"></span><strong>TIMER_CR1_CKD_4TICKINT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a79541ebd2f8fc64007feb9bc3ae472bd"></span><strong>TIMER_CR1_ARPE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae9ba07c1cdfd5336c649ff7bea5cb5a7"></span><strong>TIMER_CR1_CKD_CMS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a99684e6554a5856d684d37cb587f0662"></span><strong>TIMER_CR1_CKD_CMS_EDGE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1acc4d894830428f9e31a27d8ce280d8bc"></span><strong>TIMER_CR1_CKD_CMS_CENTER1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a0616730ab41aa0c352a30a92915737da"></span><strong>TIMER_CR1_CKD_CMS_CENTER2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a518bea57bbf2e8ca2968f4714e40fee5"></span><strong>TIMER_CR1_CKD_CMS_CENTER3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a80aacc00b0a4ebe03ab19bc1e8b14cb7"></span><strong>TIMER_CR1_DIR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a47eb791347bbe49a24193c4be12c660a"></span><strong>TIMER_CR1_OPM</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a277d769504527fbd43c0c6352748be42"></span><strong>TIMER_CR1_URS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa8e17571a4be04344e9515df5549b8c2"></span><strong>TIMER_CR1_UDIS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a323ae187f57b8ee5ffa24a97cb057ccf"></span><strong>TIMER_CR1_CEN</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="control-register-2-cr2">
+<h3><a class="toc-backref" href="#id13">Control register 2 (CR2)</a><a class="headerlink" href="#control-register-2-cr2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a180f5683169ff0c44b7592ee2216048b"></span><strong>TIMER_CR2_OIS4_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac57c52426411411609e972bd1a8600b0"></span><strong>TIMER_CR2_OIS3N_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9b6a7a920f16f42943b2cc357a365651"></span><strong>TIMER_CR2_OIS3_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a3383e2a7701107223899754c57c4d7c6"></span><strong>TIMER_CR2_OIS2N_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a3f19617e0cd6141e235789d1b082efe5"></span><strong>TIMER_CR2_OIS2_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a35ed7e452ecd05af3734e29fb91a514e"></span><strong>TIMER_CR2_OIS1N_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a6615ea80890663aced4a17ce970d818d"></span><strong>TIMER_CR2_OIS1_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aaa9ec8b212e2c4f44dd1741bb93a7e67"></span><strong>TIMER_CR2_TI1S_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a87d547f782c896cf7714aa2c45993c11"></span><strong>TIMER_CR2_CCDS_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a4901e32f7ed752f7ae4464e227732f63"></span><strong>TIMER_CR2_CCUS_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2594fd4983655828c40b6b66b3ab6638"></span><strong>TIMER_CR2_CCPC_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa3f4fe7d35e41c40858a030bf20fbee4"></span><strong>TIMER_CR2_OIS4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a34f3c48090d5d7a37832adf1585cf9b8"></span><strong>TIMER_CR2_OIS3N</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a88d32269727ef9f19080ce8a7db05681"></span><strong>TIMER_CR2_OIS3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1abff2d12b3eef9165cb8231cb9eeac5fd"></span><strong>TIMER_CR2_OIS2N</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1adaeea9fc73ecbd5be06c5a7fe378b3fd"></span><strong>TIMER_CR2_OIS2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a3344eabdf71d68078fa5cd2901897dda"></span><strong>TIMER_CR2_OIS1N</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a5819a4f6d077e3803163cccefd1ecfb7"></span><strong>TIMER_CR2_OIS1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2b53cfa55859d89ab488c5de7bedacef"></span><strong>TIMER_CR2_TI1S</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af7ac01f3c4b987c84b170ad149258569"></span><strong>TIMER_CR2_MMS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa798f24232b5e2f851ae59ff6907e9af"></span><strong>TIMER_CR2_MMS_RESET</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a81fd0ebeab3f783d50a591b000b96135"></span><strong>TIMER_CR2_MMS_ENABLE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9ccf9f398a3e00589f75a54e76f84320"></span><strong>TIMER_CR2_MMS_UPDATE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ad86b8436d5c73bcdec56fa27d3a9ab9e"></span><strong>TIMER_CR2_MMS_COMPARE_PULSE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa3f1792a619c5641a8e7350c92520b33"></span><strong>TIMER_CR2_MMS_COMPARE_OC1REF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aac34083661d09831d38fd7ac6c2543ed"></span><strong>TIMER_CR2_MMS_COMPARE_OC2REF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a4fe26e6ceaad546c54b10d3cae538405"></span><strong>TIMER_CR2_MMS_COMPARE_OC3REF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac50350cbc4fda2b5afe90fc813cbbb03"></span><strong>TIMER_CR2_MMS_COMPARE_OC4REF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a6a3b13f2d8964a2aa7f4208f9d0c1744"></span><strong>TIMER_CR2_CCDS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af97adca3b7a97f433278bf3ed13af150"></span><strong>TIMER_CR2_CCUS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2d9ae5b5610bba24219378cf1afb0e92"></span><strong>TIMER_CR2_CCPC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="slave-mode-control-register-smcr">
+<h3><a class="toc-backref" href="#id14">Slave mode control register (SMCR)</a><a class="headerlink" href="#slave-mode-control-register-smcr" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a095aa71e41acbb486664d411308ce263"></span><strong>TIMER_SMCR_ETP_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ad8d7070a3a2e9960852e2a84e6fe76a7"></span><strong>TIMER_SMCR_ECE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ab9401a35b4e9fc6af7e512f9972b045b"></span><strong>TIMER_SMCR_MSM_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a4869a4b11e7a190b8944818168e45471"></span><strong>TIMER_SMCR_ETP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a7411458d0c9e9197bc88b9eeb6f2dd00"></span><strong>TIMER_SMCR_ECE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae75e887d65edd69b278153365ee51b04"></span><strong>TIMER_SMCR_ETPS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a3cf8a853ff3e3334dec228e1890d4a36"></span><strong>TIMER_SMCR_ETPS_OFF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a7edebddcd3211411e104d1d977249516"></span><strong>TIMER_SMCR_ETPS_DIV2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a90f2b71d0935139f714d515b5c315068"></span><strong>TIMER_SMCR_ETPS_DIV4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a700750d97f41080cf4919fcd6f8816c9"></span><strong>TIMER_SMCR_ETPS_DIV8</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a3798f4489166989099427d57901de0f1"></span><strong>TIMER_SMCR_ETF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aeb65bf8a7abec6cbf0577ec0b9739463"></span><strong>TIMER_SMCR_MSM</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9a1aed751e02ae6da12e7d27df808789"></span><strong>TIMER_SMCR_TS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1affa1efe83b3acda0551c6a2ca9f89a91"></span><strong>TIMER_SMCR_TS_ITR0</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2380705b28c02f15bf29a20ff08b4c9e"></span><strong>TIMER_SMCR_TS_ITR1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ab7141ff0b406429d9556f5b0d4fc3ac8"></span><strong>TIMER_SMCR_TS_ITR2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a6f1ee6b1e6a16af0087e4a3ab92be8ca"></span><strong>TIMER_SMCR_TS_ITR3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a344fa5de78f042f7914974790dbe593f"></span><strong>TIMER_SMCR_TS_TI1F_ED</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a8af77fc337d2103e43770dda5565534d"></span><strong>TIMER_SMCR_TS_TI1FP1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a06673f3d3adbe551a86f1ac07bb1d660"></span><strong>TIMER_SMCR_TS_TI2FP2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ada40b901eef65f66680c8eb46275f6d3"></span><strong>TIMER_SMCR_TS_ETRF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a08bafc484ac666ff508d1b9e7d7200d6"></span><strong>TIMER_SMCR_SMS</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac3259a357e372411d49f7334db00f5b7"></span><strong>TIMER_SMCR_SMS_DISABLED</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a47b60f8909f49556d11bfd6626363415"></span><strong>TIMER_SMCR_SMS_ENCODER1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a670ebbf98be89f480a3909e1880df316"></span><strong>TIMER_SMCR_SMS_ENCODER2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a433755a4f402a1fb172ac74220673644"></span><strong>TIMER_SMCR_SMS_ENCODER3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a67643eef4dda9610ff55b219883cf76a"></span><strong>TIMER_SMCR_SMS_RESET</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af5e0aded6aa13f7b5803ee4fde8cea07"></span><strong>TIMER_SMCR_SMS_GATED</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a02e101d231d11f8427353a9afe43ad10"></span><strong>TIMER_SMCR_SMS_TRIGGER</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a91e45b310ea645b3aa07b8d80592eeea"></span><strong>TIMER_SMCR_SMS_EXTERNAL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="dma-interrupt-enable-register-dier">
+<h3><a class="toc-backref" href="#id15">DMA/Interrupt enable register (DIER)</a><a class="headerlink" href="#dma-interrupt-enable-register-dier" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae21cc86cec1d462eb6c8b1ac72ba3fc5"></span><strong>TIMER_DIER_TDE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1add7bb5e432e18882630954662cd53e80"></span><strong>TIMER_DIER_CC4DE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a980b3086186367e9271fe11e7c31ca0d"></span><strong>TIMER_DIER_CC3DE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a4cf1424fece99f05ecec449fa4115254"></span><strong>TIMER_DIER_CC2DE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a85c6483393fc41641d0f87dcae560c16"></span><strong>TIMER_DIER_CC1DE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac369e79b73740443247c3ad4ecebe4ec"></span><strong>TIMER_DIER_UDE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a141622547698e8399c30b47bb652f00e"></span><strong>TIMER_DIER_TIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa2b04e108f6b14649301acbe813a9c9c"></span><strong>TIMER_DIER_CC4IE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af9ba592d803c83b3ed27c3532f65f842"></span><strong>TIMER_DIER_CC3IE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a237ae64167958520cbe0b7216cda255e"></span><strong>TIMER_DIER_CC2IE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a581f9c7e9236d3844764ff3a727bc04c"></span><strong>TIMER_DIER_CC1IE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa91c2488fbcd799c7008437f90fd6b03"></span><strong>TIMER_DIER_UIE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a8acfa36412b121739f96f4850f89c3eb"></span><strong>TIMER_DIER_TDE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aad0b77e4781d21f5240d8f1606698048"></span><strong>TIMER_DIER_CC4DE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a05f9a48f61b5fa62d293e377612d94eb"></span><strong>TIMER_DIER_CC3DE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af42bbdea427b41087aee045c4545d082"></span><strong>TIMER_DIER_CC2DE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1acc07275f0574da8724595d413513553e"></span><strong>TIMER_DIER_CC1DE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa868e3bf8baeef8259396795093df7a7"></span><strong>TIMER_DIER_UDE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aec17420e5fbca589e188b331a463d4fa"></span><strong>TIMER_DIER_TIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a86f0deaf653f8c6889b7ad0543128837"></span><strong>TIMER_DIER_CC4IE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aef25e175b95b8892cce481c189f383d5"></span><strong>TIMER_DIER_CC3IE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1abfb542d11985bf6051f8fb37d9e3d72f"></span><strong>TIMER_DIER_CC2IE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa1a9c7d55b816db0f7cb0382726c3400"></span><strong>TIMER_DIER_CC1IE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1afbf9d9867556319721b2ae1791a8ce6c"></span><strong>TIMER_DIER_UIE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="status-register-sr">
+<h3><a class="toc-backref" href="#id16">Status register (SR)</a><a class="headerlink" href="#status-register-sr" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae6b62ac99cc5be2328607af90a2bc39f"></span><strong>TIMER_SR_CC4OF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2b398f4333904637a2a5d575914832a9"></span><strong>TIMER_SR_CC3OF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae97c96f80eef119d41819a6fcd1a402b"></span><strong>TIMER_SR_CC2OF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a5831451b05fbf7478611ab8c40529a6f"></span><strong>TIMER_SR_CC1OF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a1f4eef72e2cb086b3869ba169230ba72"></span><strong>TIMER_SR_BIF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ad7e515dc09d900c9471b2978e231fad0"></span><strong>TIMER_SR_TIF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2c07f88af671f787748bdf770cc8c3ca"></span><strong>TIMER_SR_COMIF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac219cbc7d56df7893580f982ce16ae93"></span><strong>TIMER_SR_CC4IF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a5689f0ca77f871f176051e184fb606e8"></span><strong>TIMER_SR_CC3IF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aaf81fe95af9977afb31383179f797981"></span><strong>TIMER_SR_CC2IF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af43a6748dffc466ecdbc90cce0960c69"></span><strong>TIMER_SR_CC1IF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9d521f8a0fc5430f96f8903bc49a7f69"></span><strong>TIMER_SR_UIF_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac4a5609a3337ed93b0be000afe8c5da5"></span><strong>TIMER_SR_CC4OF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac75dec53bfee8364a33d0946926206e4"></span><strong>TIMER_SR_CC3OF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a8ef635196c95f0189e0b65c95762e23f"></span><strong>TIMER_SR_CC2OF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a170278c0be4ace143e17293fc55eb6b8"></span><strong>TIMER_SR_CC1OF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a694ccc69bb11f8e16e2404b588e9651b"></span><strong>TIMER_SR_BIF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a92597a9a531de065ec40fa97bc26d531"></span><strong>TIMER_SR_TIF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a65474f8e8fdcf970d40682bb461e46a7"></span><strong>TIMER_SR_COMIF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ada61d9f999a6fa5cfd590441cb7f062d"></span><strong>TIMER_SR_CC4IF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a38dbed46b5531fd4ba52bd8f2da38b07"></span><strong>TIMER_SR_CC3IF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aff546784e7b876134cfcbb0b90589aba"></span><strong>TIMER_SR_CC2IF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a0f8f627c4dd2c6a1d9231eab68e29769"></span><strong>TIMER_SR_CC1IF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ab4b80565a3c00adc50a6b1b3f4f79030"></span><strong>TIMER_SR_UIF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="event-generation-register-egr">
+<h3><a class="toc-backref" href="#id17">Event generation register (EGR)</a><a class="headerlink" href="#event-generation-register-egr" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a0337cff22dbd54a0000f21a7788c57f2"></span><strong>TIMER_EGR_TG_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ab16b722df97c908df9180e47b7640545"></span><strong>TIMER_EGR_CC4G_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a80e36935237ba8afbee2b54312abcd6f"></span><strong>TIMER_EGR_CC3G_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a80ff8085d4a7883aafaaf37080cf3a25"></span><strong>TIMER_EGR_CC2G_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1adc35921aa5e9025cb03b65a60beebdf3"></span><strong>TIMER_EGR_CC1G_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a84ae33ed65340a276090342cc039518d"></span><strong>TIMER_EGR_UG_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a47f18ef4d72916b741b9f65c16eb3cca"></span><strong>TIMER_EGR_TG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a7392e37ec9ff88e1db8a8102f4dbee57"></span><strong>TIMER_EGR_CC4G</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1adf54185256a3b278ec4625dc5a586671"></span><strong>TIMER_EGR_CC3G</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a85e982fcd6180c0de530edb586a13681"></span><strong>TIMER_EGR_CC2G</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa227be6d3297d3343ee1e711f65ae25e"></span><strong>TIMER_EGR_CC1G</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a3dbd29afd1c6ae7bd47247734be7200a"></span><strong>TIMER_EGR_UG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="capture-compare-mode-registers-common-values">
+<h3><a class="toc-backref" href="#id18">Capture/compare mode registers, common values</a><a class="headerlink" href="#capture-compare-mode-registers-common-values" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a5219fde4fa46ee2a7a1e1d121055b6cf"></span><strong>TIMER_CCMR_CCS_OUTPUT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac9a7ade0acd4aedfac1ee77a1fbcfed7"></span><strong>TIMER_CCMR_CCS_INPUT_TI1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1adc66cd345c793d90fba893dcb33a430e"></span><strong>TIMER_CCMR_CCS_INPUT_TI2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2c41aa7c30b46aa18fdb53b60e6460de"></span><strong>TIMER_CCMR_CCS_INPUT_TRC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="capture-compare-mode-register-1-ccmr1">
+<h3><a class="toc-backref" href="#id19">Capture/compare mode register 1 (CCMR1)</a><a class="headerlink" href="#capture-compare-mode-register-1-ccmr1" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9637934766d114f82155fbab006d3a28"></span><strong>TIMER_CCMR1_OC2CE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a243398548c79f4c8830a07459551b077"></span><strong>TIMER_CCMR1_OC2PE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a70427fa6ca65c5703790710e113424ea"></span><strong>TIMER_CCMR1_OC2FE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a1ba12c80273db64e601ab85d891f94e8"></span><strong>TIMER_CCMR1_OC1CE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1acea997ab044c81034d550f9a8ddfc26f"></span><strong>TIMER_CCMR1_OC1PE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa5c209f5167f5a723a179db7ff842593"></span><strong>TIMER_CCMR1_OC1FE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a6af1ad33636c8976d2c30bdcaff40173"></span><strong>TIMER_CCMR1_OC2CE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aebadb6a5d7652d5dc1dc78a4526a8cb3"></span><strong>TIMER_CCMR1_OC2M</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a26df6bac022feb8d313dc85039403e0c"></span><strong>TIMER_CCMR1_IC2F</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a37b99e122405d2138548a75c0426ad3d"></span><strong>TIMER_CCMR1_OC2PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a06d611e167f263d2cb2a3a6cbef4aaad"></span><strong>TIMER_CCMR1_OC2FE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a874aadbedee4a4b61fa2b4f31a3b14e8"></span><strong>TIMER_CCMR1_IC2PSC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a1e2c3c8de0395cf5acc1639723b710dc"></span><strong>TIMER_CCMR1_CC2S</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a46a3a2f27ca22023602b5602dc7dfbd0"></span><strong>TIMER_CCMR1_CC2S_OUTPUT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a4ea00a5682b90f847a493703292f2bfa"></span><strong>TIMER_CCMR1_CC2S_INPUT_TI1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a6be970df35f85a563364a6a1ce8d7b71"></span><strong>TIMER_CCMR1_CC2S_INPUT_TI2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2c687beafeca67f9bc901aa71d602de9"></span><strong>TIMER_CCMR1_CC2S_INPUT_TRC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a48e9235adf54028ddf691a991dfe51f0"></span><strong>TIMER_CCMR1_OC1CE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aad920c8999f36d692174f0cf9eb9cdd9"></span><strong>TIMER_CCMR1_OC1M</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a8a7a4094934067d259f1661bf796664c"></span><strong>TIMER_CCMR1_IC1F</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1acd9836a6aca7df527f303b1169a110a6"></span><strong>TIMER_CCMR1_OC1PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a1feaec4b6ef2770258e2762e87fb18cc"></span><strong>TIMER_CCMR1_OC1FE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a1b6a79c0cee7e3a93696712089f8b71f"></span><strong>TIMER_CCMR1_IC1PSC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a931f25f188f9f3aeacf5616615e972ac"></span><strong>TIMER_CCMR1_CC1S</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a6d05508544ccdac0b8b2e3e9d6bc3ac9"></span><strong>TIMER_CCMR1_CC1S_OUTPUT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a444ac00daed1f7cc173b3caf3b742f65"></span><strong>TIMER_CCMR1_CC1S_INPUT_TI1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ab9734ee0976adcceb270a1d228d7fb67"></span><strong>TIMER_CCMR1_CC1S_INPUT_TI2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a4a2e8cc0c0a77265c2db4c3f82be4a5a"></span><strong>TIMER_CCMR1_CC1S_INPUT_TRC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="capture-compare-mode-register-2-ccmr2">
+<h3><a class="toc-backref" href="#id20">Capture/compare mode register 2 (CCMR2)</a><a class="headerlink" href="#capture-compare-mode-register-2-ccmr2" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9ae522a1b5e15beca69275405fd7879f"></span><strong>TIMER_CCMR2_OC4CE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a12d8956363771d8436895bf0a2067f9e"></span><strong>TIMER_CCMR2_OC4PE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a80240fc69f0dc19a87ffd94ee117cf77"></span><strong>TIMER_CCMR2_OC4FE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aad6dfcd54d3b2cc48b1381f6c0f031e3"></span><strong>TIMER_CCMR2_OC3CE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a85d7b7129c218c39424505a8d3c7e0a4"></span><strong>TIMER_CCMR2_OC3PE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aebb5974c3cebceac978afde849a8de6c"></span><strong>TIMER_CCMR2_OC3FE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a8a2687dd4b68c44ff774dc01d7f900fa"></span><strong>TIMER_CCMR2_OC4CE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac5c30762dc14d0986081658abc38c25e"></span><strong>TIMER_CCMR2_OC4M</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac0c7fd6feeb583d3714855c285115eec"></span><strong>TIMER_CCMR2_IC2F</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac1c38420fa71572d05598437e3b68136"></span><strong>TIMER_CCMR2_OC4PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a756ca8dfe0a4173c8ca55737990abd71"></span><strong>TIMER_CCMR2_OC4FE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ad415ec874240e9a3b021098bdc67ebc3"></span><strong>TIMER_CCMR2_IC2PSC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a38db7abde939a7f1d0373aa7c21f950c"></span><strong>TIMER_CCMR2_CC4S</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a34917ed9c36537965119bf57fd01b27b"></span><strong>TIMER_CCMR1_CC4S_OUTPUT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a8d9f979ee1be4f7c7e70c0fe533faae1"></span><strong>TIMER_CCMR1_CC4S_INPUT_TI1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a1cecd5ecb54c00ef9bd4f540644155c6"></span><strong>TIMER_CCMR1_CC4S_INPUT_TI2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a4c3f8352820042bfdb828b47b45f2984"></span><strong>TIMER_CCMR1_CC4S_INPUT_TRC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a3e0f9cb5b64e6a4a40a04384160dcfc9"></span><strong>TIMER_CCMR2_OC3CE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa32ffdc95c4a45ee53d620ce414a9d96"></span><strong>TIMER_CCMR2_OC3M</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a09aaabcfec5e8b4ef938645130a4c278"></span><strong>TIMER_CCMR2_IC1F</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a1c4e8ec4e38f08e2c0337194cca92efe"></span><strong>TIMER_CCMR2_OC3PE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a3ad5a20299b6a0393896e1c9f4214de3"></span><strong>TIMER_CCMR2_OC3FE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac591dc4f16a82a70f45e135640b0080d"></span><strong>TIMER_CCMR2_IC1PSC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a28877a9404f616e07128333a4ff44abd"></span><strong>TIMER_CCMR2_CC3S</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a57c5429b8dc4fdf56e0472ec8c0fdb32"></span><strong>TIMER_CCMR1_CC3S_OUTPUT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af4007b0d1edb9a2fca7fe72521883249"></span><strong>TIMER_CCMR1_CC3S_INPUT_TI1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a52da546cd6cc82cb0ab962bce949bda7"></span><strong>TIMER_CCMR1_CC3S_INPUT_TI2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aba627b15cbfca1d0d6a8a1f0596845ae"></span><strong>TIMER_CCMR1_CC3S_INPUT_TRC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="capture-compare-enable-register-ccer">
+<h3><a class="toc-backref" href="#id21">Capture/compare enable register (CCER)</a><a class="headerlink" href="#capture-compare-enable-register-ccer" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa996f496290d2b4d4aa0705db50e66fa"></span><strong>TIMER_CCER_CC4P_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aad1237d15b516576bbc572774bfc165c"></span><strong>TIMER_CCER_CC4E_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a657a9e3b19707fefd071bb01857f0652"></span><strong>TIMER_CCER_CC3P_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a859dcb67f4e2b2a5f6a4614cdd5fd45e"></span><strong>TIMER_CCER_CC3E_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a1b75423c9884b1c452692950c8b5bff7"></span><strong>TIMER_CCER_CC2P_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a46580ec8bc9bc8edc68c3ad959d85d3a"></span><strong>TIMER_CCER_CC2E_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a62cba794e1e30e10f81d8fd92966000a"></span><strong>TIMER_CCER_CC1P_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a33fc1922816b45ac7b9c1ad08b79fb13"></span><strong>TIMER_CCER_CC1E_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a0fa9d79e5754112ba54191e4f368c2c0"></span><strong>TIMER_CCER_CC4P</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9e80220444196615a541259b5061ed15"></span><strong>TIMER_CCER_CC4E</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ad9e0b12910393dd41d6a47e82fa2a5a3"></span><strong>TIMER_CCER_CC3P</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aadff508091886cb0279de35c898dce06"></span><strong>TIMER_CCER_CC3E</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1afcd9230a3f59ae19d3b992b06fcc7231"></span><strong>TIMER_CCER_CC2P</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a327f75da280c2d0361bcd47d5b8c33a8"></span><strong>TIMER_CCER_CC2E</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a6a8612143670142f3da525999db6a6f2"></span><strong>TIMER_CCER_CC1P</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a08a09c00fbb41468af542322953a620f"></span><strong>TIMER_CCER_CC1E</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="break-and-dead-time-register-bdtr">
+<h3><a class="toc-backref" href="#id22">Break and dead-time register (BDTR)</a><a class="headerlink" href="#break-and-dead-time-register-bdtr" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aed006efb0293f8b0df7c73400f3b8fc8"></span><strong>TIMER_BDTR_MOE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae571e97687a12d724d90c4f227fbbdac"></span><strong>TIMER_BDTR_AOE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa8a8ad7c5a37f3eb407aa3292ea74d2f"></span><strong>TIMER_BDTR_BKP_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a8251e3ef983f4b0dd0ace0ac1c818dec"></span><strong>TIMER_BDTR_BKE_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a7beb9f03c30aff1612f48c81f2687402"></span><strong>TIMER_BDTR_OSSR_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a5bb32099621737c442f12a770b6f59ea"></span><strong>TIMER_BDTR_OSSI_BIT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a1e81f1ceaf3173d2e90605c9399c30a1"></span><strong>TIMER_BDTR_MOE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aace84923bd8ccde4030c419f2408d2ab"></span><strong>TIMER_BDTR_AOE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a086e518302ec17d4e8031e61482f65de"></span><strong>TIMER_BDTR_BKP</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a4f7b58791e3bd2f93afbcf2734ec86e6"></span><strong>TIMER_BDTR_BKE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae8bdb47a50dd0ffa47b59f76fcfe4c6b"></span><strong>TIMER_BDTR_OSSR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1acf2d569ed9e2672aa66ef12b475fb368"></span><strong>TIMER_BDTR_OSSI</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ad661d74f4f8c3777263e1004261da1f6"></span><strong>TIMER_BDTR_LOCK</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a64ddb7ec5949888c4469f3e16fe6aee6"></span><strong>TIMER_BDTR_LOCK_OFF</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a3082b69b4d1413f46f1da4111efdeb81"></span><strong>TIMER_BDTR_LOCK_LEVEL1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a2e6bd647847a3d03375421fe64210499"></span><strong>TIMER_BDTR_LOCK_LEVEL2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a5cade4341e3b095e8beba1f78f9b6257"></span><strong>TIMER_BDTR_LOCK_LEVEL3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a82386786ccafa8ea109088714299387f"></span><strong>TIMER_BDTR_DTG</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+<div class="section" id="dma-control-register-dcr">
+<h3><a class="toc-backref" href="#id23">DMA control register (DCR)</a><a class="headerlink" href="#dma-control-register-dcr" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a43ba66ce9838c68f48f90e7bbb18fd3e"></span><strong>TIMER_DCR_DBL</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9d4bd2b8bf13cdd7e40b3dd5364eeb88"></span><strong>TIMER_DCR_DBL_1BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a4f10e31a3598a80cd6e3f821fa2264dc"></span><strong>TIMER_DCR_DBL_2BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a74aebb32c4e750f0d6a85384293e87c2"></span><strong>TIMER_DCR_DBL_3BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a492255cede8740b8f45cc05b37f791ae"></span><strong>TIMER_DCR_DBL_4BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a734a615924b2c6171e25e58ebc6da7cc"></span><strong>TIMER_DCR_DBL_5BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a58fdef9a3295260f8b1f4a5bd3307570"></span><strong>TIMER_DCR_DBL_6BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa9f8b5e3ef2ba14c7158d18d9ee95a19"></span><strong>TIMER_DCR_DBL_7BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a7e4d9f140454548b1f47541927bff1ee"></span><strong>TIMER_DCR_DBL_8BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ad63bc53a891ca7b954e922a499743e56"></span><strong>TIMER_DCR_DBL_9BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a6d7fda65f07feacd908394f398221de9"></span><strong>TIMER_DCR_DBL_10BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa4f69d679628157182ead154e215d67d"></span><strong>TIMER_DCR_DBL_11BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a4c33f84d91729c5e8be960324c3d6e28"></span><strong>TIMER_DCR_DBL_12BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af81a7f73512c3f5df322261dbf0fbe4b"></span><strong>TIMER_DCR_DBL_13BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a62d98383b94eb659643a2a4d2b7827da"></span><strong>TIMER_DCR_DBL_14BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a9ac450d9b3a9c3253be9b48e7ab9eb59"></span><strong>TIMER_DCR_DBL_15BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa9beaaacfd1212c33f4b9d51b5ae8d1d"></span><strong>TIMER_DCR_DBL_16BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a42ca4e664338fb2601ad75717a052678"></span><strong>TIMER_DCR_DBL_17BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a136142315faac6fc3a97a538826cd955"></span><strong>TIMER_DCR_DBL_18BYTE</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a4a038e2078c91864bc0373397c09aef3"></span><strong>TIMER_DCR_DBA</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ade9ecf87bb4849f524da98af16f81c9c"></span><strong>TIMER_DCR_DBA_CR1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aee5633b8407e86d3f63c6cff012128c2"></span><strong>TIMER_DCR_DBA_CR2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a24401e05296b629f22063d6abe0ddc04"></span><strong>TIMER_DCR_DBA_SMCR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a68db7c53f4b5b59c4c7ec6f0521569a0"></span><strong>TIMER_DCR_DBA_DIER</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a92f00b8e28f4c0889a93c65b00ebc907"></span><strong>TIMER_DCR_DBA_SR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa1d7fdf8838c42a288a62b2e3533309a"></span><strong>TIMER_DCR_DBA_EGR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a14b21546425f51144301c2b27caadc25"></span><strong>TIMER_DCR_DBA_CCMR1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a92c09aa7ed7eb04654808f3f03726832"></span><strong>TIMER_DCR_DBA_CCMR2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ad23346841976ec42a782480bfe3bf250"></span><strong>TIMER_DCR_DBA_CCER</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ad4c3085e98a62437e0dbc82c4e28d4d5"></span><strong>TIMER_DCR_DBA_CNT</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1aa3803b61ac131fe38b351e03f61191f3"></span><strong>TIMER_DCR_DBA_PSC</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ac97450b139ee9be0731c51811e822e84"></span><strong>TIMER_DCR_DBA_ARR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af0c37ee5f373c79780469f611e701d89"></span><strong>TIMER_DCR_DBA_RCR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1ae09f2d83a90a628f6b82957d8cfe6b2d"></span><strong>TIMER_DCR_DBA_CCR1</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a84ffde5174ebf389ba534c4ed12edc93"></span><strong>TIMER_DCR_DBA_CCR2</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a32ecc0002c17bb3f99ecc6c307390acf"></span><strong>TIMER_DCR_DBA_CCR3</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1af202ae70b6227049c956611ad54d4e08"></span><strong>TIMER_DCR_DBA_CCR4</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a618d30677adfdfd706c53576d6970b7a"></span><strong>TIMER_DCR_DBA_BDTR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a0d5d928c6cf89797a7b8863a4c2b039d"></span><strong>TIMER_DCR_DBA_DCR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+<dl class="docutils">
+<dt id=""><span id="project0timer_8h_1a19b309fd1411e9e81761203004f4da90"></span><strong>TIMER_DCR_DBA_DMAR</strong></dt>
+<dd><p class="first"></p>
+<p class="last"></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../index.html">
+              <img class="logo" src="../../_static/round_logo_60x60.png" alt="Logo"/>
+            </a></p>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-quickstart.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../maple-ide-install.html">IDE Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ide.html">IDE Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../unix-toolchain.html">Command-Line Toolchain</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../language.html">Language</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libraries.html">Libraries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arduino-compatibility.html">Arduino Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../libmaple.html"><tt class="docutils literal"><span class="pre">libmaple</span></tt></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../bootloader.html">Bootloader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../arm-gcc.html">GCC and libc for Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../language-index.html">Language Index</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../adc.html">ADC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external-interrupts.html">External Interrupts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../fsmc.html">FSMC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gpio.html">GPIO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../i2c.html">I<sup>2</sup>C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pwm.html">PWM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../spi.html">SPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timers.html">Timers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../systick.html">SysTick</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usb.html">USB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../usart.html">USART</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple.html">Maple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-ret6.html">Maple RET6 Edition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-mini.html">Maple Mini</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../hardware/maple-native-beta.html">Maple Native β</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="usart.html" title="usart.h"
+             >next</a></li>
+        <li class="right" >
+          <a href="systick.html" title="systick.h"
+             >previous</a> |</li>
+    <li><a href="http://leaflabs.com/">LeafLabs</a> |</li>
+    
+        <li><a href="../../index.html">Index</a> &raquo;</li>
+
+          <li><a href="../../libmaple.html" ><tt class="docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal docutils literal"><span class="pre">libmaple</span></tt></a> &raquo;</li>
+          <li><a href="../apis.html" >APIs</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010, 2011, LeafLabs, LLC.
+      Last updated on Sep 13, 2011.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
